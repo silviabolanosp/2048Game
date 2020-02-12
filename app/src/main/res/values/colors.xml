@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="btnColor">#f4f8f4</color>
     <color name="translucent">#33ffff</color>
-    <color name="colorYellow">#ECEF25</color>
-
+    <color name="grid">#F7F7EA</color>
+    <color name="background">#A5C3EA</color>
+    <color name="score">#F0CB7E</color>
 </resources>
