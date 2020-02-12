@@ -5,76 +5,140 @@
     android:id="@+id/wholelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/grid"
     tools:context=".GameActivity">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fffff0"
-        android:orientation="vertical">
+    <TextView
+        android:layout_width="124dp"
+        android:layout_height="37dp"
+        android:text="Highscore"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046"
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="159dp"
-            android:layout_height="86dp"
-            tools:layout_editor_absoluteX="27dp"
-            tools:layout_editor_absoluteY="84dp"
-            tools:src="@drawable/plus2048" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="98dp"
+        android:layout_height="29dp"
+        android:gravity="center"
+        android:text="0:"
+        app:cardBackgroundColor="@color/score"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.113"
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp">
 
         <TextView
-            android:layout_width="144dp"
-            android:layout_height="49dp"
-            android:text="Puntos"
-            android:textSize="35dp"
+            android:id="@+id/HighScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
             tools:layout_conversion_absoluteHeight="0dp"
             tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="222dp"
-            tools:layout_editor_absoluteY="16dp" />
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="178dp"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:text="Puntos:"
-            app:cardBackgroundColor="@color/score"
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:text="Puntos"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.702"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.179"
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="98dp"
+        android:layout_height="29dp"
+        android:gravity="center"
+        android:text="0:"
+        app:cardBackgroundColor="@color/score"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.245"
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp">
+
+        <TextView
+            android:id="@+id/Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
             tools:layout_conversion_absoluteHeight="0dp"
             tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="201dp"
-            tools:layout_editor_absoluteY="79dp">
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
-            <TextView
-                android:id="@+id/Score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0000"
-                tools:layout_conversion_absoluteHeight="0dp"
-                tools:layout_conversion_absoluteWidth="0dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
-        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-        <GridView
-            android:id="@+id/gamebackground"
-            android:layout_width="411dp"
-            android:layout_height="345dp"
-            android:background="@color/grid"
-            android:columnWidth="80dp"
-            android:horizontalSpacing="5dp"
-            android:numColumns="4"
-            android:verticalSpacing="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.516">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="159dp"
+        android:layout_height="86dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.153"
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp"
+        tools:src="@drawable/plus2048" />
 
-        </GridView>
-    </LinearLayout>
+    <GridView
+        android:id="@+id/gamebackground"
+        android:layout_width="411dp"
+        android:layout_height="345dp"
+        android:layout_marginBottom="88dp"
+        android:background="@color/grid"
+        android:columnWidth="70dp"
+        android:horizontalSpacing="5dp"
+        android:numColumns="4"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:verticalSpacing="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
+    </GridView>
+
+    <Button
+        android:id="@+id/btnCancel"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="88dp"
+        android:layout_height="39dp"
+        android:background="#E34E3C"
+        android:text="Terminar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.959"
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
