@@ -236,9 +236,9 @@ public class GameActivity extends AppCompatActivity{
             }
         });
 
-        Button btn = (Button) findViewById(R.id.btnCancel);
+        Button btnCancel = findViewById(R.id.btnCancel);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Build an AlertDialog
@@ -272,6 +272,19 @@ public class GameActivity extends AppCompatActivity{
                         }
                     }
                 };
+
+                // Set the alert dialog yes button click listener
+                builder.setPositiveButton("Si", dialogClickListener);
+
+                // Set the alert dialog no button click listener
+                builder.setNegativeButton("No",dialogClickListener);
+
+                // Set the alert dialog cancel/neutral button click listener
+                builder.setNeutralButton("Cancelar", dialogClickListener);
+
+                AlertDialog dialog = builder.create();
+                // Display the three buttons alert dialog on interface
+                dialog.show();
             }
         });
 
