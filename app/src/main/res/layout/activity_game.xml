@@ -91,19 +91,22 @@
 
     </androidx.cardview.widget.CardView>
 
+
+
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="159dp"
         android:layout_height="86dp"
+        android:src="@drawable/plus2048"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.153"
-        tools:layout_conversion_absoluteHeight="0dp"
-        tools:layout_conversion_absoluteWidth="0dp"
-        tools:src="@drawable/plus2048" />
+        android:id="@+id/logoImageView"
+        android:scaleType="fitXY"
+        android:scaleX="1.0"
+        android:scaleY="1.0"/>
 
     <GridView
         android:id="@+id/gamebackground"
