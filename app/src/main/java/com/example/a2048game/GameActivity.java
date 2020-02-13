@@ -12,6 +12,10 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -32,6 +36,7 @@ public class GameActivity extends AppCompatActivity{
     }
     int score=0;
     TextView t=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -231,6 +236,47 @@ public class GameActivity extends AppCompatActivity{
             }
         });
 
+        Button btn = (Button) findViewById(R.id.btnCancel);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Build an AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+
+                // Set a title for alert dialog
+                builder.setTitle("¿Terminar partida?");
+
+                // Ask the final question
+                builder.setMessage("¿Desea terminar partida?");
+
+                // Set click listener for alert dialog buttons
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch(which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                // User clicked the Yes button
+                                endGame();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                // User clicked the No button
+
+                                break;
+
+                            case DialogInterface.BUTTON_NEUTRAL:
+                                // Neutral/Cancel button clicked
+
+                                break;
+                        }
+                    }
+                };
+            }
+        });
+
+
+
     }
     public boolean allOkTop(int loc)
     {
@@ -401,6 +447,7 @@ public class GameActivity extends AppCompatActivity{
         }
 
     }
+
     public void gridChanged(List plantsList)
     {
         final List<String> l=plantsList;
@@ -450,5 +497,25 @@ public class GameActivity extends AppCompatActivity{
                 return tv;
             }
         });
+    }
+
+    public void endGame()
+    {
+        ConstraintLayout cl=(ConstraintLayout) findViewById(R.id.wholelayout);
+        LinearLayout lll= new LinearLayout(this);
+        lll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        lll.setBackgroundColor(getResources().getColor(R.color.translucent));
+        lll.setGravity(Gravity.CENTER);
+        TextView result= new TextView(this);
+
+
+        result.setText("Partida terminada");
+        result.setGravity(Gravity.CENTER);
+        lll.addView(result);
+        cl.addView(lll);
+        Intent i= new Intent(GameActivity.this,ResultPage.class);
+        i.putExtra("Result",1);
+        startActivity(i);
+
     }
 }
