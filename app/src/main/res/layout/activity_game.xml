@@ -96,7 +96,7 @@
     <ImageView
         android:layout_width="159dp"
         android:layout_height="86dp"
-        android:src="@drawable/plus2048"
+        android:src="@drawable/oie_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.13"
@@ -143,6 +143,21 @@
         tools:layout_conversion_absoluteHeight="0dp"
         tools:layout_conversion_absoluteWidth="0dp" />
 
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:text="Timer"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.841"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.96"
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

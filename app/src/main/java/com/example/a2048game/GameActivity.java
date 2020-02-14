@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.Button;
-import android.widget.Toast;
+import android.os.CountDownTimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -289,8 +289,37 @@ public class GameActivity extends AppCompatActivity{
         });
 
 
+        // 5000 is the starting number (in milliseconds)
+        // 1000 is the number to count down each time (in milliseconds)
+        MyCount counter = new MyCount(5000, 1000);
+        counter.start();
+
+
 
     }
+
+    //countdowntimer is an abstract class, so extend it and fill in methods
+    public class MyCount extends CountDownTimer{
+        TextView timer = (TextView) findViewById(R.id.timer);
+
+        public MyCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {
+            timer.setText("done!");
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            timer.setText("Left: " + millisUntilFinished/1000);
+
+        }
+
+    }
+
+
     public boolean allOkTop(int loc)
     {
         if(map.get(loc+"")==0 && map.get((loc+4)+"")==0 && map.get(""+(loc+8))==0 && map.get(""+(loc+12))==0)
