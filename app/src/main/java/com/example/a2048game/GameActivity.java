@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -97,6 +96,10 @@ public class GameActivity extends AppCompatActivity{
 
                             map.put((j - 4) + "", map.get(j + "") + map.get((j - 4) + ""));
                             map.put(j + "", 0);
+                            String score=t.getText().toString();
+                            int scorenumber=Integer.parseInt(score);
+                            scorenumber+=map.get((j-4)+"");
+                            t.setText(scorenumber+"");
 
                         } else if (j > 4 && map.get((j - 4) + "") == 0) {
 
@@ -106,9 +109,9 @@ public class GameActivity extends AppCompatActivity{
 
                     }
                 }
-
                 gridChanged(plantsList);
                 generateRandomNumber();
+                checkSwipe();
             }
 
             public void onSwipeRight() {
@@ -123,6 +126,10 @@ public class GameActivity extends AppCompatActivity{
                         if (k == 0 && map.get(j + "") == map.get((j + 1) + "")) {
                             map.put((j + 1) + "", map.get(j + "") + map.get((j + 1) + ""));
                             map.put(j + "", 0);
+                            String score=t.getText().toString();
+                            int scorenumber=Integer.parseInt(score);
+                            scorenumber+=map.get((j+1)+"");
+                            t.setText(scorenumber+"");
 
                         } else if (k == 0 && map.get((j + 1) + "") == 0) {
                             map.put((j + 1) + "", map.get(j + ""));
@@ -137,6 +144,7 @@ public class GameActivity extends AppCompatActivity{
                 }
                 gridChanged(plantsList);
                 generateRandomNumber();
+                checkSwipe();
             }
 
             public void onSwipeLeft() {
@@ -155,6 +163,10 @@ public class GameActivity extends AppCompatActivity{
                         if (k == 0 && map.get(j + "") == map.get((j - 1) + "")) {
                             map.put((j - 1) + "", map.get(j + "") + map.get((j - 1) + ""));
                             map.put(j + "", 0);
+                            String score=t.getText().toString();
+                            int scorenumber=Integer.parseInt(score);
+                            scorenumber+=map.get((j-1)+"");
+                            t.setText(scorenumber+"");
 
                         } else if (k == 0 && map.get((j - 1) + "") == 0) {
                             map.put((j - 1) + "", map.get(j + ""));
@@ -165,6 +177,7 @@ public class GameActivity extends AppCompatActivity{
                 }
                 gridChanged(plantsList);
                 generateRandomNumber();
+                checkSwipe();
             }
 
             public void onSwipeBottom() {
@@ -179,6 +192,10 @@ public class GameActivity extends AppCompatActivity{
                         if (j < 13 && map.get(j + "") == map.get((j + 4) + "")) {
                             map.put((j + 4) + "", map.get(j + "") + map.get((j + 4) + ""));
                             map.put(j + "", 0);
+                            String score=t.getText().toString();
+                            int scorenumber=Integer.parseInt(score);
+                            scorenumber+=map.get((j+4)+"");
+                            t.setText(scorenumber+"");
 
                         } else if (j < 13 && map.get((j + 4) + "") == 0) {
                             map.put((j + 4) + "", map.get(j + ""));
@@ -189,83 +206,63 @@ public class GameActivity extends AppCompatActivity{
 
                 gridChanged(plantsList);
                 generateRandomNumber();
+                checkSwipe();
             }
 
         });
-        
-        
 
         Button btnCancel = findViewById(R.id.btnCancel);
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Build an AlertDialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
 
-                // Set a title for alert dialog
                 builder.setTitle("¿Terminar partida?");
 
-                // Ask the final question
                 builder.setMessage("¿Desea terminar partida?");
 
-                // Set click listener for alert dialog buttons
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch(which){
                             case DialogInterface.BUTTON_POSITIVE:
-                                // User clicked the Yes button
                                 endGame();
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
-                                // User clicked the No button
 
                                 break;
 
                             case DialogInterface.BUTTON_NEUTRAL:
-                                // Neutral/Cancel button clicked
 
                                 break;
                         }
                     }
                 };
 
-                // Set the alert dialog yes button click listener
                 builder.setPositiveButton("Si", dialogClickListener);
 
-                // Set the alert dialog no button click listener
                 builder.setNegativeButton("No",dialogClickListener);
 
-                // Set the alert dialog cancel/neutral button click listener
                 builder.setNeutralButton("Cancelar", dialogClickListener);
 
                 AlertDialog dialog = builder.create();
-                // Display the three buttons alert dialog on interface
                 dialog.show();
             }
         });
 
-
-
     }
-
 
     private void gridChanged(List<String> plantsList) {
         final List<String> l=plantsList;
         grid.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, l){
             public View getView(int position, View convertView, ViewGroup parent) {
 
-                // Return the GridView current item as a View
                 View view = super.getView(position,convertView,parent);
 
-                // Convert the view as a TextView widget
                 TextView tv = (TextView) view;
 
-                //tv.setTextColor(Color.DKGRAY);
-
-                // Set the layout parameters for TextView widget
                 RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT
                 );
@@ -273,16 +270,13 @@ public class GameActivity extends AppCompatActivity{
                 tv.setWidth(100);
                 tv.setHeight(210);
 
-                // Display TextView text in center position
                 tv.setGravity(Gravity.CENTER);
 
                 tv.setTextSize(20);
 
-                // Set the TextView text (GridView item text)
                 if(map.get(l.get(position))!=0)
                 {
                     tv.setText(map.get(l.get(position))+"");
-
                 }
                 else
                 {
@@ -290,8 +284,41 @@ public class GameActivity extends AppCompatActivity{
                 }
                 tv.setId(position);
 
+                if(map.get(l.get(position)) == 0){
+                    tv.setBackgroundColor(Color.parseColor("#F0F3F4"));
+                }
+                if(map.get(l.get(position)) == 2){
+                    tv.setBackgroundColor(Color.parseColor("#FFF59D"));
+                }
+                if(map.get(l.get(position)) == 4){
+                    tv.setBackgroundColor(Color.parseColor("#C5E1A5"));
+                }
+                if(map.get(l.get(position)) == 8){
+                    tv.setBackgroundColor(Color.parseColor("#80CBC4"));
+                }
                 if(map.get(l.get(position)) == 16){
-                    tv.setBackgroundColor(Color.parseColor("#117A65"));
+                    tv.setBackgroundColor(Color.parseColor("#81D4FA"));
+                }
+                if(map.get(l.get(position)) == 32){
+                    tv.setBackgroundColor(Color.parseColor("#9FA8DA"));
+                }
+                if(map.get(l.get(position)) == 64){
+                    tv.setBackgroundColor(Color.parseColor("#CE93D8"));
+                }
+                if(map.get(l.get(position)) == 128){
+                    tv.setBackgroundColor(Color.parseColor("#FFEB3B"));
+                }
+                if(map.get(l.get(position)) == 256){
+                    tv.setBackgroundColor(Color.parseColor("#8BC34A"));
+                }
+                if(map.get(l.get(position)) == 512){
+                    tv.setBackgroundColor(Color.parseColor("#3F51B5"));
+                }
+                if(map.get(l.get(position)) == 1024){
+                    tv.setBackgroundColor(Color.parseColor("#9C2780"));
+                }
+                if(map.get(l.get(position)) == 2048){
+                    tv.setBackgroundColor(Color.parseColor("#F44336"));
                 }
 
                 return tv;
@@ -422,6 +449,49 @@ public class GameActivity extends AppCompatActivity{
 
             gridChanged(plantsList);
         }
+
+    }
+
+    public void checkSwipe()
+    {
+        ConstraintLayout cl=(ConstraintLayout) findViewById(R.id.wholelayout);
+        LinearLayout lll= new LinearLayout(this);
+        lll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        lll.setBackgroundColor(Color.parseColor("#9E9E9E"));
+        lll.setGravity(Gravity.CENTER);
+        TextView result= new TextView(this);
+        for(String key : map.keySet())
+        {
+            if(map.get(key)==2048)
+            {
+//                result.setText("CONGRATULATIONS! YOU WIN!");
+//                result.setGravity(Gravity.CENTER);
+//                lll.addView(result);
+//                cl.addView(lll);
+//                Intent i= new Intent(GameActivity.this,ResultPage.class);
+//                i.putExtra("Result",0);
+//                startActivity(i);
+//                return;
+            }
+        }
+        Log.e("MAP",map.toString());
+        Log.e("PREVMAP",prevmap.toString());
+        for(String key : map.keySet())
+        {
+            if(map.get(key)!=prevmap.get(key))
+            {
+
+                return;
+            }
+        }
+
+        result.setText("Perdiste la partida!");
+        result.setGravity(Gravity.CENTER);
+        lll.addView(result);
+        cl.addView(lll);
+        Intent i= new Intent(GameActivity.this,ResultPage.class);
+        i.putExtra("Result",1);
+        startActivity(i);
 
     }
 
