@@ -47,10 +47,10 @@
 
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/user"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="Nombre"
+        android:hint="Nombre"
         android:inputType="textPersonName"
         android:textColor="#f00"
         android:gravity="center"
