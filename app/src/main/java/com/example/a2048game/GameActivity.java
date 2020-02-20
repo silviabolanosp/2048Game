@@ -25,7 +25,8 @@ public class GameActivity extends AppCompatActivity{
     HashMap<String, Integer> map= null;
     HashMap<String, Integer> prevmap= null;
     GridView grid=null;
-
+    Bundle nameGame;
+    public static Save database = new Save();
     public GameActivity()
         {
             map=new HashMap<>();
@@ -37,6 +38,7 @@ public class GameActivity extends AppCompatActivity{
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_game);
+            nameGame = getIntent().getExtras();
             t=(TextView) findViewById(R.id.Score);
             grid=(GridView)findViewById(R.id.gamebackground);
             Random random1=new Random();
@@ -507,17 +509,27 @@ public class GameActivity extends AppCompatActivity{
 
 
         result.setText("Partida terminada");
+        save();
         result.setGravity(Gravity.CENTER);
         lll.addView(result);
         cl.addView(lll);
         Intent i= new Intent(GameActivity.this,MainActivity.class);
-       //.putExtra("Result",1);
+
         startActivity(i);
 
     }
 
+    public void save(){
+        String s= t.getText().toString();
+        int score = Integer.parseInt(s);
+
+        String name = nameGame.getString("nameGame");
+        database.saveGame("",name, score,"");
+    }
+
     public void close()
     {
+        save();
         Intent i= new Intent(GameActivity.this,MainActivity.class);
         startActivity(i);
 
