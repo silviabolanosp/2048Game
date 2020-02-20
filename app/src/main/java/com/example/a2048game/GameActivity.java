@@ -227,7 +227,7 @@ public class GameActivity extends AppCompatActivity{
                     public void onClick(DialogInterface dialog, int which) {
                         switch(which){
                             case DialogInterface.BUTTON_POSITIVE:
-                                endGame();
+                                close();
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -510,8 +510,15 @@ public class GameActivity extends AppCompatActivity{
         result.setGravity(Gravity.CENTER);
         lll.addView(result);
         cl.addView(lll);
-        Intent i= new Intent(GameActivity.this,ResultPage.class);
-        i.putExtra("Result",1);
+        Intent i= new Intent(GameActivity.this,MainActivity.class);
+       //.putExtra("Result",1);
+        startActivity(i);
+
+    }
+
+    public void close()
+    {
+        Intent i= new Intent(GameActivity.this,MainActivity.class);
         startActivity(i);
 
     }
