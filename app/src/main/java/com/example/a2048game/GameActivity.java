@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.widget.Button;
 import android.os.CountDownTimer;
 import android.widget.Chronometer;
+import android.os.SystemClock;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -30,6 +31,8 @@ public class GameActivity extends AppCompatActivity{
     Bundle nameGame;
     Chronometer simpleChronometer;
     TextView timer;
+    MyCount counter;
+    long timeWhenStopped;
 
 
     public static Save database = new Save();
@@ -225,6 +228,12 @@ public class GameActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+                timeWhenStopped = 0;
+
+                timeWhenStopped = simpleChronometer.getBase() - SystemClock.elapsedRealtime();
+                simpleChronometer.stop();
+
+                //falta poner el counter en pausa
 
                 builder.setTitle("¿Terminar partida?");
 
@@ -235,14 +244,18 @@ public class GameActivity extends AppCompatActivity{
                     public void onClick(DialogInterface dialog, int which) {
                         switch(which){
                             case DialogInterface.BUTTON_POSITIVE:
+                                simpleChronometer.stop();
                                 close();
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
-
+                                simpleChronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                simpleChronometer.start();
                                 break;
 
                             case DialogInterface.BUTTON_NEUTRAL:
+                                simpleChronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                simpleChronometer.start();
 
                                 break;
                         }
@@ -276,7 +289,7 @@ public class GameActivity extends AppCompatActivity{
             }else{
                 simpleChronometer.setVisibility(View.GONE);
                 int milliseconds = minutes * 60 * 1000;
-                MyCount counter = new MyCount(milliseconds, 1000);
+                counter = new MyCount(milliseconds, 1000);
                 counter.start();
             }
 
@@ -293,6 +306,40 @@ public class GameActivity extends AppCompatActivity{
         @Override
         public void onFinish() {
             timer.setText("done!");
+            AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+
+            builder.setTitle("Se agotó el tiempo");
+
+            builder.setMessage("¿Desea ir al menú?");
+
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch(which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            close();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            close();
+                            break;
+
+                        case DialogInterface.BUTTON_NEUTRAL:
+                            close();
+                            break;
+                    }
+                }
+            };
+
+            builder.setPositiveButton("Si", dialogClickListener);
+
+            builder.setNegativeButton("No",dialogClickListener);
+
+            builder.setNeutralButton("Cancelar", dialogClickListener);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
         }
 
         @Override
@@ -300,6 +347,7 @@ public class GameActivity extends AppCompatActivity{
             timer.setText("" + millisUntilFinished/1000);
 
         }
+
 
     }
 
