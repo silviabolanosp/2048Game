@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.Button;
+import android.os.CountDownTimer;
+import android.widget.Chronometer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -26,6 +28,10 @@ public class GameActivity extends AppCompatActivity{
     HashMap<String, Integer> prevmap= null;
     GridView grid=null;
     Bundle nameGame;
+    Chronometer simpleChronometer;
+    TextView timer;
+
+
     public static Save database = new Save();
     public GameActivity()
         {
@@ -253,6 +259,47 @@ public class GameActivity extends AppCompatActivity{
                 dialog.show();
             }
         });
+
+            // 5000 is the starting number (in milliseconds)
+            // 1000 is the number to count down each time (in milliseconds)
+
+            Bundle extras = getIntent().getExtras();
+            int minutes = extras.getInt(MainActivity.EXTRA_MINUTES);
+            simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer);
+            timer = (TextView) findViewById(R.id.timer);
+
+            if (minutes == 0){
+                timer.setVisibility(View.GONE);
+                //simpleChronometer.setFormat("Time (%s)");
+                simpleChronometer.start();
+                // simpleChronometer.stop();
+            }else{
+                simpleChronometer.setVisibility(View.GONE);
+                int milliseconds = minutes * 60 * 1000;
+                MyCount counter = new MyCount(milliseconds, 1000);
+                counter.start();
+            }
+
+    }
+
+    //countdowntimer is an abstract class, so extend it and fill in methods
+    public class MyCount extends CountDownTimer{
+        TextView timer = (TextView) findViewById(R.id.timer);
+
+        public MyCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {
+            timer.setText("done!");
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            timer.setText("" + millisUntilFinished/1000);
+
+        }
 
     }
 

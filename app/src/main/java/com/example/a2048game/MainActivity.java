@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView username;
     Button btnStart;
+    Button btnScores;
     MediaPlayer mediaPlayer;
     Switch timerSwitch;
     NumberPicker np;
@@ -52,6 +53,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnScores = findViewById(R.id.btnScores);
+        btnScores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextView = new Intent(MainActivity.this,ResultPage.class);
+                startActivity(nextView);
+            }
+        });
+
 
 
         //Get the widgets reference from XML layout
@@ -80,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // MUSIC
-        //mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
-        //mediaPlayer.start();
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
+        mediaPlayer.start();
     }
 
 

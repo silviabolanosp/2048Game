@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "164211427316",
-    "firebase_url": "https://project-6317257173193814394.firebaseio.com",
-    "project_id": "project-6317257173193814394",
-    "storage_bucket": "project-6317257173193814394.appspot.com"
+    "project_number": "737065174958",
+    "firebase_url": "https://api-project-52276204.firebaseio.com",
+    "project_id": "api-project-52276204",
+    "storage_bucket": "api-project-52276204.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:164211427316:android:001978a6fb66b37222dba1",
+        "mobilesdk_app_id": "1:737065174958:android:6834df3ce643d65c64aa3f",
         "android_client_info": {
           "package_name": "com.example.a2048game"
         }
       },
       "oauth_client": [
         {
-          "client_id": "164211427316-3192vo074kop2gfkg5hlrkn8ubeuncot.apps.googleusercontent.com",
+          "client_id": "737065174958-a715nlmsdl48gbefco00gsibqv61j7ff.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDM1c0XrQ6LeqFCqx0YQNigwiCLTO2zaec"
+          "current_key": "AIzaSyBnXcbmwYwYnAF1M8rlZT_pcF9nn9v4F7w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "164211427316-3192vo074kop2gfkg5hlrkn8ubeuncot.apps.googleusercontent.com",
+              "client_id": "737065174958-a715nlmsdl48gbefco00gsibqv61j7ff.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
