@@ -76,7 +76,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="130dp"
         android:background="@drawable/button_init"
-        android:textColor="#FBFEF9"
+        android:textColor="@color/grid"
         android:text="Iniciar partida"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
