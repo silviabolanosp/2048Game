@@ -40,6 +40,9 @@ public class ResultPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent nextView = new Intent(ResultPage.this,MainActivity.class);
+                Bundle userName = getIntent().getExtras();
+                String user = userName.getString("user");
+                nextView.putExtra("user", user);
                 startActivity(nextView);
             }
         });

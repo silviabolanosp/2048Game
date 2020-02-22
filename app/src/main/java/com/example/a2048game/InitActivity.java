@@ -23,23 +23,34 @@ public class InitActivity extends AppCompatActivity {
         bntSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextView = new Intent(InitActivity.this,MainActivity.class);
-                nextView.putExtra("userName",user.getText().toString());
-                startActivity(nextView);
+                if(!user.getText().toString().equals("")) {
+                    Intent nextView = new Intent(InitActivity.this, MainActivity.class);
+                    nextView.putExtra("userName", user.getText().toString());
+                    startActivity(nextView);
+                }else{
+                    TextView info = findViewById(R.id.textInformation);
+                    info.setText("Debe ingresar el nombre de usuario");
+                }
             }
         });
 
         bntNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User u = new User();
-                u.setName(user.getText().toString());
-                u.setHighscore(0);
-                u.setHighscoreBomb(0);
-                database.saveUser(u);
-                Intent nextView = new Intent(InitActivity.this,MainActivity.class);
-                nextView.putExtra("userName",user.getText().toString());
-                startActivity(nextView);
+                if(!user.getText().toString().equals("")) {
+                    User u = new User();
+                    u.setName(user.getText().toString());
+                    u.setHighscore(0);
+                    u.setHighscoreBomb(0);
+                    database.saveUser(u);
+                    Intent nextView = new Intent(InitActivity.this,MainActivity.class);
+                    nextView.putExtra("userName",user.getText().toString());
+                    startActivity(nextView);
+
+                }else{
+                    TextView info = findViewById(R.id.textInformation);
+                    info.setText("Debe ingresar un nuevo nombre de usuario");
+                }
             }
         });
 

@@ -630,33 +630,10 @@ public class GameActivity extends AppCompatActivity{
         result.setGravity(Gravity.CENTER);
         lll.addView(result);
         cl.addView(lll);
-        Intent i= new Intent(GameActivity.this,ResultPage.class);
-        i.putExtra("Result",1);
-        startActivity(i);
+        close();
 
     }
 
-
-    public void endGame()
-    {
-        ConstraintLayout cl=(ConstraintLayout) findViewById(R.id.wholelayout);
-        LinearLayout lll= new LinearLayout(this);
-        lll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        lll.setBackgroundColor(getResources().getColor(R.color.translucent));
-        lll.setGravity(Gravity.CENTER);
-        TextView result= new TextView(this);
-
-
-        result.setText("Partida terminada");
-        save();
-        result.setGravity(Gravity.CENTER);
-        lll.addView(result);
-        cl.addView(lll);
-        Intent i= new Intent(GameActivity.this,MainActivity.class);
-
-        startActivity(i);
-
-    }
 
     public void save(){
         Bundle nameGame = getIntent().getExtras();
@@ -676,8 +653,11 @@ public class GameActivity extends AppCompatActivity{
 
     public void close()
     {
+        Bundle userName = getIntent().getExtras();
+        String user = userName.getString("user");
         save();
         Intent i= new Intent(GameActivity.this,MainActivity.class);
+        i.putExtra("user",user);
         startActivity(i);
 
     }

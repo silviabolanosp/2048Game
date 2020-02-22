@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(nameGame.getText().toString().equals("")) {
+                    nameGame.setText(user.getText().toString());
+                }
+
                 if (timerSwitch.isChecked())
                     minutes = np.getValue();
                 else
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent scoresView = new Intent(MainActivity.this,ResultPage.class);
+                scoresView.putExtra("user", user.getText().toString());
                 startActivity(scoresView);
             }
         });
