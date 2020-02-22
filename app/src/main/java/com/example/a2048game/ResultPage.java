@@ -2,6 +2,7 @@ package com.example.a2048game;
 
 import android.content.Intent;
 import android.os.Bundle;;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,22 +28,26 @@ public class ResultPage extends AppCompatActivity {
     ArrayAdapter<Game> arrayAdapter;
     DatabaseReference myDatabase;
     ListView lisG;
+    Bundle userName;
+    private TextView user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        userName = getIntent().getExtras();
+        final String nameUser = userName.getString("user");
+        user = findViewById(R.id.txtUserName);
+        user.setText(nameUser.toString());
         lisG = findViewById(R.id.list);
         databaseIni();
         listGames();
-
         btnback = findViewById(R.id.btnCancel);
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent nextView = new Intent(ResultPage.this,MainActivity.class);
-                Bundle userName = getIntent().getExtras();
                 String user = userName.getString("user");
-                nextView.putExtra("user", user);
+                nextView.putExtra("userName", user);
                 startActivity(nextView);
             }
         });

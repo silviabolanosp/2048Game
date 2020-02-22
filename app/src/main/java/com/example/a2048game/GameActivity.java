@@ -33,7 +33,9 @@ public class GameActivity extends AppCompatActivity{
     TextView timer;
     MyCount counter;
     long timeWhenStopped;
-
+    Bundle userName;
+    Bundle nameGame;
+    private TextView user;
 
     public static Save database = new Save();
     public GameActivity()
@@ -45,8 +47,13 @@ public class GameActivity extends AppCompatActivity{
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_game);
+            super.onCreate(savedInstanceState);
+            nameGame = getIntent().getExtras();
+            userName = getIntent().getExtras();
+            final String nameUser = userName.getString("user");
+            user = findViewById(R.id.txtUserName);
+            user.setText(nameUser.toString());
             t=(TextView) findViewById(R.id.Score);
             grid=(GridView)findViewById(R.id.gamebackground);
             Random random1=new Random();
@@ -304,7 +311,7 @@ public class GameActivity extends AppCompatActivity{
 
         @Override
         public void onFinish() {
-            timer.setText("done!");
+            timer.setText("Listo!");
             AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
 
             builder.setTitle("Se agotó el tiempo");
@@ -635,9 +642,8 @@ public class GameActivity extends AppCompatActivity{
     }
 
 
-    public void save(){
-        Bundle nameGame = getIntent().getExtras();
-        Bundle userName = getIntent().getExtras();
+    public void save()
+    {
         String name = nameGame.getString("nameGame");
         String user = userName.getString("user");
         String s= t.getText().toString();
@@ -653,11 +659,10 @@ public class GameActivity extends AppCompatActivity{
 
     public void close()
     {
-        Bundle userName = getIntent().getExtras();
         String user = userName.getString("user");
         save();
         Intent i= new Intent(GameActivity.this,MainActivity.class);
-        i.putExtra("user",user);
+        i.putExtra("userName",user);
         startActivity(i);
 
     }
