@@ -1,14 +1,14 @@
 package com.example.a2048game;
 
 public class Game {
-    String name;
-    int score;
-    User user;
-    String type;
+    private String name;
+    private int score;
+   // User user;
+    private String type;
+    private int time;
 
-    public Game(String name,String type) {
-        this.name = name;
-        this.type = type;
+    public Game() {
+
     }
 
     public String getName() {
@@ -26,14 +26,14 @@ public class Game {
     public void setScore(int score) {
         this.score = score;
     }
-
+/*
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
+    }*/
 
     public String getType() {
         return type;
@@ -41,5 +41,18 @@ public class Game {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return  name +" Puntaje:"+ score + " Modalidad:" + type  + " Tiempo: " + time ;
     }
 }

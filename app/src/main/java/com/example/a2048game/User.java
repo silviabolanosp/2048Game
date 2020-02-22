@@ -1,12 +1,12 @@
 package com.example.a2048game;
 
 public class User {
-    String name;
-    int highscore;
-    int highscoreBomb;
+    private String name;
+    private int highscore;
+    private int highscoreBomb;
 
-    public User(String name) {
-        this.name = name;
+    public User() {
+
     }
 
     public String getName() {

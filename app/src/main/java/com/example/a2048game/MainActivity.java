@@ -1,21 +1,16 @@
 package com.example.a2048game;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import android.widget.NumberPicker;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
-
     private TextView username;
     Button btnStart;
     Button btnScores;
@@ -23,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     Switch timerSwitch;
     NumberPicker np;
     int minutes = 0;
-
     public static final String EXTRA_MINUTES = "com.example.a2048game.MINUTES";
 
     @Override
@@ -31,10 +25,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
         username= (TextView) findViewById(R.id.user);
         timerSwitch = (Switch) findViewById(R.id.timer);
-
         btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,19 +49,18 @@ public class MainActivity extends AppCompatActivity {
         btnScores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextView = new Intent(MainActivity.this,ResultPage.class);
-                startActivity(nextView);
+                Intent scoresView = new Intent(MainActivity.this,ResultPage.class);
+                startActivity(scoresView);
             }
         });
 
 
 
         //Get the widgets reference from XML layout
-        final TextView tv = (TextView) findViewById(R.id.tv);
         np = (NumberPicker) findViewById(R.id.np);
 
         //Set TextView text color
-        tv.setTextColor(Color.parseColor("#ffd32b3b"));
+     //   tv.setTextColor(Color.parseColor("#ffd32b3b"));
 
         //Populate NumberPicker values from minimum and maximum value range
         //Set the minimum value of NumberPicker
@@ -85,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal){
                 //Display the newly selected number from picker
-                tv.setText("Minutos : " + newVal);
+             //   tv.setText("Minutos : " + newVal);
             }
         });
 
@@ -93,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
         mediaPlayer.start();
     }
-
 
     /*@Override
     protected void onStart(){

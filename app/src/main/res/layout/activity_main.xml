@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,132 +8,127 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="Menú"
-            android:textColor="#000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="179dp"
-            tools:layout_editor_absoluteY="78dp" />
+    <!-- 20dp padding from all the side's-->
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-
-        <Button
-            android:id="@+id/btnStart"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="150dp"
-            android:layout_height="65dp"
-            android:layout_centerInParent="true"
-            android:background="#ECEF25"
-            android:text="Iniciar partida"
-            android:textStyle="bold" />
-
-
-    </RelativeLayout>
-
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="168dp"
+        android:gravity="center"
+        android:text="Menú"
+        android:textColor="#000"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <EditText
         android:id="@+id/user"
+        android:layout_width="287dp"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="62dp"
+        android:gravity="center"
         android:hint="Nombre"
         android:inputType="textPersonName"
-        android:textColor="#f00"
-        android:gravity="center"
+        android:padding="40dp"
+        android:textColor="#5603AD"
         android:textSize="25sp"
-        android:padding="40dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-        <!-- 20dp padding from all the side's-->
-
-        <!-- Inicia selector de minutos-->
-
-        <TextView
-            android:id="@+id/tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="26dp"
-            android:text="Minutos:"
-            android:textSize="25dp" />
-
-        <NumberPicker
-            android:id="@+id/np"
-            android:layout_width="100dp"
-            android:layout_height="91dp"
-            android:layout_below="@id/tv"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="14dp"
-            android:textSize="15dp"/>
-
-        <Switch
-            android:id="@+id/timer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:gravity="center"
-            android:padding="30dp"
-            android:text="Temporizador"
-            android:textColor="#f00"
-            android:textOff="Off"
-            android:textOn="On"
-            android:textSize="25sp" />
-
-        <!-- Termina selector de minutos-->
-
-    </RelativeLayout>
 
     <Switch
         android:id="@+id/bombs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="211dp"
+        android:layout_height="109dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="162dp"
         android:checked="true"
         android:gravity="center"
         android:padding="40dp"
         android:text="Bombas"
-        android:textColor="#f00"
+        android:textColor="#613F75"
         android:textOff="Off"
         android:textOn="On"
-        android:textSize="25sp" />
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timer" />
 
-    <!-- 20dp padding from all the side's-->
+    <Button
+        android:id="@+id/btnStart"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="150dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="130dp"
+        android:background="@drawable/button_init"
+        android:textColor="#FBFEF9"
+        android:text="Iniciar partida"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
+    <Button
+        android:id="@+id/btnScores"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="150dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/button_his"
+        android:text="Historial"
+        android:textColor="#FBFEF9"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bombs"
+        app:layout_constraintVertical_bias="0.6" />
 
-        <Button
-            android:id="@+id/btnScores"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="150dp"
-            android:layout_height="65dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="138dp"
-            android:layout_marginEnd="123dp"
-            android:background="#ECEF25"
-            android:text="Historial"
-            android:textStyle="bold" />
-    </RelativeLayout>
+    <Switch
+        android:id="@+id/timer"
+        android:layout_width="239dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="36dp"
+        android:checked="true"
+        android:gravity="center"
+        android:padding="30dp"
+        android:text="Temporizador"
+        android:textColor="#446DF6"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user" />
+
+    <NumberPicker
+        android:id="@+id/np"
+        android:layout_width="100dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="28dp"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user" />
 
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

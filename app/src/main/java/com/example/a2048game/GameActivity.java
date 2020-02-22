@@ -20,6 +20,7 @@ import android.widget.Chronometer;
 import android.os.SystemClock;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.*;
@@ -352,6 +353,9 @@ public class GameActivity extends AppCompatActivity{
     }
 
     private void gridChanged(List<String> plantsList) {
+             final TextView block = (TextView) findViewById(R.id.blocknumber);
+             final int numBlock = Integer.parseInt(block.getText().toString());
+             final CardView blockCard = (CardView) findViewById(R.id.cardBlock);
         final List<String> l=plantsList;
         grid.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, l){
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -386,36 +390,78 @@ public class GameActivity extends AppCompatActivity{
                 }
                 if(map.get(l.get(position)) == 2){
                     tv.setBackgroundColor(Color.parseColor("#FFF59D"));
+                    if(numBlock <= 2) {
+                        block.setText("4");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#FFF59D"));
+                    }
                 }
                 if(map.get(l.get(position)) == 4){
                     tv.setBackgroundColor(Color.parseColor("#C5E1A5"));
+                    if(numBlock <= 4) {
+                        block.setText("4");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#C5E1A5"));
+                    }
                 }
                 if(map.get(l.get(position)) == 8){
                     tv.setBackgroundColor(Color.parseColor("#80CBC4"));
+                    if(numBlock <= 8) {
+                        block.setText("8");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#80CBC4"));
+                    }
                 }
                 if(map.get(l.get(position)) == 16){
                     tv.setBackgroundColor(Color.parseColor("#81D4FA"));
+                    if(numBlock <= 16) {
+                        block.setText("16");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#81D4FA"));
+                    }
                 }
                 if(map.get(l.get(position)) == 32){
                     tv.setBackgroundColor(Color.parseColor("#9FA8DA"));
+                    if(numBlock <= 32) {
+                        block.setText("32");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#9FA8DA"));
+                    }
                 }
                 if(map.get(l.get(position)) == 64){
                     tv.setBackgroundColor(Color.parseColor("#CE93D8"));
+                    block.setText("64");
+                    blockCard.setCardBackgroundColor(Color.parseColor("#CE93D8"));
                 }
                 if(map.get(l.get(position)) == 128){
                     tv.setBackgroundColor(Color.parseColor("#FFEB3B"));
+                    if(numBlock <= 128) {
+                        block.setText("128");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#FFEB3B"));
+                    }
                 }
                 if(map.get(l.get(position)) == 256){
                     tv.setBackgroundColor(Color.parseColor("#8BC34A"));
+                    if(numBlock <= 256) {
+                        block.setText("256");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#8BC34A"));
+                    }
                 }
                 if(map.get(l.get(position)) == 512){
                     tv.setBackgroundColor(Color.parseColor("#3F51B5"));
+                    if(numBlock <= 512) {
+                        block.setText("512");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#3F51B5"));
+                    }
                 }
                 if(map.get(l.get(position)) == 1024){
                     tv.setBackgroundColor(Color.parseColor("#9C2780"));
+                    if(numBlock <= 1024) {
+                        block.setText("1024");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#9C2780"));
+                    }
                 }
                 if(map.get(l.get(position)) == 2048){
                     tv.setBackgroundColor(Color.parseColor("#F44336"));
+                    if(numBlock <= 2048) {
+                        block.setText("2048");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#F44336"));
+                    }
                 }
 
                 return tv;
@@ -615,11 +661,17 @@ public class GameActivity extends AppCompatActivity{
     }
 
     public void save(){
+        String name = nameGame.getString("nameGame");
         String s= t.getText().toString();
         int score = Integer.parseInt(s);
-
-        String name = nameGame.getString("nameGame");
-        database.saveGame("",name, score,"");
+        Game g = new Game();
+        g.setName(name);
+        g.setScore(score);
+        g.setTime(234);
+        g.setType("Normal");
+/*        User u = new User();
+        database.saveUser(u);*/
+        database.saveGame(g);
     }
 
     public void close()

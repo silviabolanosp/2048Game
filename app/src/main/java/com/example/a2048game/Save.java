@@ -1,6 +1,5 @@
 package com.example.a2048game;
 
-import android.content.Intent;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,34 +17,26 @@ public class Save extends AppCompatActivity {
     private DatabaseReference rootChildUser = myDatabase.child("users");
     private DatabaseReference rootChildGame = myDatabase.child("games");
 
-    private TextView username;
-
-    public void saveGame(String username, String name, int highscore, String type){
-        saveGameDatabase(username, name, highscore, type);
+    public void saveGame(Game g){
+        saveGameDatabase(g);
     }
 
-    private void saveGameDatabase(String username, String name, int highscore, String type){
-
-        Map<String, Object> dataGame = new HashMap<>();
-        dataGame.put("name", name);
-        dataGame.put("highscore", highscore);
-        dataGame.put("user", "-M0YttiZWPs57MlAh-tk");
-        dataGame.put("type", "normal");
-        rootChildGame.child("game").push().setValue(dataGame);
+    private void saveGameDatabase(Game g){
+        rootChildGame.push().setValue(g);
     }
 
-    public void saveUser(String name){
-        saveUserDatabase(name);
+    public void saveUser(User u){
+        saveUserDatabase(u);
     }
 
-    private void saveUserDatabase(String name){
+    private void saveUserDatabase(User u){
 
         //myDatabase.child("name").updateChildren(dataUser);
         Map<String, Object>dataUser = new HashMap<>();
-        dataUser.put("name", name);
+        dataUser.put("name", "Kristel");
         dataUser.put("highscore", "0");
         dataUser.put("highscoreBomb", "0");
-        rootChildUser.child("user").push().setValue(dataUser);
+        rootChildUser.push().setValue(dataUser);
     }
 
     public void updatehighscoreBomb(String name,int highscoreBomb){
