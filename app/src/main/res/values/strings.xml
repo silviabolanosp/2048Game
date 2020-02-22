@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">2048Game</string>
+    <string name="facebook_application_id" translatable="false">1:737065174958:android:6834df3ce643d65c64aa3f</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">1:737065174958:android:6834df3ce643d65c64aa3f</string>
 </resources>

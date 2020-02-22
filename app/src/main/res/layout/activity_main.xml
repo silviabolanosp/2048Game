@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,83 +8,142 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="Menú"
-            android:textColor="#000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="179dp"
-            tools:layout_editor_absoluteY="78dp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-
-        <Button
-            android:id="@+id/btnStart"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="150dp"
-            android:layout_height="65dp"
-            android:layout_centerInParent="true"
-            android:background="#ECEF25"
-            android:text="Iniciar partida"
-            android:textStyle="bold" />
+    <!-- 20dp padding from all the side's-->
 
 
-    </RelativeLayout>
-
-
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="168dp"
+        android:gravity="center"
+        android:text="Menú"
+        android:textColor="#000"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/user"
+        android:layout_width="287dp"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Nombre"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="62dp"
+        android:gravity="center"
+        android:hint=" Nombre de la partida"
         android:inputType="textPersonName"
-        android:textColor="#f00"
-        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="#5603AD"
         android:textSize="25sp"
-        android:padding="40dp"/>
-
-
-    <Switch
-        android:id="@+id/timer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:checked="true"
-        android:gravity="center"
-        android:padding="40dp"
-        android:text="Temporizador"
-        android:textColor="#f00"
-        android:textOff="Off"
-        android:textOn="On"
-        android:textSize="25sp" /><!-- 20dp padding from all the side's-->
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
 
     <Switch
         android:id="@+id/bombs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="211dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="162dp"
         android:checked="true"
         android:gravity="center"
         android:padding="40dp"
         android:text="Bombas"
-        android:textColor="#f00"
+        android:textColor="#613F75"
         android:textOff="Off"
         android:textOn="On"
-        android:textSize="25sp" /><!-- 20dp padding from all the side's-->
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timer" />
+
+    <Button
+        android:id="@+id/btnStart"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="150dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="130dp"
+        android:background="@drawable/button_init"
+        android:text="Iniciar partida"
+        android:textColor="@color/grid"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/btnScores"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="150dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/button_his"
+        android:text="Historial"
+        android:textColor="#FBFEF9"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bombs"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Switch
+        android:id="@+id/timer"
+        android:layout_width="239dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="24dp"
+        android:checked="true"
+        android:gravity="center"
+        android:padding="30dp"
+        android:text="Temporizador"
+        android:textColor="#446DF6"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user" />
+
+    <NumberPicker
+        android:id="@+id/np"
+        android:layout_width="100dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user" />
+
+    <TextView
+        android:id="@+id/txtUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="28dp"
+        android:text="Usuario"
+        android:textColor="#F95738"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,9 +15,12 @@ import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.Button;
-import android.widget.Toast;
+import android.os.CountDownTimer;
+import android.widget.Chronometer;
+import android.os.SystemClock;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.*;
@@ -26,49 +29,50 @@ public class GameActivity extends AppCompatActivity{
     HashMap<String, Integer> map= null;
     HashMap<String, Integer> prevmap= null;
     GridView grid=null;
-    public GameActivity(HashMap m)
-    {
-        map=m;
-    }
+    Chronometer simpleChronometer;
+    TextView timer;
+    MyCount counter;
+    long timeWhenStopped;
+
+
+    public static Save database = new Save();
     public GameActivity()
-    {
-        map=new HashMap<>();
-    }
-    int score=0;
-    TextView t=null;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-        t=(TextView) findViewById(R.id.Score);
-        grid=(GridView)findViewById(R.id.gamebackground);
-        Random random1=new Random();
-        int r1 = random1.nextInt(16-1+1)+1;
-        Random random2=new Random();
-        int r2 = random2.nextInt(16-1+1)+1;
-        if(r1==r2 && r2!=16)
         {
-            r2++;
+            map=new HashMap<>();
         }
-        else
-        {
-            if(r1==r2)
+        int score=0;
+        TextView t=null;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_game);
+            t=(TextView) findViewById(R.id.Score);
+            grid=(GridView)findViewById(R.id.gamebackground);
+            Random random1=new Random();
+            int r1 = random1.nextInt(16-1+1)+1;
+            Random random2=new Random();
+            int r2 = random2.nextInt(16-1+1)+1;
+            if(r1==r2 && r2!=16)
             {
-                r2--;
+                r2++;
             }
-        }
-        Log.i("TAG",r1+"    "+r2);
-        // Initializing a new String Array
+            else
+            {
+                if(r1==r2)
+                {
+                    r2--;
+                }
+            }
 
-        String[] nums = new String[]{"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
-        Random r3 = new Random();
-        Random r4 = new Random();
-        int[] choice={2,4};
-        int ind1=r3.nextInt(choice.length);
-        int ind2=r3.nextInt(choice.length);
 
-//        Log.i("TAG",choice[ind1]+"     "+choice[ind2]);
+            String[] nums = new String[]{"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
+            Random r3 = new Random();
+            Random r4 = new Random();
+            int[] choice={2,4};
+            int ind1=r3.nextInt(choice.length);
+            int ind2=r3.nextInt(choice.length);
+
         for(int i=0 ;i<nums.length;i++)
         {
             if(Integer.parseInt(nums[i])==r1)
@@ -83,72 +87,61 @@ public class GameActivity extends AppCompatActivity{
             {
                 map.put(nums[i],0);
             }
-
         }
-//        Log.i("TAG",map.toString());
-        // Populate a List from Array elements
-        final List<String> plantsList = new ArrayList<String>(Arrays.asList(nums));
 
-        // Data bind GridView with ArrayAdapter (String Array elements)
+        final List<String> plantsList = new ArrayList<String>(Arrays.asList(nums));
         gridChanged(plantsList);
 
+        grid.setOnTouchListener(new OnSwipeTouchListener(GameActivity.this) {
 
-        grid.setOnTouchListener(new OnSwipeTouchListener(GameActivity.this){
             public void onSwipeTop() {
-                prevmap=new HashMap<>(map);
-                Log.i("TAG","TOP");
-                Log.i("TAG",map.toString());
-                Log.i("TAG",allOkTop(1) +" "+ allOkTop(2) +" "+ allOkTop(3) +" "+ allOkTop(4));
+                prevmap = new HashMap<>(map);
                 int k=0;
+
                 while(!(allOkTop(1) && allOkTop(2) && allOkTop(3) && allOkTop(4))) {
                     k=1;
                     for (int i = 16; i > 4; i--) {
                         int j = i;
                         if (j > 4 && map.get(j + "") == map.get((j - 4) + "")) {
-//                           Log.i("TAG", map.get(j + "") + map.get((j - 4) + "") + "");
+
                             map.put((j - 4) + "", map.get(j + "") + map.get((j - 4) + ""));
                             map.put(j + "", 0);
                             String score=t.getText().toString();
                             int scorenumber=Integer.parseInt(score);
                             scorenumber+=map.get((j-4)+"");
                             t.setText(scorenumber+"");
+
                         } else if (j > 4 && map.get((j - 4) + "") == 0) {
-//                           Log.i("TAG", "YES");
+
                             map.put((j - 4) + "", map.get(j + ""));
                             map.put(j + "", 0);
                         }
+
                     }
                 }
-                Log.i("TAG",map.toString());
-
                 gridChanged(plantsList);
                 generateRandomNumber();
                 checkSwipe();
             }
+
             public void onSwipeRight() {
                 prevmap=new HashMap<>(map);
-                Log.i("TAG","RIGHT");
-                Log.i("TAG",map.toString());
-                Log.i("TAG",allOkRight(4) +" "+ allOkRight(8) +" "+ allOkRight(12) +" "+ allOkRight(16));
                 int k=0;
                 int l=0;
                 while(l==0 || !(allOkRight(4) && allOkRight(8) && allOkRight(12) && allOkRight(16))) {
                     l=1;
                     for (int i = 1; i < 17; i++) {
                         int j = i;
-//                       Log.i("TAG", j + "");
 
                         if (k == 0 && map.get(j + "") == map.get((j + 1) + "")) {
                             map.put((j + 1) + "", map.get(j + "") + map.get((j + 1) + ""));
                             map.put(j + "", 0);
                             String score=t.getText().toString();
                             int scorenumber=Integer.parseInt(score);
-                            Log.i("TAG",scorenumber+"HERE");
                             scorenumber+=map.get((j+1)+"");
-                            Log.i("TAG",scorenumber+"HERE");
                             t.setText(scorenumber+"");
+
                         } else if (k == 0 && map.get((j + 1) + "") == 0) {
-//                           Log.i("TAG", "YES");
                             map.put((j + 1) + "", map.get(j + ""));
                             map.put(j + "", 0);
                         }
@@ -159,16 +152,13 @@ public class GameActivity extends AppCompatActivity{
                         }
                     }
                 }
-                Log.i("TAG",map.toString());
                 gridChanged(plantsList);
                 generateRandomNumber();
                 checkSwipe();
             }
+
             public void onSwipeLeft() {
                 prevmap=new HashMap<>(map);
-                Log.i("TAG","LEFT");
-                Log.i("TAG",map.toString());
-                Log.i("TAG",allOkLeft(1) +" "+ allOkLeft(5) +" "+ allOkLeft(9) +" "+ allOkLeft(13));
                 int k=0;
                 int l=0;
                 while(l==0 || !(allOkLeft(1) && allOkLeft(5) && allOkLeft(9) && allOkLeft(13))) {
@@ -180,8 +170,6 @@ public class GameActivity extends AppCompatActivity{
                         } else {
                             k = 0;
                         }
-//                       Log.i("TAG", j + "");
-
                         if (k == 0 && map.get(j + "") == map.get((j - 1) + "")) {
                             map.put((j - 1) + "", map.get(j + "") + map.get((j - 1) + ""));
                             map.put(j + "", 0);
@@ -189,24 +177,22 @@ public class GameActivity extends AppCompatActivity{
                             int scorenumber=Integer.parseInt(score);
                             scorenumber+=map.get((j-1)+"");
                             t.setText(scorenumber+"");
+
                         } else if (k == 0 && map.get((j - 1) + "") == 0) {
-//                           Log.i("TAG", "YES");
                             map.put((j - 1) + "", map.get(j + ""));
                             map.put(j + "", 0);
                         }
 
                     }
                 }
-                Log.i("TAG",map.toString());
                 gridChanged(plantsList);
                 generateRandomNumber();
                 checkSwipe();
             }
+
             public void onSwipeBottom() {
                 prevmap=new HashMap<>(map);
-                Log.i("TAG", "BOTTOM");
-                Log.i("TAG",map.toString());
-                Log.i("TAG",allOkBottom(13) +" "+ allOkBottom(14) +" "+ allOkBottom(15) +" "+ allOkBottom(16));
+
                 int k=0;
                 while (k==0 || !(allOkBottom(13) && allOkBottom(14) && allOkBottom(15) && allOkBottom(16))) {
                     k=1;
@@ -214,26 +200,25 @@ public class GameActivity extends AppCompatActivity{
                         int j = i;
 
                         if (j < 13 && map.get(j + "") == map.get((j + 4) + "")) {
-//                           Log.i("TAG", map.get(j + "") + map.get((j + 4) + "") + "");
                             map.put((j + 4) + "", map.get(j + "") + map.get((j + 4) + ""));
                             map.put(j + "", 0);
                             String score=t.getText().toString();
                             int scorenumber=Integer.parseInt(score);
                             scorenumber+=map.get((j+4)+"");
                             t.setText(scorenumber+"");
+
                         } else if (j < 13 && map.get((j + 4) + "") == 0) {
-//                           Log.i("TAG", "YES");
                             map.put((j + 4) + "", map.get(j + ""));
                             map.put(j + "", 0);
                         }
                     }
                 }
-                Log.i("TAG", map.toString());
 
                 gridChanged(plantsList);
                 generateRandomNumber();
                 checkSwipe();
             }
+
         });
 
         Button btnCancel = findViewById(R.id.btnCancel);
@@ -241,58 +226,249 @@ public class GameActivity extends AppCompatActivity{
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Build an AlertDialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+                timeWhenStopped = 0;
 
-                // Set a title for alert dialog
+                timeWhenStopped = simpleChronometer.getBase() - SystemClock.elapsedRealtime();
+                simpleChronometer.stop();
+
+                //falta poner el counter en pausa
+
                 builder.setTitle("¿Terminar partida?");
 
-                // Ask the final question
                 builder.setMessage("¿Desea terminar partida?");
 
-                // Set click listener for alert dialog buttons
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch(which){
                             case DialogInterface.BUTTON_POSITIVE:
-                                // User clicked the Yes button
-                                endGame();
+                                simpleChronometer.stop();
+                                close();
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
-                                // User clicked the No button
-
+                                simpleChronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                simpleChronometer.start();
                                 break;
 
                             case DialogInterface.BUTTON_NEUTRAL:
-                                // Neutral/Cancel button clicked
+                                simpleChronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                simpleChronometer.start();
 
                                 break;
                         }
                     }
                 };
 
-                // Set the alert dialog yes button click listener
                 builder.setPositiveButton("Si", dialogClickListener);
 
-                // Set the alert dialog no button click listener
                 builder.setNegativeButton("No",dialogClickListener);
 
-                // Set the alert dialog cancel/neutral button click listener
                 builder.setNeutralButton("Cancelar", dialogClickListener);
 
                 AlertDialog dialog = builder.create();
-                // Display the three buttons alert dialog on interface
                 dialog.show();
             }
         });
 
+            // 5000 is the starting number (in milliseconds)
+            // 1000 is the number to count down each time (in milliseconds)
+
+            Bundle extras = getIntent().getExtras();
+            int minutes = extras.getInt(MainActivity.EXTRA_MINUTES);
+            simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer);
+            timer = (TextView) findViewById(R.id.timer);
+
+            if (minutes == 0){
+                timer.setVisibility(View.GONE);
+                //simpleChronometer.setFormat("Time (%s)");
+                simpleChronometer.start();
+                // simpleChronometer.stop();
+            }else{
+                simpleChronometer.setVisibility(View.GONE);
+                int milliseconds = minutes * 60 * 1000;
+                counter = new MyCount(milliseconds, 1000);
+                counter.start();
+            }
+
+    }
+
+    //countdowntimer is an abstract class, so extend it and fill in methods
+    public class MyCount extends CountDownTimer{
+        TextView timer = (TextView) findViewById(R.id.timer);
+
+        public MyCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {
+            timer.setText("done!");
+            AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+
+            builder.setTitle("Se agotó el tiempo");
+
+            builder.setMessage("¿Desea ir al menú?");
+
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch(which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            close();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            close();
+                            break;
+
+                        case DialogInterface.BUTTON_NEUTRAL:
+                            close();
+                            break;
+                    }
+                }
+            };
+
+            builder.setPositiveButton("Si", dialogClickListener);
+
+            builder.setNegativeButton("No",dialogClickListener);
+
+            builder.setNeutralButton("Cancelar", dialogClickListener);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            timer.setText("" + millisUntilFinished/1000);
+
+        }
 
 
     }
-    public boolean allOkTop(int loc)
-    {
+
+    private void gridChanged(List<String> plantsList) {
+             final TextView block = (TextView) findViewById(R.id.blocknumber);
+             final int numBlock = Integer.parseInt(block.getText().toString());
+             final CardView blockCard = (CardView) findViewById(R.id.cardBlock);
+        final List<String> l=plantsList;
+        grid.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, l){
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                View view = super.getView(position,convertView,parent);
+
+                TextView tv = (TextView) view;
+
+                RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT
+                );
+                tv.setLayoutParams(lp);
+                tv.setWidth(100);
+                tv.setHeight(210);
+
+                tv.setGravity(Gravity.CENTER);
+
+                tv.setTextSize(20);
+
+                if(map.get(l.get(position))!=0)
+                {
+                    tv.setText(map.get(l.get(position))+"");
+                }
+                else
+                {
+                    tv.setText("");
+                }
+                tv.setId(position);
+
+                if(map.get(l.get(position)) == 0){
+                    tv.setBackgroundColor(Color.parseColor("#F0F3F4"));
+                }
+                if(map.get(l.get(position)) == 2){
+                    tv.setBackgroundColor(Color.parseColor("#FFF59D"));
+                    if(numBlock <= 2) {
+                        block.setText("4");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#FFF59D"));
+                    }
+                }
+                if(map.get(l.get(position)) == 4){
+                    tv.setBackgroundColor(Color.parseColor("#C5E1A5"));
+                    if(numBlock <= 4) {
+                        block.setText("4");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#C5E1A5"));
+                    }
+                }
+                if(map.get(l.get(position)) == 8){
+                    tv.setBackgroundColor(Color.parseColor("#80CBC4"));
+                    if(numBlock <= 8) {
+                        block.setText("8");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#80CBC4"));
+                    }
+                }
+                if(map.get(l.get(position)) == 16){
+                    tv.setBackgroundColor(Color.parseColor("#81D4FA"));
+                    if(numBlock <= 16) {
+                        block.setText("16");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#81D4FA"));
+                    }
+                }
+                if(map.get(l.get(position)) == 32){
+                    tv.setBackgroundColor(Color.parseColor("#9FA8DA"));
+                    if(numBlock <= 32) {
+                        block.setText("32");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#9FA8DA"));
+                    }
+                }
+                if(map.get(l.get(position)) == 64){
+                    tv.setBackgroundColor(Color.parseColor("#CE93D8"));
+                    block.setText("64");
+                    blockCard.setCardBackgroundColor(Color.parseColor("#CE93D8"));
+                }
+                if(map.get(l.get(position)) == 128){
+                    tv.setBackgroundColor(Color.parseColor("#FFEB3B"));
+                    if(numBlock <= 128) {
+                        block.setText("128");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#FFEB3B"));
+                    }
+                }
+                if(map.get(l.get(position)) == 256){
+                    tv.setBackgroundColor(Color.parseColor("#8BC34A"));
+                    if(numBlock <= 256) {
+                        block.setText("256");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#8BC34A"));
+                    }
+                }
+                if(map.get(l.get(position)) == 512){
+                    tv.setBackgroundColor(Color.parseColor("#3F51B5"));
+                    if(numBlock <= 512) {
+                        block.setText("512");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#3F51B5"));
+                    }
+                }
+                if(map.get(l.get(position)) == 1024){
+                    tv.setBackgroundColor(Color.parseColor("#9C2780"));
+                    if(numBlock <= 1024) {
+                        block.setText("1024");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#9C2780"));
+                    }
+                }
+                if(map.get(l.get(position)) == 2048){
+                    tv.setBackgroundColor(Color.parseColor("#F44336"));
+                    if(numBlock <= 2048) {
+                        block.setText("2048");
+                        blockCard.setCardBackgroundColor(Color.parseColor("#F44336"));
+                    }
+                }
+
+                return tv;
+            }
+        });
+    }
+
+
+    private boolean allOkTop(int loc) {
         if(map.get(loc+"")==0 && map.get((loc+4)+"")==0 && map.get(""+(loc+8))==0 && map.get(""+(loc+12))==0)
         {
             return true;
@@ -315,32 +491,8 @@ public class GameActivity extends AppCompatActivity{
         }
         return false;
     }
-    public boolean allOkBottom(int loc)
-    {
-        if(map.get(loc+"")==0 && map.get((loc-4)+"")==0 && map.get(""+(loc-8))==0 && map.get(""+(loc-12))==0)
-        {
-            return true;
-        }
-        else if(map.get((loc-4)+"")==0 && map.get(""+(loc-8))==0 && map.get(""+(loc-12))==0 && map.get(""+loc)!=0)
-        {
-            return true;
-        }
-        else if(map.get(""+(loc-8))==0 && map.get(""+(loc-12))==0 && map.get(""+(loc-4))!=0 && map.get(""+loc)!=0)
-        {
-            return true;
-        }
-        else if(map.get(""+(loc-12))==0 && map.get(""+(loc-4))!=0 && map.get(""+loc)!=0 && map.get(""+(loc-8))!=0)
-        {
-            return true;
-        }
-        else if(map.get(loc+"")!=0 && map.get((loc-4)+"")!=0 && map.get(""+(loc-8))!=0 && map.get(""+(loc-12))!=0)
-        {
-            return true;
-        }
-        return false;
-    }
-    public boolean allOkRight(int loc)
-    {
+
+    private boolean allOkRight(int loc) {
         if(map.get(loc+"")==0 && map.get((loc-1)+"")==0 && map.get(""+(loc-2))==0 && map.get(""+(loc-3))==0)
         {
             return true;
@@ -363,8 +515,8 @@ public class GameActivity extends AppCompatActivity{
         }
         return false;
     }
-    public boolean allOkLeft(int loc)
-    {
+
+    private boolean allOkLeft(int loc) {
         if(map.get(loc+"")==0 && map.get((loc+1)+"")==0 && map.get(""+(loc+2))==0 && map.get(""+(loc+3))==0)
         {
             return true;
@@ -387,54 +539,35 @@ public class GameActivity extends AppCompatActivity{
         }
         return false;
     }
-    public void checkSwipe()
-    {
-        ConstraintLayout cl=(ConstraintLayout) findViewById(R.id.wholelayout);
-        LinearLayout lll= new LinearLayout(this);
-        lll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        lll.setBackgroundColor(getResources().getColor(R.color.translucent));
-        lll.setGravity(Gravity.CENTER);
-        TextView result= new TextView(this);
-        for(String key : map.keySet())
+
+    private boolean allOkBottom(int loc) {
+        if(map.get(loc+"")==0 && map.get((loc-4)+"")==0 && map.get(""+(loc-8))==0 && map.get(""+(loc-12))==0)
         {
-            if(map.get(key)==2048)
-            {
-                result.setText("CONGRATULATIONS! YOU WIN!");
-                result.setGravity(Gravity.CENTER);
-                lll.addView(result);
-                cl.addView(lll);
-                Intent i= new Intent(GameActivity.this,ResultPage.class);
-                i.putExtra("Result",0);
-                startActivity(i);
-                return;
-            }
+            return true;
         }
-        Log.e("MAP",map.toString());
-        Log.e("PREVMAP",prevmap.toString());
-        for(String key : map.keySet())
+        else if(map.get((loc-4)+"")==0 && map.get(""+(loc-8))==0 && map.get(""+(loc-12))==0 && map.get(""+loc)!=0)
         {
-            if(map.get(key)!=prevmap.get(key))
-            {
-
-                return;
-            }
+            return true;
         }
-
-        result.setText("GAME OVER! YOU LOSE!");
-        result.setGravity(Gravity.CENTER);
-        lll.addView(result);
-        cl.addView(lll);
-//        prevmap=map;
-        Intent i= new Intent(GameActivity.this,ResultPage.class);
-        i.putExtra("Result",1);
-        startActivity(i);
-
+        else if(map.get(""+(loc-8))==0 && map.get(""+(loc-12))==0 && map.get(""+(loc-4))!=0 && map.get(""+loc)!=0)
+        {
+            return true;
+        }
+        else if(map.get(""+(loc-12))==0 && map.get(""+(loc-4))!=0 && map.get(""+loc)!=0 && map.get(""+(loc-8))!=0)
+        {
+            return true;
+        }
+        else if(map.get(loc+"")!=0 && map.get((loc-4)+"")!=0 && map.get(""+(loc-8))!=0 && map.get(""+(loc-12))!=0)
+        {
+            return true;
+        }
+        return false;
     }
+
     public void generateRandomNumber()
     {
         Random ran = new Random();
         int i=ran.nextInt(16)+1;
-        Log.i("TAG1",map.toString());
         int flag=0;
         for(String key: map.keySet())
         {
@@ -451,83 +584,80 @@ public class GameActivity extends AppCompatActivity{
             }
             int[] choice={2,4};
             int ind1=ran.nextInt(choice.length);
-            Log.i("TAG1",choice[ind1]+"    "+i);
             map.put(i+"",choice[ind1]);
             String[] nums = new String[]{"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
-            Log.i("TAG1",map.toString());        List<String> plantsList=Arrays.asList(nums);
+            List<String> plantsList=Arrays.asList(nums);
 
             gridChanged(plantsList);
         }
 
     }
 
-    public void gridChanged(List plantsList)
-    {
-        final List<String> l=plantsList;
-        grid.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, l){
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                // Return the GridView current item as a View
-                View view = super.getView(position,convertView,parent);
-
-                // Convert the view as a TextView widget
-                TextView tv = (TextView) view;
-
-                //tv.setTextColor(Color.DKGRAY);
-
-                // Set the layout parameters for TextView widget
-                RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT
-                );
-                tv.setLayoutParams(lp);
-
-                tv.setWidth(100);
-                tv.setHeight(210);
-
-                // Display TextView text in center position
-                tv.setGravity(Gravity.CENTER);
-
-                tv.setTextSize(20);
-
-                // Set the TextView text (GridView item text)
-                if(map.get(l.get(position))!=0)
-                {
-                    Log.i("TAG",position+"");
-                    Log.i("TAG",l.get(position));
-                    tv.setText(map.get(l.get(position))+"");
-                }
-                else
-                {
-                    tv.setText("");
-                }
-
-                tv.setId(position);
-
-                // Set the TextView background color
-                tv.setBackgroundColor(Color.parseColor("#b2dfdb"));
-
-                // Return the TextView widget as GridView item
-                return tv;
-            }
-        });
-    }
-
-    public void endGame()
+    public void checkSwipe()
     {
         ConstraintLayout cl=(ConstraintLayout) findViewById(R.id.wholelayout);
         LinearLayout lll= new LinearLayout(this);
         lll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        lll.setBackgroundColor(getResources().getColor(R.color.translucent));
+        lll.setBackgroundColor(Color.parseColor("#9E9E9E"));
         lll.setGravity(Gravity.CENTER);
         TextView result= new TextView(this);
+        for(String key : map.keySet())
+        {
+            if(map.get(key)==2048)
+            {
+//                result.setText("CONGRATULATIONS! YOU WIN!");
+//                result.setGravity(Gravity.CENTER);
+//                lll.addView(result);
+//                cl.addView(lll);
+//                Intent i= new Intent(GameActivity.this,ResultPage.class);
+//                i.putExtra("Result",0);
+//                startActivity(i);
+//                return;
+            }
+        }
+        Log.e("MAP",map.toString());
+        Log.e("PREVMAP",prevmap.toString());
+        for(String key : map.keySet())
+        {
+            if(map.get(key)!=prevmap.get(key))
+            {
 
+                return;
+            }
+        }
 
-        result.setText("Partida terminada");
+        result.setText("Perdiste la partida!");
         result.setGravity(Gravity.CENTER);
         lll.addView(result);
         cl.addView(lll);
-        Intent i= new Intent(GameActivity.this,ResultPage.class);
-        i.putExtra("Result",1);
+        close();
+
+    }
+
+
+    public void save(){
+        Bundle nameGame = getIntent().getExtras();
+        Bundle userName = getIntent().getExtras();
+        String name = nameGame.getString("nameGame");
+        String user = userName.getString("user");
+        String s= t.getText().toString();
+        int score = Integer.parseInt(s);
+        Game g = new Game();
+        g.setName(name);
+        g.setScore(score);
+        g.setTime(234);
+        g.setUser(user);
+        g.setType("Normal");
+        database.saveGame(g);
+    }
+
+    public void close()
+    {
+        Bundle userName = getIntent().getExtras();
+        String user = userName.getString("user");
+        save();
+        Intent i= new Intent(GameActivity.this,MainActivity.class);
+        i.putExtra("user",user);
         startActivity(i);
 
     }
