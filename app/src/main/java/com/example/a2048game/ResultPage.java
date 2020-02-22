@@ -70,10 +70,4 @@ public class ResultPage extends AppCompatActivity {
             }
         });
     }
-
-    public void retry(View v)
-    {
-        Intent i= new Intent(ResultPage.this,MainActivity.class);
-        startActivity(i);
-    }
 }

@@ -6,12 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.NumberPicker;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView username;
+    private TextView nameGame;
+    private TextView user;
     Button btnStart;
     Button btnScores;
     MediaPlayer mediaPlayer;
@@ -23,15 +23,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        username= (TextView) findViewById(R.id.user);
+        Bundle userName = getIntent().getExtras();
+        final String nameUser = userName.getString("userName");
+        user = (TextView) findViewById(R.id.txtUserName);
+        user.setText(nameUser.toString());
+        nameGame= (TextView) findViewById(R.id.user);
         timerSwitch = (Switch) findViewById(R.id.timer);
         btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = username.getText().toString();
 
                 if (timerSwitch.isChecked())
                     minutes = np.getValue();
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
                     minutes = 0;
 
                 Intent nextView = new Intent(MainActivity.this,GameActivity.class);
-                nextView.putExtra("nameGame",name);
+                nextView.putExtra("nameGame",nameGame.getText().toString());
+                nextView.putExtra("user", user.getText().toString());
                 nextView.putExtra(EXTRA_MINUTES, minutes);
                 startActivity(nextView);
             }

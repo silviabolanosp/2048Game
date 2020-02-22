@@ -32,11 +32,7 @@ public class Save extends AppCompatActivity {
     private void saveUserDatabase(User u){
 
         //myDatabase.child("name").updateChildren(dataUser);
-        Map<String, Object>dataUser = new HashMap<>();
-        dataUser.put("name", "Kristel");
-        dataUser.put("highscore", "0");
-        dataUser.put("highscoreBomb", "0");
-        rootChildUser.push().setValue(dataUser);
+        rootChildUser.push().setValue(u);
     }
 
     public void updatehighscoreBomb(String name,int highscoreBomb){

@@ -3,7 +3,7 @@ package com.example.a2048game;
 public class Game {
     private String name;
     private int score;
-   // User user;
+    private String user;
     private String type;
     private int time;
 
@@ -26,14 +26,14 @@ public class Game {
     public void setScore(int score) {
         this.score = score;
     }
-/*
-    public User getUser() {
+
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
-    }*/
+    }
 
     public String getType() {
         return type;

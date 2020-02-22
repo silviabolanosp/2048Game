@@ -29,7 +29,6 @@ public class GameActivity extends AppCompatActivity{
     HashMap<String, Integer> map= null;
     HashMap<String, Integer> prevmap= null;
     GridView grid=null;
-    Bundle nameGame;
     Chronometer simpleChronometer;
     TextView timer;
     MyCount counter;
@@ -48,7 +47,6 @@ public class GameActivity extends AppCompatActivity{
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_game);
-            nameGame = getIntent().getExtras();
             t=(TextView) findViewById(R.id.Score);
             grid=(GridView)findViewById(R.id.gamebackground);
             Random random1=new Random();
@@ -661,16 +659,18 @@ public class GameActivity extends AppCompatActivity{
     }
 
     public void save(){
+        Bundle nameGame = getIntent().getExtras();
+        Bundle userName = getIntent().getExtras();
         String name = nameGame.getString("nameGame");
+        String user = userName.getString("user");
         String s= t.getText().toString();
         int score = Integer.parseInt(s);
         Game g = new Game();
         g.setName(name);
         g.setScore(score);
         g.setTime(234);
+        g.setUser(user);
         g.setType("Normal");
-/*        User u = new User();
-        database.saveUser(u);*/
         database.saveGame(g);
     }
 
