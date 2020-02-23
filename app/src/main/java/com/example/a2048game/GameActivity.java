@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.widget.Button;
 import android.os.CountDownTimer;
 import android.widget.Chronometer;
+import android.os.SystemClock;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -25,15 +26,21 @@ import java.util.*;
 public class GameActivity extends AppCompatActivity{
 
     private static GameActivity gameActivity = null;
+    public static Save database = new Save();
+
     public static GameActivity getGameActivity() {
         return gameActivity;
     }
 
     Chronometer simpleChronometer;
     TextView timer;
+    MyCount counter;
+    long timeWhenStopped;
 
     int score=0;
     TextView t = null;
+
+
 
     public GameActivity()
         {
@@ -55,6 +62,12 @@ public class GameActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+                timeWhenStopped = 0;
+
+                timeWhenStopped = simpleChronometer.getBase() - SystemClock.elapsedRealtime();
+                simpleChronometer.stop();
+
+                //falta poner el counter en pausa
 
                 builder.setTitle("¿Terminar partida?");
 
@@ -65,14 +78,18 @@ public class GameActivity extends AppCompatActivity{
                     public void onClick(DialogInterface dialog, int which) {
                         switch(which){
                             case DialogInterface.BUTTON_POSITIVE:
-                                endGame();
+                                simpleChronometer.stop();
+                                close();
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
-
+                                simpleChronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                simpleChronometer.start();
                                 break;
 
                             case DialogInterface.BUTTON_NEUTRAL:
+                                simpleChronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                simpleChronometer.start();
 
                                 break;
                         }
@@ -152,7 +169,32 @@ public class GameActivity extends AppCompatActivity{
 
 
 
+    public void save(){
+        Bundle nameGame = getIntent().getExtras();
+        Bundle userName = getIntent().getExtras();
+        String name = nameGame.getString("nameGame");
+        String user = userName.getString("user");
+        String s= t.getText().toString();
+        int score = Integer.parseInt(s);
+        Game g = new Game();
+        g.setName(name);
+        g.setScore(score);
+        g.setTime(234);
+        g.setUser(user);
+        g.setType("Normal");
+        database.saveGame(g);
+    }
 
+    public void close()
+    {
+        Bundle userName = getIntent().getExtras();
+        String user = userName.getString("user");
+        save();
+        Intent i= new Intent(GameActivity.this,MainActivity.class);
+        i.putExtra("user",user);
+        startActivity(i);
+
+    }
     public void endGame()
     {
         ConstraintLayout cl=(ConstraintLayout) findViewById(R.id.wholelayout);

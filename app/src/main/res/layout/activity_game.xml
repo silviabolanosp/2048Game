@@ -109,7 +109,6 @@
             tools:layout_conversion_absoluteWidth="0dp" />
     </androidx.cardview.widget.CardView>
 
-
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="157dp"
@@ -159,6 +158,8 @@
         android:layout_height="39dp"
         android:background="@drawable/botton_round"
         android:text="Terminar"
+        android:textColor="#FBFEF9"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.541"
@@ -168,7 +169,25 @@
         tools:layout_conversion_absoluteHeight="0dp"
         tools:layout_conversion_absoluteWidth="0dp" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardBlock"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="28dp"
+        app:cardBackgroundColor="#CACFD2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView" >
 
+        <TextView
+            android:id="@+id/blocknumber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

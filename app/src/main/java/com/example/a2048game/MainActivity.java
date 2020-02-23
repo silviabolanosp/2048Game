@@ -1,76 +1,74 @@
 package com.example.a2048game;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import android.widget.NumberPicker;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
-
-    private TextView username;
-
-    //Referencia a la base de datos
-    DatabaseReference myDatabase = FirebaseDatabase.getInstance().getReference();
-
-    DatabaseReference rootChild = myDatabase.child("users");
-
+    private TextView nameGame;
+    private TextView user;
+    Button btnStart;
+    Button btnScores;
     MediaPlayer mediaPlayer;
     Switch timerSwitch;
     NumberPicker np;
     int minutes = 0;
-
     public static final String EXTRA_MINUTES = "com.example.a2048game.MINUTES";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        username= (TextView) findViewById(R.id.user);
+        Bundle userName = getIntent().getExtras();
+        final String nameUser = userName.getString("userName");
+        user = (TextView) findViewById(R.id.txtUserName);
+        user.setText(nameUser.toString());
+        nameGame= (TextView) findViewById(R.id.user);
         timerSwitch = (Switch) findViewById(R.id.timer);
-
-        final Button btnStart = findViewById(R.id.btnStart);
+        btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                if(nameGame.getText().toString().equals("")) {
+                    nameGame.setText(user.getText().toString());
+                }
 
                 if (timerSwitch.isChecked())
                     minutes = np.getValue();
                 else
                     minutes = 0;
 
-
-
                 Intent nextView = new Intent(MainActivity.this,GameActivity.class);
+                nextView.putExtra("nameGame",nameGame.getText().toString());
+                nextView.putExtra("user", user.getText().toString());
                 nextView.putExtra(EXTRA_MINUTES, minutes);
                 startActivity(nextView);
+            }
+        });
 
-
+        btnScores = findViewById(R.id.btnScores);
+        btnScores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent scoresView = new Intent(MainActivity.this,ResultPage.class);
+                scoresView.putExtra("user", user.getText().toString());
+                startActivity(scoresView);
             }
         });
 
 
+
         //Get the widgets reference from XML layout
-        final TextView tv = (TextView) findViewById(R.id.tv);
         np = (NumberPicker) findViewById(R.id.np);
 
         //Set TextView text color
-        tv.setTextColor(Color.parseColor("#ffd32b3b"));
+     //   tv.setTextColor(Color.parseColor("#ffd32b3b"));
 
         //Populate NumberPicker values from minimum and maximum value range
         //Set the minimum value of NumberPicker
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal){
                 //Display the newly selected number from picker
-                tv.setText("Minutos : " + newVal);
+             //   tv.setText("Minutos : " + newVal);
             }
         });
 
@@ -95,16 +93,15 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.start();
     }
 
-    @Override
+    /*@Override
     protected void onStart(){
         super.onStart();
+
         rootChild.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String user = dataSnapshot.getValue().toString();
                 username.setText(user);
-
-
             }
 
             @Override
@@ -112,8 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-    }
+    }*/
 
     @Override
     protected void onPause() {
