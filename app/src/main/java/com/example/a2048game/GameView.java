@@ -17,6 +17,7 @@ import java.util.List;
 public class GameView extends GridLayout {
 
     private Card[][] cardsMap = new Card[4][4];
+    private Card[][] grid = new Card[4][4];
     private List<Point> emptyPoints = new ArrayList<Point>();
 
     public GameView(Context context, AttributeSet attrs, int defStyle){
@@ -33,7 +34,7 @@ public class GameView extends GridLayout {
 
     public GameView(Context context, AttributeSet attrs){
         super(context, attrs);
-
+        addGrid();
         initGameView();
     }
 
@@ -94,7 +95,21 @@ public class GameView extends GridLayout {
         startGame();
 
     }
+    private void addGrid(){
 
+        Card c;
+
+        for (int y= 0;y < 4;y++){
+            for (int x = 0;x < 4; x++){
+                c = new Card(getContext());
+                c.setNum(0);
+                addView(c,220,220);
+
+                grid[x][y] = c;
+            }
+        }
+
+    }
     private void addCards(int cardWidth,int cardHeight){
 
         Card c;
@@ -142,6 +157,7 @@ public class GameView extends GridLayout {
         Point p =emptyPoints.remove((int)(Math.random()*emptyPoints.size()));
         cardsMap[p.x][p.y].setNum(Math.random()>0.1?2:4);
 
+        drawGrid();
 
     }
 
@@ -292,11 +308,11 @@ public class GameView extends GridLayout {
     }
 
     private void drawGrid(){
-        int num;
+        int num = 0;
         for (int y= 0;y < 4; y++){
             for (int x= 0; x < 4; x++){
                 num = cardsMap[x][y].getNum();
-                cardsMap[x][y].setNum(num);
+                grid[x][y].setNum(num);
             }
         }
     }
