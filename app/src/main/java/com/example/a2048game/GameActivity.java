@@ -37,8 +37,9 @@ public class GameActivity extends AppCompatActivity{
     MyCount counter;
     long timeWhenStopped;
 
-    int score=0;
+    int score = 0;
     TextView t = null;
+    TextView highestBlock = (TextView) findViewById(R.id.highestBlock);
 
 
 
@@ -52,9 +53,7 @@ public class GameActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        t =(TextView) findViewById(R.id.Score);
-
-
+        t = (TextView) findViewById(R.id.Score);
 
         Button btnCancel = findViewById(R.id.btnCancel);
 
@@ -123,7 +122,7 @@ public class GameActivity extends AppCompatActivity{
             }else{
                 simpleChronometer.setVisibility(View.GONE);
                 int milliseconds = minutes * 60 * 1000;
-                MyCount counter = new MyCount(milliseconds, 1000);
+                counter = new MyCount(milliseconds, 1000);
                 counter.start();
             }
 
@@ -144,6 +143,13 @@ public class GameActivity extends AppCompatActivity{
         score += s;
         showScore();
     }
+
+
+
+//    public void showHighestBlock(int score, int color){
+//        highestBlock.setBackgroundColor(color);
+//        highestBlock.setText(""+ score);
+//    }
 
 
     //countdowntimer is an abstract class, so extend it and fill in methods
@@ -187,6 +193,7 @@ public class GameActivity extends AppCompatActivity{
 
     public void close()
     {
+        clearScore();
         Bundle userName = getIntent().getExtras();
         String user = userName.getString("user");
         save();

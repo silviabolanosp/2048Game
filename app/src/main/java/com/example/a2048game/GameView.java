@@ -19,6 +19,7 @@ public class GameView extends GridLayout {
     private Card[][] cardsMap = new Card[4][4];
     private Card[][] grid = new Card[4][4];
     private List<Point> emptyPoints = new ArrayList<Point>();
+    private int currentBestBlock = 0;
 
     public GameView(Context context, AttributeSet attrs, int defStyle){
         super(context,attrs,defStyle);
@@ -41,7 +42,6 @@ public class GameView extends GridLayout {
     private void initGameView(){
         setColumnCount(4);
         setBackgroundColor(Color.parseColor("#CACFD2")); // fondo gris
-        //addCards(220,220);
 
         setOnTouchListener(new OnTouchListener() {
 
@@ -62,19 +62,19 @@ public class GameView extends GridLayout {
                         if (Math.abs(offsetX) > Math.abs(offsetY)) {
                             if (offsetX < -5) {
                                     swipeLeft();
-                                    //drawGrid();
+
                                 }else if (offsetX > 5) {
                                     swipeRight();
-                                //drawGrid();
+
 
                                 }
                         }else{
                             if(offsetY<-5){
                                 swipeUp();
-                                //drawGrid();
+
                             }else if (offsetY > 5){
                                 swipeDown();
-                                //drawGrid();
+
                             }
                         }
                         break;
@@ -82,7 +82,7 @@ public class GameView extends GridLayout {
                 return true;
             }
         });
-        //drawGrid();
+
     }
 
     protected void onSizeChanged(int w,int h, int oldw, int oldh){
@@ -157,6 +157,7 @@ public class GameView extends GridLayout {
         Point p =emptyPoints.remove((int)(Math.random()*emptyPoints.size()));
         cardsMap[p.x][p.y].setNum(Math.random()>0.1?2:4);
 
+        //checkHighestBlock();
         drawGrid();
 
     }
@@ -345,6 +346,71 @@ public class GameView extends GridLayout {
             }).show();
         }
 
+    }
+
+//    public void checkHighestBlock(){
+//        int possibleHighestBlock = 0;
+//
+//        for(int x =0; x<4;x++){
+//            for(int y =0; y<4;y++){
+//                if (cardsMap[x][y].getNum() > possibleHighestBlock){
+//                    possibleHighestBlock = cardsMap[x][y].getNum();
+//                }
+//            }
+//        }
+//
+//        if(possibleHighestBlock > currentBestBlock){
+//            currentBestBlock = possibleHighestBlock;
+//
+//        }
+//
+//        GameActivity.getGameActivity().showHighestBlock(possibleHighestBlock, getColorForBlock(possibleHighestBlock));
+//
+//    }
+
+    private int getColorForBlock(int score){
+        int colorInt = 0;
+
+        switch (score){
+
+            case 0:
+                return Color.parseColor("#F0F3F4");
+
+            case 2:
+                return Color.parseColor("#FFF59D");
+
+            case 4:
+                return Color.parseColor("#C5E1A5");
+
+            case 8:
+                return Color.parseColor("#80CBC4");
+
+            case 16:
+                return Color.parseColor("#81D4FA");
+
+            case 32:
+                return Color.parseColor("#9FA8DA");
+
+            case 64:
+                return Color.parseColor("#CE93D8");
+
+            case 128:
+                return Color.parseColor("#FFEB3B");
+
+            case 256:
+                return Color.parseColor("#8BC34A");
+
+            case 512:
+                return Color.parseColor("#3F51B5");
+
+            case 1024:
+                return Color.parseColor("#9C2780");
+
+            case 2048:
+                return Color.parseColor("#F44336");
+        }
+
+        return colorInt;
     }
 
 
