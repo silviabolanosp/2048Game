@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnScores;
     MediaPlayer mediaPlayer;
     Switch timerSwitch;
+    Switch musicSwitch;
+
     NumberPicker np;
     int minutes = 0;
     public static final String EXTRA_MINUTES = "com.example.a2048game.MINUTES";
@@ -67,33 +69,32 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //Get the widgets reference from XML layout
+        // NUMBER PICKER
         np = (NumberPicker) findViewById(R.id.np);
-
-        //Set TextView text color
-        //   tv.setTextColor(Color.parseColor("#ffd32b3b"));
-
-        //Populate NumberPicker values from minimum and maximum value range
-        //Set the minimum value of NumberPicker
         np.setMinValue(1);
-        //Specify the maximum value/number of NumberPicker
         np.setMaxValue(30);
-
-        //Gets whether the selector wheel wraps when reaching the min/max value.
         np.setWrapSelectorWheel(true);
 
-        //Set a value change listener for NumberPicker
-        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
-                //Display the newly selected number from picker
-                //   tv.setText("Minutos : " + newVal);
-            }
-        });
 
         // MUSIC
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
         mediaPlayer.start();
+
+        musicSwitch = (Switch) findViewById(R.id.music);
+
+        musicSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (musicSwitch.isChecked()){
+                    mediaPlayer.start();
+                }
+                else{
+                    mediaPlayer.pause();
+                }
+
+            }
+        });
     }
 
     /*@Override
@@ -111,11 +112,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }*/
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mediaPlayer.stop();
-        mediaPlayer.release();
-
-    }
 }
