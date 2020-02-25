@@ -39,10 +39,13 @@ public class MainActivity extends AppCompatActivity {
                     nameGame.setText(user.getText().toString());
                 }
 
-                if (timerSwitch.isChecked())
+                if (timerSwitch.isChecked()){
                     minutes = np.getValue();
-                else
+                }
+                else{
                     minutes = 0;
+                }
+
 
                 Intent nextView = new Intent(MainActivity.this,GameActivity.class);
                 nextView.putExtra("nameGame",nameGame.getText().toString());
@@ -68,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         np = (NumberPicker) findViewById(R.id.np);
 
         //Set TextView text color
-     //   tv.setTextColor(Color.parseColor("#ffd32b3b"));
+        //   tv.setTextColor(Color.parseColor("#ffd32b3b"));
 
         //Populate NumberPicker values from minimum and maximum value range
         //Set the minimum value of NumberPicker
@@ -84,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal){
                 //Display the newly selected number from picker
-             //   tv.setText("Minutos : " + newVal);
+                //   tv.setText("Minutos : " + newVal);
             }
         });
 
@@ -96,17 +99,14 @@ public class MainActivity extends AppCompatActivity {
     /*@Override
     protected void onStart(){
         super.onStart();
-
         rootChild.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String user = dataSnapshot.getValue().toString();
                 username.setText(user);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }*/
