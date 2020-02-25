@@ -39,7 +39,7 @@ public class GameActivity extends AppCompatActivity{
 
     int score = 0;
     TextView t = null;
-    TextView highestBlock = (TextView) findViewById(R.id.highestBlock);
+    TextView highestBlock;
 
 
 
@@ -54,6 +54,8 @@ public class GameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         t = (TextView) findViewById(R.id.Score);
+
+        highestBlock = (TextView) findViewById(R.id.highestBlock);
 
         Button btnCancel = findViewById(R.id.btnCancel);
 
@@ -145,11 +147,10 @@ public class GameActivity extends AppCompatActivity{
     }
 
 
-
-//    public void showHighestBlock(int score, int color){
-//        highestBlock.setBackgroundColor(color);
-//        highestBlock.setText(""+ score);
-//    }
+    public void showHighestBlock(int score, int color){
+        highestBlock.setBackgroundColor(color);
+        highestBlock.setText(""+ score);
+    }
 
 
     //countdowntimer is an abstract class, so extend it and fill in methods
@@ -162,7 +163,41 @@ public class GameActivity extends AppCompatActivity{
 
         @Override
         public void onFinish() {
-            timer.setText("done!");
+            timer.setText("0!");
+            AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+
+            builder.setTitle("Se agotó el tiempo");
+
+            builder.setMessage("¿Desea ir al menú?");
+
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch(which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            close();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            close();
+                            break;
+
+                        case DialogInterface.BUTTON_NEUTRAL:
+                            close();
+                            break;
+                    }
+                }
+            };
+
+            builder.setPositiveButton("Si", dialogClickListener);
+
+            builder.setNegativeButton("No",dialogClickListener);
+
+            builder.setNeutralButton("Cancelar", dialogClickListener);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
         }
 
         @Override
@@ -172,7 +207,6 @@ public class GameActivity extends AppCompatActivity{
         }
 
     }
-
 
 
     public void save(){
@@ -202,23 +236,5 @@ public class GameActivity extends AppCompatActivity{
         startActivity(i);
 
     }
-    public void endGame()
-    {
-        ConstraintLayout cl=(ConstraintLayout) findViewById(R.id.wholelayout);
-        LinearLayout lll= new LinearLayout(this);
-        lll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        lll.setBackgroundColor(getResources().getColor(R.color.translucent));
-        lll.setGravity(Gravity.CENTER);
-        TextView result= new TextView(this);
 
-
-        result.setText("Partida terminada");
-        result.setGravity(Gravity.CENTER);
-        lll.addView(result);
-        cl.addView(lll);
-        Intent i= new Intent(GameActivity.this,ResultPage.class);
-        i.putExtra("Result",1);
-        startActivity(i);
-
-    }
 }

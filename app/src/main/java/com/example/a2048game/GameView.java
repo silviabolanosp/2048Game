@@ -157,7 +157,7 @@ public class GameView extends GridLayout {
         Point p =emptyPoints.remove((int)(Math.random()*emptyPoints.size()));
         cardsMap[p.x][p.y].setNum(Math.random()>0.1?2:4);
 
-        //checkHighestBlock();
+        checkHighestBlock();
         drawGrid();
 
     }
@@ -348,25 +348,25 @@ public class GameView extends GridLayout {
 
     }
 
-//    public void checkHighestBlock(){
-//        int possibleHighestBlock = 0;
-//
-//        for(int x =0; x<4;x++){
-//            for(int y =0; y<4;y++){
-//                if (cardsMap[x][y].getNum() > possibleHighestBlock){
-//                    possibleHighestBlock = cardsMap[x][y].getNum();
-//                }
-//            }
-//        }
-//
-//        if(possibleHighestBlock > currentBestBlock){
-//            currentBestBlock = possibleHighestBlock;
-//
-//        }
-//
-//        GameActivity.getGameActivity().showHighestBlock(possibleHighestBlock, getColorForBlock(possibleHighestBlock));
-//
-//    }
+    public void checkHighestBlock(){
+        int possibleHighestBlock = 0;
+
+        for(int x =0; x<4;x++){
+            for(int y =0; y<4;y++){
+                if (cardsMap[x][y].getNum() > possibleHighestBlock){
+                    possibleHighestBlock = cardsMap[x][y].getNum();
+                }
+            }
+        }
+
+        if(possibleHighestBlock > currentBestBlock){
+            currentBestBlock = possibleHighestBlock;
+
+        }
+
+        GameActivity.getGameActivity().showHighestBlock(possibleHighestBlock, getColorForBlock(possibleHighestBlock));
+
+    }
 
     private int getColorForBlock(int score){
         int colorInt = 0;
