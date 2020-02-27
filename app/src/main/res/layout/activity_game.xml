@@ -65,7 +65,7 @@
         tools:layout_conversion_absoluteWidth="0dp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView2"
         android:layout_width="95dp"
         android:layout_height="30dp"
         android:fontFamily="sans-serif-condensed"
@@ -128,18 +128,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.012" />
 
-    <GridView
-        android:id="@+id/gamebackground"
+
+    <com.example.a2048game.GameView
+        android:id="@+id/gameView"
         android:layout_width="370dp"
         android:layout_height="365dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="130dp"
-        android:background="#CACFD2"
+        android:layout_marginBottom="88dp"
         android:columnWidth="70dp"
         android:horizontalSpacing="5dp"
-        android:numColumns="4"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
         android:paddingRight="15dp"
@@ -149,10 +148,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2"
-        app:layout_constraintVertical_bias="0.744">
-
-    </GridView>
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.781"></com.example.a2048game.GameView>
 
     <Button
         android:id="@+id/btnCancel"
@@ -196,13 +193,13 @@
         app:layout_constraintTop_toBottomOf="@+id/logoImageView" >
 
         <TextView
-            android:id="@+id/blocknumber"
+            android:id="@+id/highestBlock"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="0"
             android:textAlignment="center"
             android:textSize="25dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

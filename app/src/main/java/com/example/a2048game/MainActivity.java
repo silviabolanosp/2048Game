@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     minutes = 0;
                 }
 
+
                 Intent nextView = new Intent(MainActivity.this,GameActivity.class);
                 nextView.putExtra("nameGame",nameGame.getText().toString());
                 nextView.putExtra("user", user.getText().toString());
