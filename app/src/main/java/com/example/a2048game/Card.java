@@ -44,6 +44,16 @@ public class Card extends FrameLayout {
         }
 
 
+        if(this.num == -1){
+            label.setText("bloque");
+            label.setBackgroundColor(Color.parseColor("#A3A3A3"));
+        }
+
+        if(this.num == 1){
+            label.setText("BOMB");
+            label.setBackgroundColor(Color.parseColor("#920202"));
+        }
+
         if(this.num == 0){
             label.setBackgroundColor(Color.parseColor("#F0F3F4"));
         }

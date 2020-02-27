@@ -3,44 +3,43 @@ package com.example.a2048game;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
-import android.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class GameView extends GridLayout {
+public class GameView6x6 extends GridLayout {
 
-    private Card[][] cardsMap = new Card[4][4];
-    private Card[][] grid = new Card[4][4];
+    private Card[][] cardsMap = new Card[6][6];
+    private Card[][] grid = new Card[6][6];
     private List<Point> emptyPoints = new ArrayList<Point>();
     private int currentBestBlock = 0;
 
-    public GameView(Context context, AttributeSet attrs, int defStyle){
+    public GameView6x6(Context context, AttributeSet attrs, int defStyle){
         super(context,attrs,defStyle);
-
         initGameView();
     }
 
-    public GameView(Context context){
+    public GameView6x6(Context context){
         super(context);
 
         initGameView();
 }
 
-    public GameView(Context context, AttributeSet attrs){
+    public GameView6x6(Context context, AttributeSet attrs){
         super(context, attrs);
         addGrid();
         initGameView();
     }
 
     private void initGameView(){
-        setColumnCount(4);
+        setColumnCount(6);
         setBackgroundColor(Color.parseColor("#CACFD2")); // fondo gris
 
         setOnTouchListener(new OnTouchListener() {
@@ -99,11 +98,11 @@ public class GameView extends GridLayout {
 
         Card c;
 
-        for (int y= 0;y < 4;y++){
-            for (int x = 0;x < 4; x++){
+        for (int y= 0;y < 6;y++){
+            for (int x = 0;x < 6; x++){
                 c = new Card(getContext());
                 c.setNum(0);
-                addView(c,220,220);
+                addView(c,150,150);
 
                 grid[x][y] = c;
             }
@@ -114,8 +113,8 @@ public class GameView extends GridLayout {
 
         Card c;
 
-        for (int y= 0;y < 4;y++){
-            for (int x = 0;x < 4; x++){
+        for (int y= 0;y < 6;y++){
+            for (int x = 0;x < 6; x++){
                 c = new Card(getContext());
                 c.setNum(0);
                 addView(c,cardWidth,cardHeight);
@@ -130,8 +129,8 @@ public class GameView extends GridLayout {
 
         GameActivity.getGameActivity().clearScore();
 
-        for (int y= 0;y<4;y++){
-            for (int x= 0;x<4;x++){
+        for (int y= 0;y<6;y++){
+            for (int x= 0;x<6;x++){
                 cardsMap[x][y].setNum(0);
 
             }
@@ -146,8 +145,8 @@ public class GameView extends GridLayout {
 
         emptyPoints.clear();
 
-        for (int y = 0;y < 4;y++){
-            for (int x = 0; x < 4;x++){
+        for (int y = 0;y < 6;y++){
+            for (int x = 0; x < 6;x++){
                 if (cardsMap[x][y].getNum()<=0){
                     emptyPoints.add(new Point(x,y));
                 }
@@ -167,10 +166,10 @@ public class GameView extends GridLayout {
 
         boolean merge = false;
 
-        for (int y =0 ;y < 4;y++){
-            for (int x= 0;x<4;x++){
+        for (int y =0 ;y < 6;y++){
+            for (int x= 0;x<6;x++){
 
-                for(int x1 = x + 1; x1 < 4;x1++){
+                for(int x1 = x + 1; x1 < 6;x1++){
                     if (cardsMap[x1][y].getNum()>0){
 
                         if (cardsMap[x][y].getNum()<=0){
@@ -204,8 +203,8 @@ public class GameView extends GridLayout {
 
         boolean merge = false;
 
-        for (int y =0 ;y < 4;y++){
-            for (int x= 3;x >= 0;x--){
+        for (int y =0 ;y < 6;y++){
+            for (int x= 5;x >= 0;x--){
 
                 for(int x1 = x - 1; x1 >= 0;x1--){
                     if (cardsMap[x1][y].getNum()>0){
@@ -241,10 +240,10 @@ public class GameView extends GridLayout {
 
         boolean merge = false;
 
-        for (int x =0 ;x < 4;x++){
-            for (int y= 0;y<4;y++){
+        for (int x =0 ;x < 6;x++){
+            for (int y= 0;y<6;y++){
 
-                for(int y1 = y + 1; y1 < 4;y1++){
+                for(int y1 = y + 1; y1 < 6;y1++){
                     if (cardsMap[x][y1].getNum()>0){
 
                         if (cardsMap[x][y].getNum()<=0){
@@ -277,8 +276,8 @@ public class GameView extends GridLayout {
 
         boolean merge = false;
 
-        for (int x =0 ;x < 4;x++){
-            for (int y= 3;y>=0;y--){
+        for (int x =0 ;x < 6;x++){
+            for (int y= 5;y>=0;y--){
 
                 for(int y1 = y - 1; y1 >= 0;y1--){
                     if (cardsMap[x][y1].getNum()>0){
@@ -311,8 +310,8 @@ public class GameView extends GridLayout {
 
     private void drawGrid(){
         int num = 0;
-        for (int y= 0;y < 4; y++){
-            for (int x= 0; x < 4; x++){
+        for (int y= 0;y < 6; y++){
+            for (int x= 0; x < 6; x++){
                 num = cardsMap[x][y].getNum();
                 grid[x][y].setNum(num);
             }
@@ -324,13 +323,13 @@ public class GameView extends GridLayout {
         boolean complete = true;
 
         ALL:
-        for (int y= 0;y < 4; y++){
-            for (int x= 0; x < 4; x++){
+        for (int y= 0;y < 6; y++){
+            for (int x= 0; x < 6; x++){
                 if (cardsMap[x][y].getNum() == 0 ||
                         (x>0&&cardsMap[x][y].equals(cardsMap[x-1][y]))||
-                        (x<3&&cardsMap[x][y].equals(cardsMap[x+1][y]))||
+                        (x<5&&cardsMap[x][y].equals(cardsMap[x+1][y]))||
                         (y>0&&cardsMap[x][y].equals(cardsMap[x][y-1]))||
-                        (y<3&&cardsMap[x][y].equals(cardsMap[x][y+1]))){
+                        (y<5&&cardsMap[x][y].equals(cardsMap[x][y+1]))){
                     complete = false;
                     break ALL;
                 }
@@ -352,8 +351,8 @@ public class GameView extends GridLayout {
     public void checkHighestBlock(){
         int possibleHighestBlock = 0;
 
-        for(int x =0; x<4;x++){
-            for(int y =0; y<4;y++){
+        for(int x =0; x<6;x++){
+            for(int y =0; y<6;y++){
                 if (cardsMap[x][y].getNum() > possibleHighestBlock){
                     possibleHighestBlock = cardsMap[x][y].getNum();
                 }

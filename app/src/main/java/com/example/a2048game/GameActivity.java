@@ -1,16 +1,8 @@
 package com.example.a2048game;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,9 +12,7 @@ import android.widget.Chronometer;
 import android.os.SystemClock;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.util.*;
 public class GameActivity extends AppCompatActivity{
 
     private static GameActivity gameActivity = null;
@@ -38,8 +28,10 @@ public class GameActivity extends AppCompatActivity{
     long timeWhenStopped;
 
     int score = 0;
-    TextView t = null;
+    TextView scoreLabel= null;
     TextView highestBlock;
+    GameView6x6 grid6x6;
+    GameView grid4x4;
 
 
 
@@ -53,7 +45,10 @@ public class GameActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        t = (TextView) findViewById(R.id.Score);
+
+
+
+        scoreLabel= (TextView) findViewById(R.id.Score);
 
         highestBlock = (TextView) findViewById(R.id.highestBlock);
 
@@ -128,6 +123,25 @@ public class GameActivity extends AppCompatActivity{
                 counter.start();
             }
 
+        grid4x4= (GameView) findViewById(R.id.gameView4x4);
+        grid6x6= (GameView6x6) findViewById(R.id.gameView6x6);
+
+        int gridSize = extras.getInt(MainActivity.EXTRA_GRID_SIZE);
+
+        switch (gridSize){
+            case 4:
+                grid6x6.setVisibility(View.GONE);
+                break;
+            case 6:
+                grid4x4.setVisibility(View.GONE);
+                break;
+            default:
+                grid6x6.setVisibility(View.GONE);
+                break;
+        }
+
+
+
 
     }
 
@@ -138,7 +152,7 @@ public class GameActivity extends AppCompatActivity{
 
     public void showScore(){
 
-        t.setText(score + "");
+        scoreLabel.setText(score + "");
     }
 
     public void addScore(int s){
@@ -214,7 +228,7 @@ public class GameActivity extends AppCompatActivity{
         Bundle userName = getIntent().getExtras();
         String name = nameGame.getString("nameGame");
         String user = userName.getString("user");
-        String s= t.getText().toString();
+        String s= scoreLabel.getText().toString();
         int score = Integer.parseInt(s);
         Game g = new Game();
         g.setName(name);
@@ -236,5 +250,6 @@ public class GameActivity extends AppCompatActivity{
         startActivity(i);
 
     }
+
 
 }

@@ -14,13 +14,18 @@ public class MainActivity extends AppCompatActivity {
     private TextView user;
     Button btnStart;
     Button btnScores;
+    Button btnTutorial;
     MediaPlayer mediaPlayer;
     Switch timerSwitch;
     Switch musicSwitch;
+    Switch gridSizeSwitch;
 
     NumberPicker np;
+
     int minutes = 0;
+    int gridSize = 0;
     public static final String EXTRA_MINUTES = "com.example.a2048game.MINUTES";
+    public static final String EXTRA_GRID_SIZE = "com.example.a2048game.GRID_SIZE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         user.setText(nameUser.toString());
         nameGame= (TextView) findViewById(R.id.user);
         timerSwitch = (Switch) findViewById(R.id.timer);
+        gridSizeSwitch = (Switch) findViewById(R.id.gridSize);
+
         btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,10 +56,19 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
+                if (gridSizeSwitch.isChecked() == true){ //4x4
+                    gridSize = 4;
+                }
+                else{ // 6x6
+                    gridSize = 6;
+                }
+
+
                 Intent nextView = new Intent(MainActivity.this,GameActivity.class);
                 nextView.putExtra("nameGame",nameGame.getText().toString());
                 nextView.putExtra("user", user.getText().toString());
                 nextView.putExtra(EXTRA_MINUTES, minutes);
+                nextView.putExtra(EXTRA_GRID_SIZE, gridSize);
                 startActivity(nextView);
             }
         });
@@ -64,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent scoresView = new Intent(MainActivity.this,ResultPage.class);
                 scoresView.putExtra("user", user.getText().toString());
                 startActivity(scoresView);
+            }
+        });
+
+        btnTutorial = findViewById(R.id.btnTutorial);
+        btnTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tutorialView = new Intent(MainActivity.this,Tutorial.class);
+                startActivity(tutorialView);
             }
         });
 
