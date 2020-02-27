@@ -1,10 +1,10 @@
 package com.example.a2048game;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 
 public class MyCount extends CountDownTimer {
     TextView timer = (TextView) findViewById(R.id.timer);
@@ -17,7 +17,6 @@ public class MyCount extends CountDownTimer {
     public void onFinish() {
         timer.setText("0!");
         AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
-
         builder.setTitle("Se agotó el tiempo");
 
         builder.setMessage("¿Desea ir al menú?");
