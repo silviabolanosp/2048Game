@@ -1,16 +1,9 @@
 package com.example.a2048game;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,9 +11,7 @@ import android.widget.Button;
 import android.os.CountDownTimer;
 import android.widget.Chronometer;
 import android.os.SystemClock;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.*;
 public class GameActivity extends AppCompatActivity{
@@ -39,20 +30,16 @@ public class GameActivity extends AppCompatActivity{
     Bundle userName;
     Bundle nameGame;
     private TextView user;
-
-    int score = 0;
     TextView t = null;
     TextView highestBlock;
+    int score=0;
 
-    public static Save database = new Save();
-    public GameActivity()
-        {
-            map=new HashMap<>();
-        }
-        int score=0;
-        TextView t=null;
 
-        @Override
+    public GameActivity() {
+        gameActivity = this;
+    }
+
+/*        @Override
         protected void onCreate(Bundle savedInstanceState) {
             setContentView(R.layout.activity_game);
             super.onCreate(savedInstanceState);
@@ -62,7 +49,7 @@ public class GameActivity extends AppCompatActivity{
             user = findViewById(R.id.txtUserName);
             user.setText(nameUser.toString());
             t=(TextView) findViewById(R.id.Score);
-            grid=(GridView)findViewById(R.id.gamebackground);
+            GridView grid=(GridView)findViewById(R.id.gamebackground);
             Random random1=new Random();
             int r1 = random1.nextInt(16-1+1)+1;
             Random random2=new Random();
@@ -77,18 +64,18 @@ public class GameActivity extends AppCompatActivity{
                 {
                     r2--;
                 }
-            }
-
-    public GameActivity()
-        {
-            gameActivity = this;
-        }
+            }*/
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        nameGame = getIntent().getExtras();
+        userName = getIntent().getExtras();
+        final String nameUser = userName.getString("user");
+        user = findViewById(R.id.txtUserName);
+        user.setText(nameUser.toString());
         t = (TextView) findViewById(R.id.Score);
 
         highestBlock = (TextView) findViewById(R.id.highestBlock);
@@ -144,25 +131,25 @@ public class GameActivity extends AppCompatActivity{
             }
         });
 
-            // 5000 is the starting number (in milliseconds)
-            // 1000 is the number to count down each time (in milliseconds)
+        // 5000 is the starting number (in milliseconds)
+        // 1000 is the number to count down each time (in milliseconds)
 
-            Bundle extras = getIntent().getExtras();
-            int minutes = extras.getInt(MainActivity.EXTRA_MINUTES);
-            simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer);
-            timer = (TextView) findViewById(R.id.timer);
+        Bundle extras = getIntent().getExtras();
+        int minutes = extras.getInt(MainActivity.EXTRA_MINUTES);
+        simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer);
+        timer = (TextView) findViewById(R.id.timer);
 
-            if (minutes == 0){
-                timer.setVisibility(View.GONE);
-                //simpleChronometer.setFormat("Time (%s)");
-                simpleChronometer.start();
-                // simpleChronometer.stop();
-            }else{
-                simpleChronometer.setVisibility(View.GONE);
-                int milliseconds = minutes * 60 * 1000;
-                counter = new MyCount(milliseconds, 1000);
-                counter.start();
-            }
+        if (minutes == 0){
+            timer.setVisibility(View.GONE);
+            //simpleChronometer.setFormat("Time (%s)");
+            simpleChronometer.start();
+            // simpleChronometer.stop();
+        }else{
+            simpleChronometer.setVisibility(View.GONE);
+            int milliseconds = minutes * 60 * 1000;
+            counter = new MyCount(milliseconds, 1000);
+            counter.start();
+        }
 
 
     }

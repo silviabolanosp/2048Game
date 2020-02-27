@@ -149,7 +149,9 @@
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.781"></com.example.a2048game.GameView>
+        app:layout_constraintVertical_bias="0.781">
+
+    </com.example.a2048game.GameView>
 
     <Button
         android:id="@+id/btnCancel"
