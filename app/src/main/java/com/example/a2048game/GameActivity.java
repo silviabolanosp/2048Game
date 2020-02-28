@@ -26,6 +26,9 @@ public class GameActivity extends AppCompatActivity{
     TextView timer;
     MyCount counter;
     long timeWhenStopped;
+    Bundle userName;
+    Bundle nameGame;
+    private TextView user;
 
     int score = 0;
     TextView scoreLabel= null;
@@ -45,7 +48,6 @@ public class GameActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
 
 
         scoreLabel= (TextView) findViewById(R.id.Score);
@@ -246,10 +248,9 @@ public class GameActivity extends AppCompatActivity{
         String user = userName.getString("user");
         save();
         Intent i= new Intent(GameActivity.this,MainActivity.class);
-        i.putExtra("user",user);
+        i.putExtra("userName",user);
         startActivity(i);
 
     }
-
 
 }

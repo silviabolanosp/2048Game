@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Bundle userName = getIntent().getExtras();
         final String nameUser = userName.getString("userName");
-        user = (TextView) findViewById(R.id.txtUserName);
+        user = findViewById(R.id.txtUserName);
         user.setText(nameUser.toString());
         nameGame= (TextView) findViewById(R.id.user);
         timerSwitch = (Switch) findViewById(R.id.timer);
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 nextView.putExtra(EXTRA_MINUTES, minutes);
                 nextView.putExtra(EXTRA_GRID_SIZE, gridSize);
                 startActivity(nextView);
+
             }
         });
 
@@ -122,19 +123,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*@Override
-    protected void onStart(){
-        super.onStart();
-        rootChild.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String user = dataSnapshot.getValue().toString();
-                username.setText(user);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }*/
 
 }
