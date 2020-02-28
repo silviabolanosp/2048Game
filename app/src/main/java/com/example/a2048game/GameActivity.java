@@ -1,6 +1,7 @@
 package com.example.a2048game;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import android.os.CountDownTimer;
 import android.widget.Chronometer;
 import android.os.SystemClock;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 
 public class GameActivity extends AppCompatActivity{
@@ -29,12 +31,14 @@ public class GameActivity extends AppCompatActivity{
     Bundle userName;
     Bundle nameGame;
     private TextView user;
-
+    Bundle mode;
+    boolean darkMode;
     int score = 0;
     TextView scoreLabel= null;
     TextView highestBlock;
     GameView6x6 grid6x6;
     GameView grid4x4;
+    ConstraintLayout layout;
 
     public GameActivity()
         {
@@ -46,15 +50,14 @@ public class GameActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        t = (TextView) findViewById(R.id.Score);
         nameGame = getIntent().getExtras();
         userName = getIntent().getExtras();
+        mode = getIntent().getExtras();
+        darkMode = mode.getBoolean("mode");
+        changeMode();
         final String nameUser = userName.getString("user");
         user = findViewById(R.id.txtUserName);
         user.setText(nameUser.toString());
-
-
-
         scoreLabel= (TextView) findViewById(R.id.Score);
 
         highestBlock = (TextView) findViewById(R.id.highestBlock);
@@ -150,6 +153,15 @@ public class GameActivity extends AppCompatActivity{
 
 
 
+    }
+
+    private void changeMode() {
+        layout = findViewById(R.id.wholelayout);
+        if(darkMode == true){
+            layout.setBackgroundColor(Color.parseColor("#424242"));
+        }else{
+            layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
+        }
     }
 
     public void clearScore(){
@@ -248,10 +260,10 @@ public class GameActivity extends AppCompatActivity{
 
     public void close()
     {
-        clearScore();
         Bundle userName = getIntent().getExtras();
         String user = userName.getString("user");
         save();
+        clearScore();
         Intent i= new Intent(GameActivity.this,MainActivity.class);
         i.putExtra("userName",user);
         startActivity(i);

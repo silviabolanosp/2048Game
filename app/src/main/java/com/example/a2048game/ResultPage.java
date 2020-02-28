@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +30,7 @@ public class ResultPage extends AppCompatActivity {
     DatabaseReference myDatabase;
     ListView lisG;
     Bundle userName;
+    String name;
     private TextView user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +42,15 @@ public class ResultPage extends AppCompatActivity {
         user.setText(nameUser.toString());
         lisG = findViewById(R.id.list);
         databaseIni();
+        name = userName.getString("user");
         listGames();
         btnback = findViewById(R.id.btnCancel);
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent nextView = new Intent(ResultPage.this,MainActivity.class);
-                String user = userName.getString("user");
-                nextView.putExtra("userName", user);
+                name = userName.getString("user");
+                nextView.putExtra("userName", name);
                 startActivity(nextView);
             }
         });
@@ -55,26 +58,27 @@ public class ResultPage extends AppCompatActivity {
     }
 
     private void databaseIni() {
-        myDatabase = FirebaseDatabase.getInstance().getReference();
+        myDatabase = FirebaseDatabase.getInstance().getReference("games");
     }
 
     private void listGames() {
-        myDatabase.child("games").addValueEventListener(new ValueEventListener() {
+        myDatabase.orderByChild("score").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listGames.clear();
                 for(DataSnapshot obj : dataSnapshot.getChildren()){
                     Game g = obj.getValue(Game.class);
-                    listGames.add(g);
+                   if(g.getUser().equals(name)){
+                        listGames.add(g);
+                        arrayAdapter = new ArrayAdapter<Game>(ResultPage.this, android.R.layout.simple_list_item_1, listGames);
+                        lisG.setAdapter(arrayAdapter);
+                    }
 
-                    arrayAdapter = new ArrayAdapter<Game>(ResultPage.this, android.R.layout.simple_list_item_1, listGames);
-                    lisG.setAdapter(arrayAdapter);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.example.a2048game;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,9 +12,6 @@ import android.widget.NumberPicker;
 import android.media.MediaPlayer;
 import android.widget.Switch;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private TextView nameGame;
@@ -25,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
     Switch colorSwtich;
     Switch musicSwitch;
     Switch gridSizeSwitch;
-
+    ConstraintLayout layout;
+    boolean darkMode = false;
     NumberPicker np;
 
     int minutes = 0;
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        layout = findViewById(R.id.main);
         Bundle userName = getIntent().getExtras();
         final String nameUser = userName.getString("userName");
         user = findViewById(R.id.txtUserName);
@@ -46,13 +47,15 @@ public class MainActivity extends AppCompatActivity {
         gridSizeSwitch = (Switch) findViewById(R.id.gridSize);
 
         timerSwitch = findViewById(R.id.timer);
-        colorSwtich = findViewById(R.id.colorSwitch);
-        btnStart = findViewById(R.id.btnStart);
 
-        if (colorSwtich.isChecked()) {
-            btnStart.setBackgroundColor(Color.parseColor("#fff"));
-        }else {
-        }
+        colorSwtich = findViewById(R.id.colorSwitch);
+        colorSwtich.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeColor();
+            }
+        });
+        btnStart = findViewById(R.id.btnStart);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
                     gridSize = 6;
                 }
 
-
                 Intent nextView = new Intent(MainActivity.this,GameActivity.class);
                 nextView.putExtra("nameGame",nameGame.getText().toString());
                 nextView.putExtra("user", user.getText().toString());
+                nextView.putExtra("mode", darkMode);
                 nextView.putExtra(EXTRA_MINUTES, minutes);
                 nextView.putExtra(EXTRA_GRID_SIZE, gridSize);
                 startActivity(nextView);
@@ -102,11 +105,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent tutorialView = new Intent(MainActivity.this,Tutorial.class);
+                tutorialView.putExtra("user", user.getText().toString());
                 startActivity(tutorialView);
             }
         });
-
-
 
         // NUMBER PICKER
         np = (NumberPicker) findViewById(R.id.np);
@@ -145,6 +147,21 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         mediaPlayer.stop();
         mediaPlayer.release();
+
+    }
+
+    protected void changeColor(){
+        layout = findViewById(R.id.main);
+        if (colorSwtich.isChecked()) {
+            layout.setBackgroundColor(Color.parseColor("#424242"));
+            nameGame.setTextColor(Color.parseColor("#FBFEF9"));
+            darkMode = true;
+        }else {
+            layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
+            nameGame.setTextColor(Color.parseColor("#5603AD"));
+            darkMode = false;
+        }
+
 
     }
 

@@ -41,8 +41,8 @@ public class GameView extends GridLayout {
 
     private void initGameView(){
         setColumnCount(4);
-        setBackgroundColor(Color.parseColor("#CACFD2")); // fondo gris
-
+        setBackgroundColor(Color.parseColor("#0080FF")); // fondo azul
+    //#CACFD2   fondo gris
         setOnTouchListener(new OnTouchListener() {
 
             private float startX,startY,offsetX,offsetY;
@@ -337,6 +337,7 @@ public class GameView extends GridLayout {
             }
         }
 
+/*
         if (complete){
             new AlertDialog.Builder(getContext()).setTitle("Game Over").setMessage("Press button below to start again.").setPositiveButton("Play Again",new DialogInterface.OnClickListener() {
                 @Override
@@ -346,6 +347,7 @@ public class GameView extends GridLayout {
                 }
             }).show();
         }
+*/
 
     }
 

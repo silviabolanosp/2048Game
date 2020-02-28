@@ -8,4 +8,6 @@
     <color name="grid">#F7F7EA</color>
     <color name="background">#A5C3EA</color>
     <color name="score">#FFEB3B</color>
+    <color name="btnStartDark">#AEB404</color>
+    <color name="btnStartLight">#F1D302</color>
 </resources>
