@@ -3,37 +3,38 @@ package com.example.a2048game;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
-import android.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class GameView extends GridLayout {
+public class GameViewBomb extends GridLayout {
 
     private Card[][] cardsMap = new Card[4][4];
     private Card[][] grid = new Card[4][4];
     private List<Point> emptyPoints = new ArrayList<Point>();
     private int currentBestBlock = 0;
+    int turn = 0;
 
-    public GameView(Context context, AttributeSet attrs, int defStyle){
+    public GameViewBomb(Context context, AttributeSet attrs, int defStyle){
         super(context,attrs,defStyle);
 
         initGameView();
     }
 
-    public GameView(Context context){
+    public GameViewBomb(Context context){
         super(context);
 
         initGameView();
 }
 
-    public GameView(Context context, AttributeSet attrs){
+    public GameViewBomb(Context context, AttributeSet attrs){
         super(context, attrs);
         addGrid();
         initGameView();
@@ -92,7 +93,7 @@ public class GameView extends GridLayout {
 
         addCards(cardWidth,cardWidth);
 
-        startGame();
+        startGameBomb();
 
     }
     private void addGrid(){
@@ -126,7 +127,11 @@ public class GameView extends GridLayout {
 
     }
 
-    private void startGame(){
+
+
+
+
+    private void startGameBomb(){
 
         GameActivity.getGameActivity().clearScore();
 
@@ -137,12 +142,12 @@ public class GameView extends GridLayout {
             }
         }
 
-        addRandomNum();
-        addRandomNum();
+        addRandomNumBomb();
+        addRandomNumBomb();
 
     }
 
-    private void addRandomNum(){
+    private void addRandomNumBomb(){
 
         emptyPoints.clear();
 
@@ -155,13 +160,27 @@ public class GameView extends GridLayout {
         }
 
         Point p =emptyPoints.remove((int)(Math.random()*emptyPoints.size()));
-        cardsMap[p.x][p.y].setNum(Math.random()>0.1?2:4);
+
+        if(turn % 5 != 0 || turn % 6 != 0){
+            cardsMap[p.x][p.y].setNum(Math.random()>0.1?2:4);
+        }else{
+            if(turn % 5 == 0 && turn % 6 == 0){
+                cardsMap[p.x][p.y].setNum(Math.random()>0.1?-1:1);
+            }else{
+                if(turn % 5 == 0 ){
+                    cardsMap[p.x][p.y].setNum(-1);
+                }else{
+                    cardsMap[p.x][p.y].setNum(1);
+                }
+            }
+        }
+
 
         checkHighestBlock();
         drawGrid();
+        turn++;
 
     }
-
 
     private void swipeLeft(){
 
@@ -171,7 +190,7 @@ public class GameView extends GridLayout {
             for (int x= 0;x<4;x++){
 
                 for(int x1 = x + 1; x1 < 4;x1++){
-                    if (cardsMap[x1][y].getNum()>0){
+                    if (cardsMap[x1][y].getNum() != 0 ){ /// entra si es diferente a 0. original (cardsMap[x1][y].getNum()>0)
 
                         if (cardsMap[x][y].getNum()<=0){
                             cardsMap[x][y].setNum(cardsMap[x1][y].getNum());
@@ -195,7 +214,7 @@ public class GameView extends GridLayout {
             }
         }
         if (merge){
-            addRandomNum();
+            addRandomNumBomb();
             checkComplete();
         }
     }
@@ -232,7 +251,7 @@ public class GameView extends GridLayout {
 
         }
         if (merge){
-            addRandomNum();
+            addRandomNumBomb();
             checkComplete();
         }
     }
@@ -268,7 +287,7 @@ public class GameView extends GridLayout {
         }
 
         if (merge){
-            addRandomNum();
+            addRandomNumBomb();
             checkComplete();
         }
     }
@@ -281,21 +300,31 @@ public class GameView extends GridLayout {
             for (int y= 3;y>=0;y--){
 
                 for(int y1 = y - 1; y1 >= 0;y1--){
-                    if (cardsMap[x][y1].getNum()>0){
+                    if (cardsMap[x][y1].getNum()>=-1){
 
-                        if (cardsMap[x][y].getNum()<=0){
+                        if (cardsMap[x][y].getNum() == 0 ){
                             cardsMap[x][y].setNum(cardsMap[x][y1].getNum());
                             cardsMap[x][y1].setNum(0);
 
                             y++;
                             merge = true;
-                        }else if (cardsMap[x][y].equals(cardsMap[x][y1])){
-                            cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
-                            cardsMap[x][y1].setNum(0);
+                        }else
+                            if (cardsMap[x][y].equals(cardsMap[x][y1]) && (!cardsMap[x][y].equals(1) || !cardsMap[x][y1].equals(1) || !cardsMap[x][y].equals(-1) || !cardsMap[x][y1].equals(-1))){
+                                cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
+                                cardsMap[x][y1].setNum(0);
 
-                            GameActivity.getGameActivity().addScore(cardsMap[x][y].getNum());
-                            merge= true;
-                        }
+                                GameActivity.getGameActivity().addScore(cardsMap[x][y].getNum());
+
+                                }else{
+
+                                    if (cardsMap[x][y].getNum() < 2 && cardsMap[x][y1].getNum() < 2){
+                                        cardsMap[x][y1].setNum(0);
+                                    }
+                                    merge= true;
+                                }
+
+
+
 
                         break;
                     }
@@ -304,7 +333,7 @@ public class GameView extends GridLayout {
         }
 
         if (merge){
-            addRandomNum();
+            addRandomNumBomb();
             checkComplete();
         }
     }
@@ -341,7 +370,7 @@ public class GameView extends GridLayout {
             new AlertDialog.Builder(getContext()).setTitle("Game Over").setMessage("Press button below to start again.").setPositiveButton("Play Again",new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    startGame();
+                    startGameBomb();
 
                 }
             }).show();

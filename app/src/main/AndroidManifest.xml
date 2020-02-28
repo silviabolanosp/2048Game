@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".GameActivity" android:parentActivityName=".MainActivity"/>
         <activity android:name=".ResultPage"/>
+        <activity android:name=".Tutorial"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".InitActivity">
             <intent-filter>

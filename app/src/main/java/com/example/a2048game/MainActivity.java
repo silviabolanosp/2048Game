@@ -19,12 +19,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView user;
     Button btnStart;
     Button btnScores;
+    Button btnTutorial;
     MediaPlayer mediaPlayer;
     Switch timerSwitch;
     Switch colorSwtich;
+    Switch musicSwitch;
+    Switch gridSizeSwitch;
+
     NumberPicker np;
+
     int minutes = 0;
+    int gridSize = 0;
     public static final String EXTRA_MINUTES = "com.example.a2048game.MINUTES";
+    public static final String EXTRA_GRID_SIZE = "com.example.a2048game.GRID_SIZE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
         final String nameUser = userName.getString("userName");
         user = findViewById(R.id.txtUserName);
         user.setText(nameUser.toString());
-        nameGame= findViewById(R.id.user);
+        nameGame= (TextView) findViewById(R.id.user);
+        timerSwitch = (Switch) findViewById(R.id.timer);
+        gridSizeSwitch = (Switch) findViewById(R.id.gridSize);
+
         timerSwitch = findViewById(R.id.timer);
         colorSwtich = findViewById(R.id.colorSwitch);
         btnStart = findViewById(R.id.btnStart);
@@ -59,10 +69,19 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
+                if (gridSizeSwitch.isChecked() == true){ //4x4
+                    gridSize = 4;
+                }
+                else{ // 6x6
+                    gridSize = 6;
+                }
+
+
                 Intent nextView = new Intent(MainActivity.this,GameActivity.class);
                 nextView.putExtra("nameGame",nameGame.getText().toString());
                 nextView.putExtra("user", user.getText().toString());
                 nextView.putExtra(EXTRA_MINUTES, minutes);
+                nextView.putExtra(EXTRA_GRID_SIZE, gridSize);
                 startActivity(nextView);
 
             }
@@ -78,6 +97,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnTutorial = findViewById(R.id.btnTutorial);
+        btnTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tutorialView = new Intent(MainActivity.this,Tutorial.class);
+                startActivity(tutorialView);
+            }
+        });
+
+
+
+        // NUMBER PICKER
         np = (NumberPicker) findViewById(R.id.np);
         np.setMinValue(1);
         np.setMaxValue(30);
@@ -91,6 +122,22 @@ public class MainActivity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
         mediaPlayer.start();
+
+        musicSwitch = (Switch) findViewById(R.id.music);
+
+        musicSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (musicSwitch.isChecked()){
+                    mediaPlayer.start();
+                }
+                else{
+                    mediaPlayer.pause();
+                }
+
+            }
+        });
     }
 
     @Override

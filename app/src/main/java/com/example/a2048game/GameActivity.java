@@ -31,37 +31,10 @@ public class GameActivity extends AppCompatActivity{
     private TextView user;
 
     int score = 0;
-    TextView t = null;
+    TextView scoreLabel= null;
     TextView highestBlock;
-    
-/*
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            setContentView(R.layout.activity_game);
-            super.onCreate(savedInstanceState);
-            nameGame = getIntent().getExtras();
-            userName = getIntent().getExtras();
-            final String nameUser = userName.getString("user");
-            user = findViewById(R.id.txtUserName);
-            user.setText(nameUser.toString());
-            t=(TextView) findViewById(R.id.Score);
-            grid=(GridView)findViewById(R.id.gamebackground);
-            Random random1=new Random();
-            int r1 = random1.nextInt(16-1+1)+1;
-            Random random2=new Random();
-            int r2 = random2.nextInt(16-1+1)+1;
-            if(r1==r2 && r2!=16)
-            {
-                r2++;
-            }
-            else
-            {
-                if(r1==r2)
-                {
-                    r2--;
-                }
-            }
-*/
+    GameView6x6 grid6x6;
+    GameView grid4x4;
 
     public GameActivity()
         {
@@ -79,6 +52,11 @@ public class GameActivity extends AppCompatActivity{
         final String nameUser = userName.getString("user");
         user = findViewById(R.id.txtUserName);
         user.setText(nameUser.toString());
+
+
+
+        scoreLabel= (TextView) findViewById(R.id.Score);
+
         highestBlock = (TextView) findViewById(R.id.highestBlock);
 
         Button btnCancel = findViewById(R.id.btnCancel);
@@ -152,6 +130,25 @@ public class GameActivity extends AppCompatActivity{
                 counter.start();
             }
 
+        grid4x4= (GameView) findViewById(R.id.gameView4x4);
+        grid6x6= (GameView6x6) findViewById(R.id.gameView6x6);
+
+        int gridSize = extras.getInt(MainActivity.EXTRA_GRID_SIZE);
+
+        switch (gridSize){
+            case 4:
+                grid6x6.setVisibility(View.GONE);
+                break;
+            case 6:
+                grid4x4.setVisibility(View.GONE);
+                break;
+            default:
+                grid6x6.setVisibility(View.GONE);
+                break;
+        }
+
+
+
 
     }
 
@@ -162,7 +159,7 @@ public class GameActivity extends AppCompatActivity{
 
     public void showScore(){
 
-        t.setText(score + "");
+        scoreLabel.setText(score + "");
     }
 
     public void addScore(int s){
@@ -238,7 +235,7 @@ public class GameActivity extends AppCompatActivity{
         Bundle userName = getIntent().getExtras();
         String name = nameGame.getString("nameGame");
         String user = userName.getString("user");
-        String s= t.getText().toString();
+        String s= scoreLabel.getText().toString();
         int score = Integer.parseInt(s);
         Game g = new Game();
         g.setName(name);
@@ -260,5 +257,6 @@ public class GameActivity extends AppCompatActivity{
         startActivity(i);
 
     }
+
 
 }
