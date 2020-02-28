@@ -190,7 +190,7 @@ public class GameViewBomb extends GridLayout {
             for (int x= 0;x<4;x++){
 
                 for(int x1 = x + 1; x1 < 4;x1++){
-                    if (cardsMap[x1][y].getNum()>0){
+                    if (cardsMap[x1][y].getNum() != 0 ){ /// entra si es diferente a 0. original (cardsMap[x1][y].getNum()>0)
 
                         if (cardsMap[x][y].getNum()<=0){
                             cardsMap[x][y].setNum(cardsMap[x1][y].getNum());
