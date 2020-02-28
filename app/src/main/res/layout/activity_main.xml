@@ -146,5 +146,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Switch
+        android:id="@+id/colorSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Color"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="597dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.a2048game;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,10 @@ import android.widget.NumberPicker;
 import android.media.MediaPlayer;
 import android.widget.Switch;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 public class MainActivity extends AppCompatActivity {
     private TextView nameGame;
     private TextView user;
@@ -16,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnScores;
     MediaPlayer mediaPlayer;
     Switch timerSwitch;
+    Switch colorSwtich;
     NumberPicker np;
     int minutes = 0;
     public static final String EXTRA_MINUTES = "com.example.a2048game.MINUTES";
@@ -30,7 +36,14 @@ public class MainActivity extends AppCompatActivity {
         user.setText(nameUser.toString());
         nameGame= findViewById(R.id.user);
         timerSwitch = findViewById(R.id.timer);
+        colorSwtich = findViewById(R.id.colorSwitch);
         btnStart = findViewById(R.id.btnStart);
+
+        if (colorSwtich.isChecked()) {
+            btnStart.setBackgroundColor(Color.parseColor("#fff"));
+        }else {
+        }
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,4 +100,5 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.release();
 
     }
+
 }

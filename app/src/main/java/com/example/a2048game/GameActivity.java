@@ -1,16 +1,8 @@
 package com.example.a2048game;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,11 +10,9 @@ import android.widget.Button;
 import android.os.CountDownTimer;
 import android.widget.Chronometer;
 import android.os.SystemClock;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.util.*;
+
 public class GameActivity extends AppCompatActivity{
 
     private static GameActivity gameActivity = null;
@@ -84,7 +74,11 @@ public class GameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         t = (TextView) findViewById(R.id.Score);
-
+        nameGame = getIntent().getExtras();
+        userName = getIntent().getExtras();
+        final String nameUser = userName.getString("user");
+        user = findViewById(R.id.txtUserName);
+        user.setText(nameUser.toString());
         highestBlock = (TextView) findViewById(R.id.highestBlock);
 
         Button btnCancel = findViewById(R.id.btnCancel);
