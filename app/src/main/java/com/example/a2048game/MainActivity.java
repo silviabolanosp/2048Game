@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     Switch timerSwitch;
     Switch musicSwitch;
     Switch gridSizeSwitch;
-    TextView matrix;
 
     NumberPicker np;
 
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         nameGame= (TextView) findViewById(R.id.user);
         timerSwitch = (Switch) findViewById(R.id.timer);
         gridSizeSwitch = (Switch) findViewById(R.id.gridSize);
-        matrix= (TextView) findViewById(R.id.matrix);
 
 
         btnStart = findViewById(R.id.btnStart);
@@ -104,6 +102,25 @@ public class MainActivity extends AppCompatActivity {
         np.setMaxValue(30);
         np.setWrapSelectorWheel(true);
 
+        // TIMER O COUNTDOWN
+        timerSwitch.setText(timerSwitch.getTextOn());
+
+        timerSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (timerSwitch.isChecked()){
+                    timerSwitch.setText(timerSwitch.getTextOn());
+                    np.setVisibility(View.VISIBLE);
+                }
+                else{
+                    timerSwitch.setText(timerSwitch.getTextOff());
+                    np.setVisibility(View.INVISIBLE);
+                }
+
+            }
+        });
+
 
         // MUSIC
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
@@ -126,17 +143,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // TAMANO DEL GRID
-        matrix.setText(gridSizeSwitch.getTextOn());
+        gridSizeSwitch.setText(gridSizeSwitch.getTextOn());
 
         gridSizeSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (gridSizeSwitch.isChecked()){
-                    matrix.setText(gridSizeSwitch.getTextOn());
+                    gridSizeSwitch.setText(gridSizeSwitch.getTextOn());
                 }
                 else{
-                    matrix.setText(gridSizeSwitch.getTextOff());
+                    gridSizeSwitch.setText(gridSizeSwitch.getTextOff());
                 }
 
             }
