@@ -1,8 +1,10 @@
 package com.example.a2048game;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,6 +12,7 @@ import android.widget.Button;
 import android.os.CountDownTimer;
 import android.widget.Chronometer;
 import android.os.SystemClock;
+import java.text.DecimalFormat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +29,7 @@ public class GameActivity extends AppCompatActivity{
     TextView timer;
     MyCount counter;
     long timeWhenStopped;
+    MediaPlayer mediaPlayer;
     Bundle userName;
     Bundle nameGame;
     private TextView user;
@@ -35,6 +39,7 @@ public class GameActivity extends AppCompatActivity{
     TextView highestBlock;
     GameView6x6 grid6x6;
     GameView grid4x4;
+    GameViewBomb gridBomb;
 
 
 
@@ -127,22 +132,39 @@ public class GameActivity extends AppCompatActivity{
 
         grid4x4= (GameView) findViewById(R.id.gameView4x4);
         grid6x6= (GameView6x6) findViewById(R.id.gameView6x6);
+        gridBomb= (GameViewBomb) findViewById(R.id.gameViewBomb);
 
         int gridSize = extras.getInt(MainActivity.EXTRA_GRID_SIZE);
 
         switch (gridSize){
+            case 2:
+                grid6x6.setVisibility(View.GONE);
+                grid4x4.setVisibility(View.GONE);
+                break;
             case 4:
                 grid6x6.setVisibility(View.GONE);
+                gridBomb.setVisibility(View.GONE);
                 break;
             case 6:
                 grid4x4.setVisibility(View.GONE);
-                break;
-            default:
-                grid6x6.setVisibility(View.GONE);
+                gridBomb.setVisibility(View.GONE);
                 break;
         }
 
+        // MUSIC
+        //mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music2);
+        //mediaPlayer.start();
 
+        /*
+        musicSwitch = (Switch) findViewById(R.id.music);
+        musicSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (musicSwitch.isChecked()) mediaPlayer.start();
+                else  mediaPlayer.pause();
+            }
+        });
+        */
 
 
     }
@@ -154,18 +176,18 @@ public class GameActivity extends AppCompatActivity{
 
     public void showScore(){
 
-        scoreLabel.setText(score + "");
+        scoreLabel.setText("" + new DecimalFormat("#").format(score));
     }
 
-    public void addScore(int s){
+    public void addScore(double s){
         score += s;
         showScore();
     }
 
 
-    public void showHighestBlock(int score, int color){
+    public void showHighestBlock(double score, int color){
         highestBlock.setBackgroundColor(color);
-        highestBlock.setText(""+ score);
+        highestBlock.setText(""+ new DecimalFormat("#").format(score));
     }
 
 
@@ -243,6 +265,7 @@ public class GameActivity extends AppCompatActivity{
 
     public void close()
     {
+        //mediaPlayer.pause();
         clearScore();
         Bundle userName = getIntent().getExtras();
         String user = userName.getString("user");

@@ -19,7 +19,7 @@ public class GameView extends GridLayout {
     private Card[][] cardsMap = new Card[4][4];
     private Card[][] grid = new Card[4][4];
     private List<Point> emptyPoints = new ArrayList<Point>();
-    private int currentBestBlock = 0;
+    private double currentBestBlock = 0;
 
     public GameView(Context context, AttributeSet attrs, int defStyle){
         super(context,attrs,defStyle);
@@ -310,7 +310,7 @@ public class GameView extends GridLayout {
     }
 
     private void drawGrid(){
-        int num = 0;
+        double num = 0;
         for (int y= 0;y < 4; y++){
             for (int x= 0; x < 4; x++){
                 num = cardsMap[x][y].getNum();
@@ -350,7 +350,7 @@ public class GameView extends GridLayout {
     }
 
     public void checkHighestBlock(){
-        int possibleHighestBlock = 0;
+        double possibleHighestBlock = 0;
 
         for(int x =0; x<4;x++){
             for(int y =0; y<4;y++){
@@ -369,46 +369,52 @@ public class GameView extends GridLayout {
 
     }
 
-    private int getColorForBlock(int score){
+    private int getColorForBlock(double score){
         int colorInt = 0;
 
-        switch (score){
+        if(score == 1.1){
+            return Color.parseColor("#A3A3A3");
+        }
 
-            case 0:
-                return Color.parseColor("#F0F3F4");
+        if(score == 1.9){
+            return Color.parseColor("#920202");
+        }
 
-            case 2:
-                return Color.parseColor("#FFF59D");
-
-            case 4:
-                return Color.parseColor("#C5E1A5");
-
-            case 8:
-                return Color.parseColor("#80CBC4");
-
-            case 16:
-                return Color.parseColor("#81D4FA");
-
-            case 32:
-                return Color.parseColor("#9FA8DA");
-
-            case 64:
-                return Color.parseColor("#CE93D8");
-
-            case 128:
-                return Color.parseColor("#FFEB3B");
-
-            case 256:
-                return Color.parseColor("#8BC34A");
-
-            case 512:
-                return Color.parseColor("#3F51B5");
-
-            case 1024:
-                return Color.parseColor("#9C2780");
-
-            case 2048:
-                return Color.parseColor("#F44336");
+        if(score == 0){
+            return Color.parseColor("#F0F3F4");
+        }
+        if(score == 2){
+            return Color.parseColor("#FFF59D");
+        }
+        if(score == 4){
+            return Color.parseColor("#C5E1A5");
+        }
+        if(score == 8){
+            return Color.parseColor("#80CBC4");
+        }
+        if(score == 16){
+            return Color.parseColor("#81D4FA");
+        }
+        if(score == 32){
+            return Color.parseColor("#9FA8DA");
+        }
+        if(score == 64){
+            return Color.parseColor("#CE93D8");
+        }
+        if(score == 128){
+            return Color.parseColor("#FFEB3B");
+        }
+        if(score == 256){
+            return Color.parseColor("#8BC34A");
+        }
+        if(score == 512){
+            return Color.parseColor("#3F51B5");
+        }
+        if(score == 1024){
+            return Color.parseColor("#9C2780");
+        }
+        if(score == 2048){
+            return Color.parseColor("#F44336");
         }
 
         return colorInt;
