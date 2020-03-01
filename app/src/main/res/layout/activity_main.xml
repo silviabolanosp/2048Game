@@ -54,7 +54,7 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="162dp"
         android:checked="true"
         android:gravity="center"
@@ -75,7 +75,7 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="162dp"
         android:checked="true"
         android:gravity="center"
@@ -84,6 +84,7 @@
         android:textOff="6x6"
         android:textOn="4x4"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -155,7 +156,7 @@
         android:id="@+id/np"
         android:layout_width="100dp"
         android:layout_height="91dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -173,6 +174,18 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/matrix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="75dp"
+        android:textSize="25dp"
+        android:textColor="#613F75"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bombs" />
 
     <Switch
         android:id="@+id/music"

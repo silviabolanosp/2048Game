@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Switch timerSwitch;
     Switch musicSwitch;
     Switch gridSizeSwitch;
+    TextView matrix;
 
     NumberPicker np;
 
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         nameGame= (TextView) findViewById(R.id.user);
         timerSwitch = (Switch) findViewById(R.id.timer);
         gridSizeSwitch = (Switch) findViewById(R.id.gridSize);
+        matrix= (TextView) findViewById(R.id.matrix);
+
 
         btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +120,23 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     mediaPlayer.pause();
+                }
+
+            }
+        });
+
+        // TAMANO DEL GRID
+        matrix.setText(gridSizeSwitch.getTextOn());
+
+        gridSizeSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (gridSizeSwitch.isChecked()){
+                    matrix.setText(gridSizeSwitch.getTextOn());
+                }
+                else{
+                    matrix.setText(gridSizeSwitch.getTextOff());
                 }
 
             }
