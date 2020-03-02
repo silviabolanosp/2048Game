@@ -3,9 +3,9 @@ package com.example.a2048game;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import java.text.DecimalFormat;
 
 
 public class Card extends FrameLayout {
@@ -28,28 +28,28 @@ public class Card extends FrameLayout {
         setNum(0);
     }
 
-    private int num = 0;
+    private double num = 0;
 
-    public int getNum(){
+    public double getNum(){
         return num;
     }
 
-    public void setNum(int num){
+    public void setNum(double num){
         this.num = num;
 
         if (num <= 0){
             label.setText("");
         }else {
-            label.setText("" + num);
+            label.setText("" + new DecimalFormat("#").format(num));
         }
 
 
-        if(this.num == -1){
-            label.setText("bloque");
+        if(this.num == 1.1){
+            label.setText("BLOCK");
             label.setBackgroundColor(Color.parseColor("#A3A3A3"));
         }
 
-        if(this.num == 1){
+        if(this.num == 1.9){
             label.setText("BOMB");
             label.setBackgroundColor(Color.parseColor("#920202"));
         }

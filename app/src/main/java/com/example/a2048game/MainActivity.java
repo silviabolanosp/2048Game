@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Switch colorSwtich;
     Switch musicSwitch;
     Switch gridSizeSwitch;
+    Switch bombSwitch;
     ConstraintLayout layout;
     boolean darkMode = false;
     NumberPicker np;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         nameGame= (TextView) findViewById(R.id.user);
         timerSwitch = (Switch) findViewById(R.id.timer);
         gridSizeSwitch = (Switch) findViewById(R.id.gridSize);
+        bombSwitch = (Switch) findViewById(R.id.bombs);
 
         timerSwitch = findViewById(R.id.timer);
 
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 changeColor();
             }
         });
+
         btnStart = findViewById(R.id.btnStart);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -65,18 +68,22 @@ public class MainActivity extends AppCompatActivity {
                     nameGame.setText(user.getText().toString());
                 }
 
-                if (timerSwitch.isChecked()) {
+                if (timerSwitch.isChecked()){
                     minutes = np.getValue();
-                }else {
+                }
+                else{
                     minutes = 0;
                 }
 
-
-                if (gridSizeSwitch.isChecked() == true){ //4x4
-                    gridSize = 4;
-                }
-                else{ // 6x6
-                    gridSize = 6;
+                if (bombSwitch.isChecked() == true){
+                    gridSize = 2;
+                }else{
+                    if (gridSizeSwitch.isChecked() == true){ //4x4
+                        gridSize = 4;
+                    }
+                    else{ // 6x6
+                        gridSize = 6;
+                    }
                 }
 
                 Intent nextView = new Intent(MainActivity.this,GameActivity.class);
@@ -115,14 +122,29 @@ public class MainActivity extends AppCompatActivity {
         np.setMinValue(1);
         np.setMaxValue(30);
         np.setWrapSelectorWheel(true);
-        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+
+        // TIMER O COUNTDOWN
+        timerSwitch.setText(timerSwitch.getTextOn());
+
+        timerSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+            public void onClick(View v) {
+
+                if (timerSwitch.isChecked()){
+                    timerSwitch.setText(timerSwitch.getTextOn());
+                    np.setVisibility(View.VISIBLE);
+                }
+                else{
+                    timerSwitch.setText(timerSwitch.getTextOff());
+                    np.setVisibility(View.INVISIBLE);
+                }
 
             }
         });
 
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
+
+        // MUSIC
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music2);
         mediaPlayer.start();
 
         musicSwitch = (Switch) findViewById(R.id.music);
@@ -140,8 +162,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
 
+        // TAMANO DEL GRID
+        gridSizeSwitch.setText(gridSizeSwitch.getTextOn());
     @Override
     protected void onPause() {
         super.onPause();
