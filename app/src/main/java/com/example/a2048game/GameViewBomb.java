@@ -161,12 +161,16 @@ public class GameViewBomb extends GridLayout {
 
         Point p =emptyPoints.remove((int)(Math.random()*emptyPoints.size()));
 
-        if(turn % 5 == 0 || turn % 6 == 0){
-                if(turn % 5 == 0 ){
+        if(turn % 10 == 0 || turn % 11 == 0){
+            if(turn % 10 == 0 && turn % 11 == 0){
+                cardsMap[p.x][p.y].setNum(Math.random()>0.1?2:4);
+            }else{
+                if(turn % 10 == 0 ){
                     cardsMap[p.x][p.y].setNum(1.1);
                 }else{
                     cardsMap[p.x][p.y].setNum(1.9);
                 }
+            }
         }else{
             cardsMap[p.x][p.y].setNum(Math.random()>0.1?2:4);
         }
