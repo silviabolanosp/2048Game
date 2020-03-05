@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/grid"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="303dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/oie_transparent" />
+
+    <EditText
+        android:id="@+id/txtUser"
+        android:layout_width="303dp"
+        android:layout_height="88dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="54dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="#0D3B66"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:text="   Nombre de usuario" />
+
+    <Button
+        android:id="@+id/btn_sign"
+        android:layout_width="303dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="54dp"
+        android:background="@drawable/button_init"
+        android:text="Ingresar"
+        android:textColor="#FBFEF9"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUser" />
+
+    <Button
+        android:id="@+id/btnNew"
+        android:layout_width="303dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="54dp"
+        android:background="@drawable/button_back"
+        android:text="Nuevo usuario"
+        android:textColor="#FBFEF9"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_sign" />
+
+    <TextView
+        android:id="@+id/textInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="39dp"
+        android:text=""
+        android:textColor="#F44336"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUser" />
+</androidx.constraintlayout.widget.ConstraintLayout>
