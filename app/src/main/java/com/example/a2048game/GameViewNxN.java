@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.GridLayout;
 
@@ -172,7 +173,7 @@ public class GameViewNxN extends GridLayout {
 
 
     private void swipeLeft(){
-
+        playSoundEffect(SoundEffectConstants.NAVIGATION_LEFT);
         boolean merge = false;
 
         for (int y =0 ;y < numColumn;y++){
@@ -209,7 +210,7 @@ public class GameViewNxN extends GridLayout {
     }
 
     private void swipeRight(){
-
+        playSoundEffect(SoundEffectConstants.NAVIGATION_RIGHT);
         boolean merge = false;
 
         for (int y =0 ;y < numColumn;y++){
@@ -246,7 +247,7 @@ public class GameViewNxN extends GridLayout {
     }
 
     private void swipeUp(){
-
+        playSoundEffect(SoundEffectConstants.NAVIGATION_UP);
         boolean merge = false;
 
         for (int x =0 ;x < numColumn;x++){
@@ -282,7 +283,7 @@ public class GameViewNxN extends GridLayout {
     }
 
     private void swipeDown(){
-
+        playSoundEffect(SoundEffectConstants.NAVIGATION_DOWN);
         boolean merge = false;
 
         for (int x =0 ;x < numColumn;x++){

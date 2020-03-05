@@ -62,18 +62,22 @@ public class GameViewBomb extends GridLayout {
 
                         if (Math.abs(offsetX) > Math.abs(offsetY)) {
                             if (offsetX < -5) {
+                                    GameActivity.getGameActivity().swipeNoise();
                                     swipeLeft();
-
-                                }else if (offsetX > 5) {
+                                }else{
+                                    if (offsetX > 5) {
+                                    GameActivity.getGameActivity().swipeNoise();
                                     swipeRight();
 
-
                                 }
+                            }
                         }else{
                             if(offsetY<-5){
+                                GameActivity.getGameActivity().swipeNoise();
                                 swipeUp();
 
                             }else if (offsetY > 5){
+                                GameActivity.getGameActivity().swipeNoise();
                                 swipeDown();
 
                             }

@@ -30,16 +30,18 @@ public class GameActivity extends AppCompatActivity{
     MyCount counter;
     long timeWhenStopped;
     MediaPlayer mediaPlayer;
+    MediaPlayer swipeSound;
     Bundle userName;
     Bundle nameGame;
     private TextView user;
+    private Switch musicSwitch;
 
-    int score = 0;
-    TextView scoreLabel= null;
-    TextView highestBlock;
-    GameView6x6 grid6x6;
-    GameView grid4x4;
-    GameViewBomb gridBomb;
+    private int score = 0;
+    private TextView scoreLabel= null;
+    private TextView highestBlock;
+    private GameView6x6 grid6x6;
+    private GameView grid4x4;
+    private GameViewBomb gridBomb;
 
 
 
@@ -71,9 +73,7 @@ public class GameActivity extends AppCompatActivity{
                 simpleChronometer.stop();
 
                 //falta poner el counter en pausa
-
                 builder.setTitle("¿Terminar partida?");
-
                 builder.setMessage("¿Desea terminar partida?");
 
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -151,20 +151,24 @@ public class GameActivity extends AppCompatActivity{
                 break;
         }
 
-        // MUSIC
-        //mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music2);
-        //mediaPlayer.start();
 
-        /*
         musicSwitch = (Switch) findViewById(R.id.music);
+
+        boolean musicBoolean = extras.getBoolean(MainActivity.EXTRA_MUSIC);
+        musicSwitch.setChecked(musicBoolean);
+
         musicSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (musicSwitch.isChecked()) mediaPlayer.start();
-                else  mediaPlayer.pause();
+                if (musicSwitch.isChecked()) {
+                    mediaPlayer.start();
+                }else{
+                    mediaPlayer.pause();
+                }
+
             }
         });
-        */
+
 
 
     }
@@ -274,6 +278,12 @@ public class GameActivity extends AppCompatActivity{
         i.putExtra("userName",user);
         startActivity(i);
 
+    }
+
+    public void swipeNoise(){
+        // SWIPE NOISE EFFECT
+        swipeSound = MediaPlayer.create(getApplicationContext(), R.raw.swipe1);
+        swipeSound.start();
     }
 
 }

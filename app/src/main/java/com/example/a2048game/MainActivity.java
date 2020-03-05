@@ -10,23 +10,26 @@ import android.media.MediaPlayer;
 import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
+    public MediaPlayer mediaPlayer;
+
     private TextView nameGame;
     private TextView user;
-    Button btnStart;
-    Button btnScores;
-    Button btnTutorial;
-    MediaPlayer mediaPlayer;
-    Switch timerSwitch;
-    Switch musicSwitch;
-    Switch gridSizeSwitch;
-    Switch bombSwitch;
+    private Button btnStart;
+    private Button btnScores;
+    private Button btnTutorial;
+    private Switch timerSwitch;
+    private Switch musicSwitch;
+    private Switch gridSizeSwitch;
+    private Switch bombSwitch;
 
-    NumberPicker np;
+    private NumberPicker np;
 
-    int minutes = 0;
-    int gridSize = 0;
+    private int minutes = 0;
+    private int gridSize = 0;
+    private boolean musicBoolean = true;
     public static final String EXTRA_MINUTES = "com.example.a2048game.MINUTES";
     public static final String EXTRA_GRID_SIZE = "com.example.a2048game.GRID_SIZE";
+    public static final String EXTRA_MUSIC = "com.example.a2048game.MUSIC";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
+                if (musicSwitch.isChecked()){
+                    musicBoolean = true;
+                }
+                else{
+                    musicBoolean = false;
+                }
 
 
                 Intent nextView = new Intent(MainActivity.this,GameActivity.class);
@@ -76,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 nextView.putExtra("user", user.getText().toString());
                 nextView.putExtra(EXTRA_MINUTES, minutes);
                 nextView.putExtra(EXTRA_GRID_SIZE, gridSize);
+                nextView.putExtra(EXTRA_MUSIC, musicBoolean);
                 startActivity(nextView);
 
             }

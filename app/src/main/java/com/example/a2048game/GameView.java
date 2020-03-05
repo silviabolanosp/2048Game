@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.GridLayout;
 import android.graphics.Color;
@@ -61,18 +62,27 @@ public class GameView extends GridLayout {
 
                         if (Math.abs(offsetX) > Math.abs(offsetY)) {
                             if (offsetX < -5) {
+                                    //playSoundEffect(SoundEffectConstants.NAVIGATION_LEFT);
+                                    GameActivity.getGameActivity().swipeNoise();
                                     swipeLeft();
 
-                                }else if (offsetX > 5) {
-                                    swipeRight();
-
+                                }else{
+                                    if (offsetX > 5) {
+                                        //playSoundEffect(SoundEffectConstants.NAVIGATION_RIGHT);
+                                        GameActivity.getGameActivity().swipeNoise();
+                                        swipeRight();
+                                    }
 
                                 }
                         }else{
                             if(offsetY<-5){
+                                //playSoundEffect(SoundEffectConstants.NAVIGATION_UP);
+                                GameActivity.getGameActivity().swipeNoise();
                                 swipeUp();
 
                             }else if (offsetY > 5){
+                                //playSoundEffect(SoundEffectConstants.NAVIGATION_DOWN);
+                                GameActivity.getGameActivity().swipeNoise();
                                 swipeDown();
 
                             }
