@@ -41,6 +41,7 @@ public class InitActivity extends AppCompatActivity {
                             if(dataSnapshot.exists()){
                                 Intent nextView = new Intent(InitActivity.this, MainActivity.class);
                                 nextView.putExtra("userName", user.getText().toString());
+                                nextView.putExtra("mode",false);
                                 startActivity(nextView);
                             }else{
                                 TextView info = findViewById(R.id.textInformation);
@@ -82,6 +83,7 @@ public class InitActivity extends AppCompatActivity {
                                 database.saveUser(u);
                                 Intent nextView = new Intent(InitActivity.this,MainActivity.class);
                                 nextView.putExtra("userName",user.getText().toString());
+                                nextView.putExtra("mode",false);
                                 startActivity(nextView);
                             }
 

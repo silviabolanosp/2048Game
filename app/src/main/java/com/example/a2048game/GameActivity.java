@@ -5,7 +5,6 @@ import android.media.MediaPlayer;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -45,8 +44,6 @@ public class GameActivity extends AppCompatActivity{
     GameView grid4x4;
     ConstraintLayout layout;
     GameViewBomb gridBomb;
-
-
 
     public GameActivity()
         {
@@ -278,8 +275,8 @@ public class GameActivity extends AppCompatActivity{
         int score = Integer.parseInt(s);
         Game g = new Game();
         g.setName(name);
+        g.setTime(simpleChronometer.getText().toString());
         g.setScore(score);
-        g.setTime(234);
         g.setUser(user);
         g.setType("Normal");
         database.saveGame(g);
@@ -288,15 +285,14 @@ public class GameActivity extends AppCompatActivity{
     public void close()
     {
         //mediaPlayer.pause();
-        clearScore();
         Bundle userName = getIntent().getExtras();
         String user = userName.getString("user");
         save();
         clearScore();
         Intent i= new Intent(GameActivity.this,MainActivity.class);
         i.putExtra("userName",user);
+        i.putExtra("mode",darkMode);
         startActivity(i);
 
     }
-
 }

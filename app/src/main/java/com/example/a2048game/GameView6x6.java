@@ -40,7 +40,7 @@ public class GameView6x6 extends GridLayout {
 
     private void initGameView(){
         setColumnCount(6);
-        setBackgroundColor(Color.parseColor("#CACFD2")); // fondo gris
+        setBackgroundColor(Color.parseColor("#24b330")); // fondo verde
 
         setOnTouchListener(new OnTouchListener() {
 
@@ -340,6 +340,7 @@ public class GameView6x6 extends GridLayout {
             new AlertDialog.Builder(getContext()).setTitle("Game Over").setMessage("Press button below to start again.").setPositiveButton("Play Again",new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    GameActivity.getGameActivity().close();
                     startGame();
 
                 }

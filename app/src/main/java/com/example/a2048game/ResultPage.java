@@ -1,6 +1,7 @@
 package com.example.a2048game;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -32,12 +34,21 @@ public class ResultPage extends AppCompatActivity {
     Bundle userName;
     String name;
     private TextView user;
+    ConstraintLayout layout;
+    TextView title;
+    Bundle mode;
+    boolean darkMode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        layout = findViewById(R.id.resultPage);
+        mode = getIntent().getExtras();
+        title = findViewById(R.id.titleScore);
+        darkMode = mode.getBoolean("mode");
         userName = getIntent().getExtras();
         final String nameUser = userName.getString("user");
+        changeMode();
         user = findViewById(R.id.txtUserName);
         user.setText(nameUser.toString());
         lisG = findViewById(R.id.list);
@@ -51,6 +62,7 @@ public class ResultPage extends AppCompatActivity {
                 Intent nextView = new Intent(ResultPage.this,MainActivity.class);
                 name = userName.getString("user");
                 nextView.putExtra("userName", name);
+                nextView.putExtra("mode",darkMode);
                 startActivity(nextView);
             }
         });
@@ -81,5 +93,15 @@ public class ResultPage extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+    }
+
+    private void changeMode() {
+        if (darkMode == true){
+            layout.setBackgroundColor(Color.parseColor("#424242"));
+            title.setTextColor(Color.parseColor("#FBFEF9"));
+        } else {
+            layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
+            title.setTextColor(Color.parseColor("#000000"));
+        }
     }
 }
