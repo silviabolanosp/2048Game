@@ -18,7 +18,6 @@ import java.util.List;
 public class GameView extends GridLayout {
 
     private Card[][] cardsMap = new Card[4][4];
-    private Card[][] grid = new Card[4][4];
     private List<Point> emptyPoints = new ArrayList<Point>();
     private double currentBestBlock = 0;
 
@@ -36,7 +35,7 @@ public class GameView extends GridLayout {
 
     public GameView(Context context, AttributeSet attrs){
         super(context, attrs);
-        addGrid();
+        addCards(220,220);
         initGameView();
     }
 
@@ -100,26 +99,12 @@ public class GameView extends GridLayout {
 
         int cardWidth = (Math.min(w,h)-10)/4; //237
 
-        addCards(cardWidth,cardWidth);
+        //addCards(cardWidth,cardWidth);
 
         startGame();
 
     }
-    private void addGrid(){
 
-        Card c;
-
-        for (int y= 0;y < 4;y++){
-            for (int x = 0;x < 4; x++){
-                c = new Card(getContext());
-                c.setNum(0);
-                addView(c,220,220);
-
-                grid[x][y] = c;
-            }
-        }
-
-    }
     private void addCards(int cardWidth,int cardHeight){
 
         Card c;
@@ -168,7 +153,6 @@ public class GameView extends GridLayout {
         cardsMap[p.x][p.y].setNum(Math.random()>0.1?2:4);
 
         checkHighestBlock();
-        drawGrid();
 
     }
 
@@ -319,15 +303,6 @@ public class GameView extends GridLayout {
         }
     }
 
-    private void drawGrid(){
-        double num = 0;
-        for (int y= 0;y < 4; y++){
-            for (int x= 0; x < 4; x++){
-                num = cardsMap[x][y].getNum();
-                grid[x][y].setNum(num);
-            }
-        }
-    }
 
     private void checkComplete(){
 
