@@ -2,6 +2,7 @@ package com.example.a2048game;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -11,11 +12,8 @@ import java.text.DecimalFormat;
 public class Card extends FrameLayout {
     private TextView label;
 
-
-
     public Card(Context context){
         super(context);
-
         label = new TextView(getContext());
         label.setTextSize(20);
         label.setTextColor(Color.parseColor("#000000"));

@@ -42,7 +42,7 @@ public class GameViewBomb extends GridLayout {
 
     private void initGameView(){
         setColumnCount(4);
-        setBackgroundColor(Color.parseColor("#b52424")); // fondo rojo
+        setBackgroundColor(Color.parseColor("#F2E806")); // fondo rojo
 
         setOnTouchListener(new OnTouchListener() {
 

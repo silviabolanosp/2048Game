@@ -5,7 +5,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         timerSwitch = (Switch) findViewById(R.id.timer);
         gridSizeSwitch = (Switch) findViewById(R.id.gridSize);
         bombSwitch = (Switch) findViewById(R.id.bombs);
-
         timerSwitch = findViewById(R.id.timer);
 
         colorSwtich = findViewById(R.id.colorSwitch);
@@ -199,8 +197,8 @@ public class MainActivity extends AppCompatActivity {
             colorSwtich.setChecked(darkMode);
         } else {
             layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
-            nameGame.setTextColor(Color.parseColor("#5603AD"));
-            menu.setTextColor(Color.parseColor("#000000"));
+            nameGame.setTextColor(Color.parseColor("#4FDB6F"));
+            menu.setTextColor(Color.parseColor("#35B4F9"));
             darkMode = false;
         }
     }

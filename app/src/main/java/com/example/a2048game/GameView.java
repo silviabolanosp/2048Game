@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,7 +21,8 @@ public class GameView extends GridLayout {
     private Card[][] grid = new Card[4][4];
     private List<Point> emptyPoints = new ArrayList<Point>();
     private double currentBestBlock = 0;
-
+    Typeface font;
+    String fontLabel;
     public GameView(Context context, AttributeSet attrs, int defStyle){
         super(context,attrs,defStyle);
 
@@ -41,7 +43,7 @@ public class GameView extends GridLayout {
 
     private void initGameView(){
         setColumnCount(4);
-        setBackgroundColor(Color.parseColor("#2061a1")); // fondo azul
+        setBackgroundColor(Color.parseColor("#35b5f9")); // fondo azul
     //#CACFD2   fondo gris
         setOnTouchListener(new OnTouchListener() {
 
@@ -96,7 +98,8 @@ public class GameView extends GridLayout {
 
     }
     private void addGrid(){
-
+/*        fontLabel = "fonts/Daddy.otf";
+        this.font = Typeface.createFromAsset(getAssets(),fontLabel);*/
         Card c;
 
         for (int y= 0;y < 4;y++){

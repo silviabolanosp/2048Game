@@ -1,6 +1,7 @@
 package com.example.a2048game;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,7 +27,6 @@ public class GameActivity extends AppCompatActivity{
     public static GameActivity getGameActivity() {
         return gameActivity;
     }
-
     Chronometer simpleChronometer;
     TextView timer;
     MyCount counter;
@@ -44,7 +44,9 @@ public class GameActivity extends AppCompatActivity{
     GameView grid4x4;
     ConstraintLayout layout;
     GameViewBomb gridBomb;
-
+    String modeGame;
+    Bundle extras;
+    int minutes;
     public GameActivity()
         {
             gameActivity = this;
@@ -64,9 +66,7 @@ public class GameActivity extends AppCompatActivity{
         user = findViewById(R.id.txtUserName);
         user.setText(nameUser.toString());
 
-
         scoreLabel= (TextView) findViewById(R.id.Score);
-
         highestBlock = (TextView) findViewById(R.id.highestBlock);
 
         Button btnCancel = findViewById(R.id.btnCancel);
@@ -123,8 +123,8 @@ public class GameActivity extends AppCompatActivity{
             // 5000 is the starting number (in milliseconds)
             // 1000 is the number to count down each time (in milliseconds)
 
-            Bundle extras = getIntent().getExtras();
-            int minutes = extras.getInt(MainActivity.EXTRA_MINUTES);
+            extras = getIntent().getExtras();
+            minutes = extras.getInt(MainActivity.EXTRA_MINUTES);
             simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer);
             timer = (TextView) findViewById(R.id.timer);
 
@@ -150,14 +150,17 @@ public class GameActivity extends AppCompatActivity{
             case 2:
                 grid6x6.setVisibility(View.GONE);
                 grid4x4.setVisibility(View.GONE);
+                modeGame = "Bomba";
                 break;
             case 4:
                 grid6x6.setVisibility(View.GONE);
                 gridBomb.setVisibility(View.GONE);
+                modeGame = "Normal";
                 break;
             case 6:
                 grid4x4.setVisibility(View.GONE);
                 gridBomb.setVisibility(View.GONE);
+                modeGame = "6x6";
                 break;
         }
 
@@ -275,10 +278,15 @@ public class GameActivity extends AppCompatActivity{
         int score = Integer.parseInt(s);
         Game g = new Game();
         g.setName(name);
-        g.setTime(simpleChronometer.getText().toString());
+        if(minutes == 0){
+            g.setTime(simpleChronometer.getText().toString());
+        }else{
+            g.setTime(Integer.toString(minutes) + ":00");
+        }
+
         g.setScore(score);
         g.setUser(user);
-        g.setType("Normal");
+        g.setType(modeGame);
         database.saveGame(g);
     }
 

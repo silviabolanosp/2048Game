@@ -40,7 +40,7 @@ public class GameView6x6 extends GridLayout {
 
     private void initGameView(){
         setColumnCount(6);
-        setBackgroundColor(Color.parseColor("#24b330")); // fondo verde
+        setBackgroundColor(Color.parseColor("#4FDB6F")); // fondo verde
 
         setOnTouchListener(new OnTouchListener() {
 
