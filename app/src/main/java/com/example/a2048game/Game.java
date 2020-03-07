@@ -5,7 +5,7 @@ public class Game {
     private int score;
     private String user;
     private String type;
-    private int time;
+    private String time;
 
     public Game() {
 
@@ -43,11 +43,11 @@ public class Game {
         this.type = type;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

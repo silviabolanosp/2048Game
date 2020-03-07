@@ -1,7 +1,9 @@
 package com.example.a2048game;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Switch;
@@ -15,6 +17,8 @@ import android.os.SystemClock;
 import java.text.DecimalFormat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 
 public class GameActivity extends AppCompatActivity{
 
@@ -35,14 +39,18 @@ public class GameActivity extends AppCompatActivity{
     Bundle nameGame;
     private TextView user;
     private Switch musicSwitch;
-
-    private int score = 0;
+    int score = 0;
     private int minutes = 0;
-    private TextView scoreLabel= null;
-    private TextView highestBlock;
-    private GameView6x6 grid6x6;
-    private GameView grid4x4;
-    private GameViewBomb gridBomb;
+    TextView scoreLabel= null;
+    TextView highestBlock;
+    GameView6x6 grid6x6;
+    GameView grid4x4;
+    ConstraintLayout layout;
+    GameViewBomb gridBomb;
+    String modeGame;
+    Bundle extras;
+    Bundle mode;
+    boolean darkMode;
 
 
 
@@ -56,7 +64,14 @@ public class GameActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
+        nameGame = getIntent().getExtras();
+        userName = getIntent().getExtras();
+        mode = getIntent().getExtras();
+        darkMode = mode.getBoolean("mode");
+        changeMode();
+        final String nameUser = userName.getString("user");
+        user = findViewById(R.id.txtUserName);
+        user.setText(nameUser.toString());
         Bundle extras = getIntent().getExtras();
         simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer);
         timer = (TextView) findViewById(R.id.timer);
@@ -104,13 +119,6 @@ public class GameActivity extends AppCompatActivity{
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
-//                                if (minutes == 0){
-//                                    simpleChronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
-//                                    simpleChronometer.start();
-//                                }else{
-//                                    counter.resumen();
-//                                }
-//                                break;
 
                             case DialogInterface.BUTTON_NEUTRAL:
                                 if (minutes == 0){
@@ -148,14 +156,17 @@ public class GameActivity extends AppCompatActivity{
             case 2:
                 grid6x6.setVisibility(View.GONE);
                 grid4x4.setVisibility(View.GONE);
+                modeGame = "Bomba";
                 break;
             case 4:
                 grid6x6.setVisibility(View.GONE);
                 gridBomb.setVisibility(View.GONE);
+                modeGame = "Normal";
                 break;
             case 6:
                 grid4x4.setVisibility(View.GONE);
                 gridBomb.setVisibility(View.GONE);
+                modeGame = "6x6";
                 break;
         }
 
@@ -179,6 +190,15 @@ public class GameActivity extends AppCompatActivity{
 
 
 
+    }
+
+    private void changeMode() {
+        layout = findViewById(R.id.wholelayout);
+        if(darkMode == true){
+            layout.setBackgroundColor(Color.parseColor("#424242"));
+        }else{
+            layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
+        }
     }
 
     public void clearScore(){
@@ -285,22 +305,28 @@ public class GameActivity extends AppCompatActivity{
         int score = Integer.parseInt(s);
         Game g = new Game();
         g.setName(name);
+        if(minutes == 0){
+            g.setTime(simpleChronometer.getText().toString());
+        }else{
+            g.setTime(Integer.toString(minutes) + ":00");
+        }
+
         g.setScore(score);
-        g.setTime(234);
         g.setUser(user);
-        g.setType("Normal");
+        g.setType(modeGame);
         database.saveGame(g);
     }
 
     public void close()
     {
         //mediaPlayer.pause();
-        clearScore();
         Bundle userName = getIntent().getExtras();
         String user = userName.getString("user");
         save();
+        clearScore();
         Intent i= new Intent(GameActivity.this,MainActivity.class);
         i.putExtra("userName",user);
+        i.putExtra("mode",darkMode);
         startActivity(i);
 
     }

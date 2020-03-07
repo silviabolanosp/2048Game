@@ -1,6 +1,7 @@
 package com.example.a2048game;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,25 +32,37 @@ public class ResultPage extends AppCompatActivity {
     DatabaseReference myDatabase;
     ListView lisG;
     Bundle userName;
+    String name;
     private TextView user;
+    ConstraintLayout layout;
+    TextView title;
+    Bundle mode;
+    boolean darkMode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        layout = findViewById(R.id.resultPage);
+        mode = getIntent().getExtras();
+        title = findViewById(R.id.titleScore);
+        darkMode = mode.getBoolean("mode");
         userName = getIntent().getExtras();
         final String nameUser = userName.getString("user");
+        changeMode();
         user = findViewById(R.id.txtUserName);
         user.setText(nameUser.toString());
         lisG = findViewById(R.id.list);
         databaseIni();
+        name = userName.getString("user");
         listGames();
         btnback = findViewById(R.id.btnCancel);
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent nextView = new Intent(ResultPage.this,MainActivity.class);
-                String user = userName.getString("user");
-                nextView.putExtra("userName", user);
+                name = userName.getString("user");
+                nextView.putExtra("userName", name);
+                nextView.putExtra("mode",darkMode);
                 startActivity(nextView);
             }
         });
@@ -55,27 +70,38 @@ public class ResultPage extends AppCompatActivity {
     }
 
     private void databaseIni() {
-        myDatabase = FirebaseDatabase.getInstance().getReference();
+        myDatabase = FirebaseDatabase.getInstance().getReference("games");
     }
 
     private void listGames() {
-        myDatabase.child("games").addValueEventListener(new ValueEventListener() {
+        myDatabase.orderByChild("score").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listGames.clear();
                 for(DataSnapshot obj : dataSnapshot.getChildren()){
                     Game g = obj.getValue(Game.class);
-                    listGames.add(g);
+                   if(g.getUser().equals(name)){
+                        listGames.add(g);
+                        arrayAdapter = new ArrayAdapter<Game>(ResultPage.this, android.R.layout.simple_list_item_1, listGames);
+                        lisG.setAdapter(arrayAdapter);
+                    }
 
-                    arrayAdapter = new ArrayAdapter<Game>(ResultPage.this, android.R.layout.simple_list_item_1, listGames);
-                    lisG.setAdapter(arrayAdapter);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
+    }
+
+    private void changeMode() {
+        if (darkMode == true){
+            layout.setBackgroundColor(Color.parseColor("#424242"));
+            title.setTextColor(Color.parseColor("#FBFEF9"));
+        } else {
+            layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
+            title.setTextColor(Color.parseColor("#000000"));
+        }
     }
 }

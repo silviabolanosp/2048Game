@@ -4,9 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.GridLayout;
 import android.graphics.Color;
@@ -20,7 +20,8 @@ public class GameView extends GridLayout {
     private Card[][] cardsMap = new Card[4][4];
     private List<Point> emptyPoints = new ArrayList<Point>();
     private double currentBestBlock = 0;
-
+    Typeface font;
+    String fontLabel;
     public GameView(Context context, AttributeSet attrs, int defStyle){
         super(context,attrs,defStyle);
 
@@ -41,8 +42,7 @@ public class GameView extends GridLayout {
 
     private void initGameView(){
         setColumnCount(4);
-        setBackgroundColor(Color.parseColor("#CACFD2")); // fondo gris
-
+        setBackgroundColor(Color.parseColor("#35b5f9")); // fondo azul
         setOnTouchListener(new OnTouchListener() {
 
             private float startX,startY,offsetX,offsetY;
@@ -61,13 +61,11 @@ public class GameView extends GridLayout {
 
                         if (Math.abs(offsetX) > Math.abs(offsetY)) {
                             if (offsetX < -5) {
-                                    //playSoundEffect(SoundEffectConstants.NAVIGATION_LEFT);
                                     GameActivity.getGameActivity().swipeNoise();
                                     swipeLeft();
 
                                 }else{
                                     if (offsetX > 5) {
-                                        //playSoundEffect(SoundEffectConstants.NAVIGATION_RIGHT);
                                         GameActivity.getGameActivity().swipeNoise();
                                         swipeRight();
                                     }
@@ -75,13 +73,11 @@ public class GameView extends GridLayout {
                                 }
                         }else{
                             if(offsetY<-5){
-                                //playSoundEffect(SoundEffectConstants.NAVIGATION_UP);
                                 GameActivity.getGameActivity().swipeNoise();
                                 swipeUp();
 
                             }else if (offsetY > 5){
-                                //playSoundEffect(SoundEffectConstants.NAVIGATION_DOWN);
-                                GameActivity.getGameActivity().swipeNoise();
+                               GameActivity.getGameActivity().swipeNoise();
                                 swipeDown();
 
                             }
@@ -326,6 +322,7 @@ public class GameView extends GridLayout {
             new AlertDialog.Builder(getContext()).setTitle("Game Over").setMessage("Press button below to start again.").setPositiveButton("Play Again",new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    GameActivity.getGameActivity().close();
                     startGame();
 
                 }
@@ -369,37 +366,43 @@ public class GameView extends GridLayout {
             return Color.parseColor("#F0F3F4");
         }
         if(score == 2){
-            return Color.parseColor("#FFF59D");
+            return Color.parseColor("#917EE5");
         }
         if(score == 4){
-            return Color.parseColor("#C5E1A5");
+            return Color.parseColor("#34B1D7");
         }
         if(score == 8){
-            return Color.parseColor("#80CBC4");
+            return Color.parseColor("#79F2AF");
         }
         if(score == 16){
-            return Color.parseColor("#81D4FA");
+            return Color.parseColor("#DAF7A6");
         }
         if(score == 32){
-            return Color.parseColor("#9FA8DA");
+            return Color.parseColor("#FFF633");
         }
         if(score == 64){
-            return Color.parseColor("#CE93D8");
+            return Color.parseColor("#F2D879");
         }
         if(score == 128){
-            return Color.parseColor("#FFEB3B");
+            return Color.parseColor("#FFC300");
         }
         if(score == 256){
-            return Color.parseColor("#8BC34A");
+            return Color.parseColor("#FF5733");
         }
         if(score == 512){
-            return Color.parseColor("#3F51B5");
+            return Color.parseColor("#C70039");
         }
         if(score == 1024){
-            return Color.parseColor("#9C2780");
+            return Color.parseColor("#C70077");
         }
         if(score == 2048){
-            return Color.parseColor("#F44336");
+            return Color.parseColor("#6E00C7");
+        }
+        if(score == 4096){
+            return Color.parseColor("#006EC7");
+        }
+        if(score == 8192){
+            return Color.parseColor("#0C9376");
         }
 
         return colorInt;

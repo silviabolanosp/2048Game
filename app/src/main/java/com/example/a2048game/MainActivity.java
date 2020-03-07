@@ -1,6 +1,9 @@
 package com.example.a2048game;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView nameGame;
     private TextView user;
+    private TextView menu;
     private Button btnStart;
     private Button btnScores;
     private Button btnTutorial;
@@ -21,12 +25,16 @@ public class MainActivity extends AppCompatActivity {
     private Switch musicSwitch;
     private Switch gridSizeSwitch;
     private Switch bombSwitch;
+    Switch colorSwtich;
+    ConstraintLayout layout;
+    boolean darkMode = false;
 
     private NumberPicker np;
 
     private int minutes = 0;
     private int gridSize = 0;
     private boolean musicBoolean = true;
+
     public static final String EXTRA_MINUTES = "com.example.a2048game.MINUTES";
     public static final String EXTRA_GRID_SIZE = "com.example.a2048game.GRID_SIZE";
     public static final String EXTRA_MUSIC = "com.example.a2048game.MUSIC";
@@ -35,17 +43,33 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        layout = findViewById(R.id.main);
         Bundle userName = getIntent().getExtras();
+        mode = getIntent().getExtras();
+        darkMode = mode.getBoolean("mode");
         final String nameUser = userName.getString("userName");
         user = findViewById(R.id.txtUserName);
+        menu = findViewById(R.id.textView);
         user.setText(nameUser.toString());
-        nameGame= (TextView) findViewById(R.id.user);
+        nameGame = (TextView) findViewById(R.id.user);
         timerSwitch = (Switch) findViewById(R.id.timer);
         gridSizeSwitch = (Switch) findViewById(R.id.gridSize);
         bombSwitch = (Switch) findViewById(R.id.bombs);
+        timerSwitch = findViewById(R.id.timer);
 
+        colorSwtich = findViewById(R.id.colorSwitch);
+
+        colorSwtich.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeColor();
+            }
+        });
 
         btnStart = findViewById(R.id.btnStart);
+        layout = findViewById(R.id.main);
+        changeColorSecond();
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,10 +78,9 @@ public class MainActivity extends AppCompatActivity {
                     nameGame.setText(user.getText().toString());
                 }
 
-                if (timerSwitch.isChecked()){
+                if (timerSwitch.isChecked()) {
                     minutes = np.getValue();
-                }
-                else{
+                } else {
                     minutes = 0;
                 }
 
@@ -83,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent nextView = new Intent(MainActivity.this,GameActivity.class);
                 nextView.putExtra("nameGame",nameGame.getText().toString());
                 nextView.putExtra("user", user.getText().toString());
+                nextView.putExtra("mode", darkMode);
                 nextView.putExtra(EXTRA_MINUTES, minutes);
                 nextView.putExtra(EXTRA_GRID_SIZE, gridSize);
                 nextView.putExtra(EXTRA_MUSIC, musicBoolean);
@@ -95,8 +119,9 @@ public class MainActivity extends AppCompatActivity {
         btnScores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent scoresView = new Intent(MainActivity.this,ResultPage.class);
+                Intent scoresView = new Intent(MainActivity.this, ResultPage.class);
                 scoresView.putExtra("user", user.getText().toString());
+                scoresView.putExtra("mode", darkMode);
                 startActivity(scoresView);
             }
         });
@@ -105,12 +130,12 @@ public class MainActivity extends AppCompatActivity {
         btnTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent tutorialView = new Intent(MainActivity.this,Tutorial.class);
+                Intent tutorialView = new Intent(MainActivity.this, Tutorial.class);
+                tutorialView.putExtra("user", user.getText().toString());
+                tutorialView.putExtra("mode", darkMode);
                 startActivity(tutorialView);
             }
         });
-
-
 
         // NUMBER PICKER
         np = (NumberPicker) findViewById(R.id.np);
@@ -125,11 +150,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (timerSwitch.isChecked()){
+                if (timerSwitch.isChecked()) {
                     timerSwitch.setText(timerSwitch.getTextOn());
                     np.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     timerSwitch.setText(timerSwitch.getTextOff());
                     np.setVisibility(View.INVISIBLE);
                 }
@@ -148,10 +172,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (musicSwitch.isChecked()){
+                if (musicSwitch.isChecked()) {
                     mediaPlayer.start();
-                }
-                else{
+                } else {
                     mediaPlayer.pause();
                 }
 
@@ -198,9 +221,38 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
 
+    protected void changeColor () {
 
+       if (colorSwtich.isChecked()) {
+           layout.setBackgroundColor(Color.parseColor("#424242"));
+           nameGame.setTextColor(Color.parseColor("#FBFEF9"));
+           menu.setTextColor(Color.parseColor("#FBFEF9"));
+           darkMode = true;
+        } else {
+           layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
+           nameGame.setTextColor(Color.parseColor("#5603AD"));
+           menu.setTextColor(Color.parseColor("#000000"));
+           darkMode = false;
+       }
+    }
 
+    protected void changeColorSecond () {
+
+        if (darkMode == true){
+            layout.setBackgroundColor(Color.parseColor("#424242"));
+            nameGame.setTextColor(Color.parseColor("#FBFEF9"));
+            menu.setTextColor(Color.parseColor("#FBFEF9"));
+            darkMode = true;
+            colorSwtich.setChecked(darkMode);
+        } else {
+            layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
+            nameGame.setTextColor(Color.parseColor("#4FDB6F"));
+            menu.setTextColor(Color.parseColor("#35B4F9"));
+            darkMode = false;
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.example.a2048game;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,11 +17,8 @@ public class Card extends FrameLayout {
     private int idBomb = getResources().getIdentifier("res:drawable/bomb", null, null);
     private int idBrick = getResources().getIdentifier("res:drawable/brick", null, null);
 
-
-
     public Card(Context context){
         super(context);
-
         label = new TextView(getContext());
         label.setTextSize(20);
         label.setTextColor(Color.parseColor("#000000"));

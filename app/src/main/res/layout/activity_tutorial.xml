@@ -7,119 +7,74 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grid"
+    android:id="@+id/tutorial"
     android:gravity="center">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="43dp"
-        android:layout_marginEnd="156dp"
-        android:text="Tutorial"
-        android:textColor="#000"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+   <TextView
+       android:id="@+id/titleTutorial"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginStart="168dp"
+       android:layout_marginTop="50dp"
+       android:layout_marginEnd="168dp"
+       android:fontFamily="@font/baloo_thambi"
+       android:text="Tutorial"
+       android:textColor="#35B4F9"
+       android:textSize="50sp"
+       android:textStyle="bold"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/tutorial2"
-        android:layout_width="94dp"
-        android:layout_height="139dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:scaleType="fitXY"
-        android:scaleX="1.0"
-        android:scaleY="1.0"
-        android:src="@drawable/tutorial2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.199"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.236" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="196dp"
-        android:layout_height="131dp"
-        android:layout_marginTop="168dp"
-        android:layout_marginEnd="24dp"
-        android:text="En el menú puede elegir las diferentes modalidades que ofrece 2048, desde elegir el tiempo para el temporizador hasta la dificultad del juego. Además, puede ver el historial de puntajes
-"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="0dp"
-        tools:layout_conversion_absoluteWidth="0dp" />
+<!--
+   <ImageSwitcher
+       android:id="@+id/imageSwitcher"
+       android:layout_width="300dp"
+       android:layout_height="500dp"
+       android:layout_marginStart="56dp"
+       android:layout_marginTop="38dp"
+       android:layout_marginEnd="56dp"
+       android:layout_marginBottom="56dp"
+       app:layout_constraintBottom_toTopOf="@+id/btnCancel"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/title" />
+-->
 
-    <ImageView
-        android:id="@+id/tutorial3"
-        android:layout_width="94dp"
-        android:layout_height="139dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:scaleType="fitXY"
-        android:scaleX="1.0"
-        android:scaleY="1.0"
-        android:src="@drawable/tutorial3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.199"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.537" />
+   <androidx.viewpager.widget.ViewPager
+       android:id="@+id/viewPager"
+       android:layout_width="300dp"
+       android:layout_height="500dp"
+       android:layout_marginStart="54dp"
+       android:layout_marginTop="1dp"
+       android:layout_marginEnd="54dp"
+       android:layout_marginBottom="20dp"
+       app:layout_constraintBottom_toTopOf="@+id/btnCancel"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="1.0"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/titleTutorial" />
 
-    <ImageView
-        android:id="@+id/tutorial4"
-        android:layout_width="94dp"
-        android:layout_height="139dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:scaleType="fitXY"
-        android:scaleX="1.0"
-        android:scaleY="1.0"
-        android:src="@drawable/tutorial4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.199"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.825" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="196dp"
-        android:layout_height="131dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="164dp"
-        android:text="Haz movimientos verticales u horizontales para mover las fichas. Cuando dos fichas con el mismo número se tocan, ¡se fusionan en una sola!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_conversion_absoluteHeight="0dp"
-        tools:layout_conversion_absoluteWidth="0dp" />
-
-    <Button
-        android:id="@+id/btnCancel"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="88dp"
-        android:layout_height="39dp"
-        android:background="@drawable/button_back"
-        android:text="Atrás"
-        android:textStyle="bold"
-        android:textColor="#FBFEF9"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.946"
-        tools:layout_conversion_absoluteHeight="0dp"
-        tools:layout_conversion_absoluteWidth="0dp" />
+   <Button
+       android:id="@+id/btnCancel"
+       style="@style/Widget.AppCompat.Button.Borderless"
+       android:layout_width="303dp"
+       android:layout_height="39dp"
+       android:layout_marginStart="54dp"
+       android:layout_marginEnd="54dp"
+       android:layout_marginBottom="35dp"
+       android:background="@drawable/button_back"
+       android:fontFamily="@font/baloo_thambi"
+       android:text="Atrás"
+       android:textColor="#FBFEF9"
+       android:textSize="25sp"
+       android:textStyle="bold"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       tools:layout_conversion_absoluteHeight="0dp"
+       tools:layout_conversion_absoluteWidth="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
