@@ -16,4 +16,7 @@
     <color name="yellow">#F1D302</color>
     <color name="orange">#FF9D2E</color>
     <color name="fuchsia">#F94F74</color>
+
+    <color name="tbg_color_default_marker">#3799f4</color>
 </resources>
+

@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.NumberPicker;
 import android.media.MediaPlayer;
@@ -25,20 +27,22 @@ public class MainActivity extends AppCompatActivity {
     private Switch musicSwitch;
     private Switch gridSizeSwitch;
     private Switch bombSwitch;
-    Switch colorSwtich;
+    //Switch colorSwtich;
     ConstraintLayout layout;
     boolean darkMode = false;
     Bundle mode;
 
     private NumberPicker np;
-
     private int minutes = 0;
     private int gridSize = 0;
     private boolean musicBoolean = true;
+    private int gameMode = 0;
+    private boolean isNightMode = false;
 
     public static final String EXTRA_MINUTES = "com.example.a2048game.MINUTES";
     public static final String EXTRA_GRID_SIZE = "com.example.a2048game.GRID_SIZE";
     public static final String EXTRA_MUSIC = "com.example.a2048game.MUSIC";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,22 +58,23 @@ public class MainActivity extends AppCompatActivity {
         user.setText(nameUser.toString());
         nameGame = (TextView) findViewById(R.id.user);
         timerSwitch = (Switch) findViewById(R.id.timer);
-        gridSizeSwitch = (Switch) findViewById(R.id.gridSize);
-        bombSwitch = (Switch) findViewById(R.id.bombs);
+        //gridSizeSwitch = (Switch) findViewById(R.id.gridSize);
+        // bombSwitch = (Switch) findViewById(R.id.bombs);
         timerSwitch = findViewById(R.id.timer);
+        //colorSwtich = findViewById(R.id.colorSwitch);
 
-        colorSwtich = findViewById(R.id.colorSwitch);
 
-        colorSwtich.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeColor();
-            }
-        });
+//        colorSwtich.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                changeColor();
+//            }
+//        });
 
         btnStart = findViewById(R.id.btnStart);
         layout = findViewById(R.id.main);
-        changeColorSecond();
+        //changeColorSecond();
+        changeColor2();
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     minutes = 0;
                 }
 
+                /*
                 if (bombSwitch.isChecked() == true){
                     gridSize = 2;
                 }else{
@@ -95,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
                         gridSize = 6;
                     }
                 }
+                */
+
 
                 if (musicSwitch.isChecked()){
                     musicBoolean = true;
@@ -109,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 nextView.putExtra("user", user.getText().toString());
                 nextView.putExtra("mode", darkMode);
                 nextView.putExtra(EXTRA_MINUTES, minutes);
-                nextView.putExtra(EXTRA_GRID_SIZE, gridSize);
+                nextView.putExtra(EXTRA_GRID_SIZE, gameMode);
                 nextView.putExtra(EXTRA_MUSIC, musicBoolean);
                 startActivity(nextView);
 
@@ -182,28 +190,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // TAMANO DEL GRID
-        gridSizeSwitch.setText(gridSizeSwitch.getTextOn());
+//        // TAMANO DEL GRID
+//        gridSizeSwitch.setText(gridSizeSwitch.getTextOn());
+//
+//        gridSizeSwitch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (gridSizeSwitch.isChecked()){
+//                    gridSizeSwitch.setText(gridSizeSwitch.getTextOn());
+//                }
+//                else{
+//                    gridSizeSwitch.setText(gridSizeSwitch.getTextOff());
+//                }
+//
+//            }
+//        });
+//
+//        gridSizeSwitch.setChecked(true);
+//        gridSizeSwitch.setText(gridSizeSwitch.getTextOn());
+//        //gridSizeSwitch.setClickable(false);
+//        gridSizeSwitch.setEnabled(false);
 
-        gridSizeSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (gridSizeSwitch.isChecked()){
-                    gridSizeSwitch.setText(gridSizeSwitch.getTextOn());
-                }
-                else{
-                    gridSizeSwitch.setText(gridSizeSwitch.getTextOff());
-                }
 
-            }
-        });
-
-        gridSizeSwitch.setChecked(true);
-        gridSizeSwitch.setText(gridSizeSwitch.getTextOn());
-        //gridSizeSwitch.setClickable(false);
-        gridSizeSwitch.setEnabled(false);
-
+        /*
         // Deshabilitar grid de 6x6 si escoge bombas
         bombSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,38 +233,78 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+         */
+
 
     }
 
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
 
-    protected void changeColor () {
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.gameModeBombs:
+                if (checked)
+                    gridSize = 2;
+                    break;
+            case R.id.gameMode4x4:
+                if (checked)
+                    gridSize = 4;
+                    break;
+            case R.id.gameMode6x6:
+                if (checked)
+                    gridSize = 6;
+                    break;
 
-       if (colorSwtich.isChecked()) {
-           layout.setBackgroundColor(Color.parseColor("#424242"));
-           nameGame.setTextColor(Color.parseColor("#FBFEF9"));
-           menu.setTextColor(Color.parseColor("#FBFEF9"));
-           darkMode = true;
-        } else {
-           layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
-           nameGame.setTextColor(Color.parseColor("#5603AD"));
-           menu.setTextColor(Color.parseColor("#000000"));
-           darkMode = false;
-       }
-    }
-
-    protected void changeColorSecond () {
-
-        if (darkMode == true){
-            layout.setBackgroundColor(Color.parseColor("#424242")); // dark color
-            nameGame.setTextColor(Color.parseColor("#FBFEF9")); //green but veeeeery white
-            menu.setTextColor(Color.parseColor("#FBFEF9")); //green but veeeeery white
-            darkMode = true;
-            colorSwtich.setChecked(darkMode);
-        } else {
-            layout.setBackgroundColor(Color.parseColor("#F7F7EA")); // light color
-            nameGame.setTextColor(Color.parseColor("#4FDB6F")); // green
-            menu.setTextColor(Color.parseColor("#35B4F9")); // blue
-            darkMode = false;
         }
     }
+
+    public void clickNightMode(View v)
+    {
+        isNightMode = !isNightMode;
+        changeColor2();
+    }
+
+    protected void changeColor2 () {
+        if (isNightMode) {
+            layout.setBackgroundColor(Color.parseColor("#424242"));
+            nameGame.setTextColor(Color.parseColor("#FBFEF9"));
+            menu.setTextColor(Color.parseColor("#FBFEF9"));
+        } else {
+            layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
+            nameGame.setTextColor(Color.parseColor("#5603AD"));
+            menu.setTextColor(Color.parseColor("#000000"));
+        }
+    }
+
+//    protected void changeColor () {
+//       if (colorSwtich.isChecked()) {
+//           layout.setBackgroundColor(Color.parseColor("#424242"));
+//           nameGame.setTextColor(Color.parseColor("#FBFEF9"));
+//           menu.setTextColor(Color.parseColor("#FBFEF9"));
+//           darkMode = true;
+//        } else {
+//           layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
+//           nameGame.setTextColor(Color.parseColor("#5603AD"));
+//           menu.setTextColor(Color.parseColor("#000000"));
+//           darkMode = false;
+//       }
+//    }
+//
+//    protected void changeColorSecond () {
+//
+//        if (darkMode == true){
+//            layout.setBackgroundColor(Color.parseColor("#424242")); // dark color
+//            nameGame.setTextColor(Color.parseColor("#FBFEF9")); //green but veeeeery white
+//            menu.setTextColor(Color.parseColor("#FBFEF9")); //green but veeeeery white
+//            darkMode = true;
+//            colorSwtich.setChecked(darkMode);
+//        } else {
+//            layout.setBackgroundColor(Color.parseColor("#F7F7EA")); // light color
+//            nameGame.setTextColor(Color.parseColor("#4FDB6F")); // green
+//            menu.setTextColor(Color.parseColor("#35B4F9")); // blue
+//            darkMode = false;
+//        }
+//    }
 }
