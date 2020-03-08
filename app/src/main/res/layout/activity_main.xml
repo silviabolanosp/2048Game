@@ -111,7 +111,6 @@
         android:checked="true"
         android:fontFamily="@font/baloo_thambi"
         android:gravity="left"
-        android:text="Tamaño"
         android:textAlignment="viewStart"
         android:textColor="#4FDB6F"
         android:textOff="6x6"

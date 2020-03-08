@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Switch colorSwtich;
     ConstraintLayout layout;
     boolean darkMode = false;
+    Bundle mode;
 
     private NumberPicker np;
 
