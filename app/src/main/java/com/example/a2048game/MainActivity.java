@@ -244,15 +244,15 @@ public class MainActivity extends AppCompatActivity {
     protected void changeColorSecond () {
 
         if (darkMode == true){
-            layout.setBackgroundColor(Color.parseColor("#424242"));
-            nameGame.setTextColor(Color.parseColor("#FBFEF9"));
-            menu.setTextColor(Color.parseColor("#FBFEF9"));
+            layout.setBackgroundColor(Color.parseColor("#424242")); // dark color
+            nameGame.setTextColor(Color.parseColor("#FBFEF9")); //green but veeeeery white
+            menu.setTextColor(Color.parseColor("#FBFEF9")); //green but veeeeery white
             darkMode = true;
             colorSwtich.setChecked(darkMode);
         } else {
-            layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
-            nameGame.setTextColor(Color.parseColor("#4FDB6F"));
-            menu.setTextColor(Color.parseColor("#35B4F9"));
+            layout.setBackgroundColor(Color.parseColor("#F7F7EA")); // light color
+            nameGame.setTextColor(Color.parseColor("#4FDB6F")); // green
+            menu.setTextColor(Color.parseColor("#35B4F9")); // blue
             darkMode = false;
         }
     }

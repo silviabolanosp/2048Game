@@ -10,4 +10,10 @@
     <color name="score">#FFEB3B</color>
     <color name="btnStartDark">#AEB404</color>
     <color name="btnStartLight">#F1D302</color>
+
+    <color name="blue">#35B4F9</color>
+    <color name="green">#4FDB6F</color>
+    <color name="yellow">#F1D302</color>
+    <color name="orange">#FF9D2E</color>
+    <color name="fuchsia">#F94F74</color>
 </resources>
