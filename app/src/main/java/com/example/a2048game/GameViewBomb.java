@@ -200,6 +200,7 @@ public class GameViewBomb extends GridLayout {
                             }
 
                             if ((cardsMap[x][y].getNum() == 1.1 && cardsMap[x1][y].getNum() == 1.9) || (cardsMap[x][y].getNum() == 1.9 && cardsMap[x1][y].getNum() == 1.1)) {
+                                GameActivity.getGameActivity().explosionNoise();
                                 cardsMap[x][y].setNum(0);
                                 cardsMap[x1][y].setNum(0);
 
@@ -244,6 +245,7 @@ public class GameViewBomb extends GridLayout {
                             }
 
                             if ((cardsMap[x][y].getNum() == 1.1 && cardsMap[x1][y].getNum() == 1.9) || (cardsMap[x][y].getNum() == 1.9 && cardsMap[x1][y].getNum() == 1.1)) {
+                                GameActivity.getGameActivity().explosionNoise();
                                 cardsMap[x][y].setNum(0);
                                 cardsMap[x1][y].setNum(0);
 
@@ -288,6 +290,7 @@ public class GameViewBomb extends GridLayout {
                                 merge = true;
                             }
                             if ((cardsMap[x][y].getNum() == 1.1 && cardsMap[x][y1].getNum() == 1.9) || (cardsMap[x][y].getNum() == 1.9 && cardsMap[x][y1].getNum() == 1.1)) {
+                                GameActivity.getGameActivity().explosionNoise();
                                 cardsMap[x][y].setNum(0);
                                 cardsMap[x][y1].setNum(0);
 
@@ -333,6 +336,7 @@ public class GameViewBomb extends GridLayout {
                             }
 
                             if ((cardsMap[x][y].getNum() == 1.1 && cardsMap[x][y1].getNum() == 1.9) || (cardsMap[x][y].getNum() == 1.9 && cardsMap[x][y1].getNum() == 1.1)) {
+                                GameActivity.getGameActivity().explosionNoise();
                                 cardsMap[x][y].setNum(0);
                                 cardsMap[x][y1].setNum(0);
 

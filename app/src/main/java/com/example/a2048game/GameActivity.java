@@ -34,6 +34,7 @@ public class GameActivity extends AppCompatActivity{
     MyCount counter;
     long timeWhenStopped;
     MediaPlayer swipeSound;
+    MediaPlayer explosionSound;
     Bundle userName;
     Bundle nameGame;
     private TextView user;
@@ -312,6 +313,12 @@ public class GameActivity extends AppCompatActivity{
         // SWIPE NOISE EFFECT
         swipeSound = MediaPlayer.create(getApplicationContext(), R.raw.swipe1);
         swipeSound.start();
+    }
+
+    public void explosionNoise(){
+        // SWIPE NOISE EFFECT
+        explosionSound = MediaPlayer.create(getApplicationContext(), R.raw.explosion);
+        explosionSound.start();
     }
 
 }

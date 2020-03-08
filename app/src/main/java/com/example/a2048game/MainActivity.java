@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnScores;
     private Button btnTutorial;
     private Switch timerSwitch;
-    private Switch musicSwitch;
+    //private Switch musicSwitch;
     //private Switch gridSizeSwitch;
     //private Switch bombSwitch;
     //Switch colorSwtich;
@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
     private NumberPicker np;
     private int minutes = 0;
     private int gridSize = 0;
-    private boolean musicBoolean = true;
+    //private boolean musicBoolean = true;
     private boolean isNightMode = false;
 
     public static final String EXTRA_MINUTES = "com.example.a2048game.MINUTES";
     public static final String EXTRA_GRID_SIZE = "com.example.a2048game.GRID_SIZE";
-    public static final String EXTRA_MUSIC = "com.example.a2048game.MUSIC";
+    //public static final String EXTRA_MUSIC = "com.example.a2048game.MUSIC";
 
 
     @Override
@@ -103,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
                 */
 
 
-                if (musicSwitch.isChecked()){
-                    musicBoolean = true;
-                }
-                else{
-                    musicBoolean = false;
-                }
+//                if (musicSwitch.isChecked()){
+//                    musicBoolean = true;
+//                }
+//                else{
+//                    musicBoolean = false;
+//                }
 
 
                 Intent nextView = new Intent(MainActivity.this,GameActivity.class);
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 nextView.putExtra("mode", darkMode);
                 nextView.putExtra(EXTRA_MINUTES, minutes);
                 nextView.putExtra(EXTRA_GRID_SIZE, gridSize);
-                nextView.putExtra(EXTRA_MUSIC, musicBoolean);
+                //nextView.putExtra(EXTRA_MUSIC, musicBoolean);
                 startActivity(nextView);
 
             }
@@ -171,23 +171,24 @@ public class MainActivity extends AppCompatActivity {
 
 
         // MUSIC
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music2);
-        mediaPlayer.start();
-
-        musicSwitch = (Switch) findViewById(R.id.music);
-
-        musicSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (musicSwitch.isChecked()) {
-                    mediaPlayer.start();
-                } else {
-                    mediaPlayer.pause();
-                }
-
-            }
-        });
+//
+//        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music2);
+//        mediaPlayer.start();
+//
+//        musicSwitch = (Switch) findViewById(R.id.music);
+//
+//        musicSwitch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (musicSwitch.isChecked()) {
+//                    mediaPlayer.start();
+//                } else {
+//                    mediaPlayer.pause();
+//                }
+//
+//            }
+//        });
 
 //        // TAMANO DEL GRID
 //        gridSizeSwitch.setText(gridSizeSwitch.getTextOn());
