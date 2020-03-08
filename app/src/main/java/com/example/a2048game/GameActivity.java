@@ -33,12 +33,10 @@ public class GameActivity extends AppCompatActivity{
     TextView timer;
     MyCount counter;
     long timeWhenStopped;
-    MediaPlayer mediaPlayer;
     MediaPlayer swipeSound;
     Bundle userName;
     Bundle nameGame;
     private TextView user;
-    private Switch musicSwitch;
     int score = 0;
     private int minutes = 0;
     TextView scoreLabel= null;
@@ -170,26 +168,6 @@ public class GameActivity extends AppCompatActivity{
                 break;
         }
 
-
-        musicSwitch = (Switch) findViewById(R.id.music);
-
-        boolean musicBoolean = extras.getBoolean(MainActivity.EXTRA_MUSIC);
-        musicSwitch.setChecked(musicBoolean);
-
-        musicSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (musicSwitch.isChecked()) {
-                    mediaPlayer.start();
-                }else{
-                    mediaPlayer.pause();
-                }
-
-            }
-        });
-
-
-
     }
 
     private void changeMode() {
@@ -319,7 +297,6 @@ public class GameActivity extends AppCompatActivity{
 
     public void close()
     {
-        //mediaPlayer.pause();
         Bundle userName = getIntent().getExtras();
         String user = userName.getString("user");
         save();

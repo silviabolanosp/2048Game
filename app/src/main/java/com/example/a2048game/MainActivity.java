@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnTutorial;
     private Switch timerSwitch;
     private Switch musicSwitch;
-    private Switch gridSizeSwitch;
-    private Switch bombSwitch;
+    //private Switch gridSizeSwitch;
+    //private Switch bombSwitch;
     //Switch colorSwtich;
     ConstraintLayout layout;
     boolean darkMode = false;
@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private int minutes = 0;
     private int gridSize = 0;
     private boolean musicBoolean = true;
-    private int gameMode = 0;
     private boolean isNightMode = false;
 
     public static final String EXTRA_MINUTES = "com.example.a2048game.MINUTES";
@@ -117,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 nextView.putExtra("user", user.getText().toString());
                 nextView.putExtra("mode", darkMode);
                 nextView.putExtra(EXTRA_MINUTES, minutes);
-                nextView.putExtra(EXTRA_GRID_SIZE, gameMode);
+                nextView.putExtra(EXTRA_GRID_SIZE, gridSize);
                 nextView.putExtra(EXTRA_MUSIC, musicBoolean);
                 startActivity(nextView);
 

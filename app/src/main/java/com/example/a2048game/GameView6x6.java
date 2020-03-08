@@ -348,7 +348,6 @@ public class GameView6x6 extends GridLayout {
         GameActivity.getGameActivity().showHighestBlock(possibleHighestBlock, getColorForBlock(possibleHighestBlock));
 
     }
-
     private int getColorForBlock(double score){
         int colorInt = 0;
 
@@ -364,41 +363,48 @@ public class GameView6x6 extends GridLayout {
             return Color.parseColor("#F0F3F4");
         }
         if(score == 2){
-            return Color.parseColor("#FFF59D");
+            return Color.parseColor("#917EE5");
         }
         if(score == 4){
-            return Color.parseColor("#C5E1A5");
+            return Color.parseColor("#34B1D7");
         }
         if(score == 8){
-            return Color.parseColor("#80CBC4");
+            return Color.parseColor("#79F2AF");
         }
         if(score == 16){
-            return Color.parseColor("#81D4FA");
+            return Color.parseColor("#DAF7A6");
         }
         if(score == 32){
-            return Color.parseColor("#9FA8DA");
+            return Color.parseColor("#FFF633");
         }
         if(score == 64){
-            return Color.parseColor("#CE93D8");
+            return Color.parseColor("#F2D879");
         }
         if(score == 128){
-            return Color.parseColor("#FFEB3B");
+            return Color.parseColor("#FFC300");
         }
         if(score == 256){
-            return Color.parseColor("#8BC34A");
+            return Color.parseColor("#FF5733");
         }
         if(score == 512){
-            return Color.parseColor("#3F51B5");
+            return Color.parseColor("#C70039");
         }
         if(score == 1024){
-            return Color.parseColor("#9C2780");
+            return Color.parseColor("#C70077");
         }
         if(score == 2048){
-            return Color.parseColor("#F44336");
+            return Color.parseColor("#6E00C7");
+        }
+        if(score == 4096){
+            return Color.parseColor("#006EC7");
+        }
+        if(score == 8192){
+            return Color.parseColor("#0C9376");
         }
 
         return colorInt;
     }
+
 
 
 
