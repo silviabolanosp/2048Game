@@ -101,7 +101,7 @@ public class ResultPage extends AppCompatActivity {
             title.setTextColor(Color.parseColor("#FBFEF9"));
         } else {
             layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
-            title.setTextColor(Color.parseColor("#000000"));
+            title.setTextColor(Color.parseColor("#35B4F9"));
         }
     }
 }

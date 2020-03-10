@@ -59,6 +59,7 @@
         android:gravity="left"
         android:text="Temporizador"
         android:textColor="@color/green"
+        android:theme="@style/SwitchTheme"
         android:textOff="Cronómetro"
         android:textOn="Temporizador"
         android:textSize="20sp"
@@ -300,7 +301,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/dark_mode" />
+        app:srcCompat="@drawable/dark" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

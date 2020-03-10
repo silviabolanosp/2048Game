@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         //gridSizeSwitch = (Switch) findViewById(R.id.gridSize);
         // bombSwitch = (Switch) findViewById(R.id.bombs);
         timerSwitch = findViewById(R.id.timer);
-        //colorSwtich = findViewById(R.id.colorSwitch);
+        changeColorSecond();
 
 
 //        colorSwtich.setOnClickListener(new View.OnClickListener() {
@@ -72,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         btnStart = findViewById(R.id.btnStart);
         layout = findViewById(R.id.main);
-        //changeColorSecond();
-        changeColor2();
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,40 +270,29 @@ public class MainActivity extends AppCompatActivity {
             layout.setBackgroundColor(Color.parseColor("#424242"));
             nameGame.setTextColor(Color.parseColor("#FBFEF9"));
             menu.setTextColor(Color.parseColor("#FBFEF9"));
+            darkMode = true;
         } else {
             layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
             nameGame.setTextColor(Color.parseColor("#5603AD"));
-            menu.setTextColor(Color.parseColor("#000000"));
+            menu.setTextColor(Color.parseColor("#35B4F9"));
+            darkMode = false;
         }
     }
 
-//    protected void changeColor () {
-//       if (colorSwtich.isChecked()) {
-//           layout.setBackgroundColor(Color.parseColor("#424242"));
-//           nameGame.setTextColor(Color.parseColor("#FBFEF9"));
-//           menu.setTextColor(Color.parseColor("#FBFEF9"));
-//           darkMode = true;
-//        } else {
-//           layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
-//           nameGame.setTextColor(Color.parseColor("#5603AD"));
-//           menu.setTextColor(Color.parseColor("#000000"));
-//           darkMode = false;
-//       }
-//    }
-//
-//    protected void changeColorSecond () {
-//
-//        if (darkMode == true){
-//            layout.setBackgroundColor(Color.parseColor("#424242")); // dark color
-//            nameGame.setTextColor(Color.parseColor("#FBFEF9")); //green but veeeeery white
-//            menu.setTextColor(Color.parseColor("#FBFEF9")); //green but veeeeery white
-//            darkMode = true;
-//            colorSwtich.setChecked(darkMode);
-//        } else {
-//            layout.setBackgroundColor(Color.parseColor("#F7F7EA")); // light color
-//            nameGame.setTextColor(Color.parseColor("#4FDB6F")); // green
-//            menu.setTextColor(Color.parseColor("#35B4F9")); // blue
-//            darkMode = false;
-//        }
-//    }
+
+
+    protected void changeColorSecond () {
+        Log.i("PASA", darkMode + " ");
+        if (darkMode == true){
+            layout.setBackgroundColor(Color.parseColor("#424242"));
+            nameGame.setTextColor(Color.parseColor("#FBFEF9"));
+            menu.setTextColor(Color.parseColor("#FBFEF9"));
+            darkMode = true;
+        } else {
+            layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
+            nameGame.setTextColor(Color.parseColor("#5603AD"));
+            menu.setTextColor(Color.parseColor("#35B4F9"));
+            darkMode = false;
+        }
+    }
 }
