@@ -16,7 +16,7 @@ import android.media.MediaPlayer;
 import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
-    public MediaPlayer mediaPlayer;
+    //public MediaPlayer mediaPlayer;
 
     private TextView nameGame;
     private TextView user;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private NumberPicker np;
     private int minutes = 0;
-    private int gridSize = 0;
+    private int gridSize = 4;
     //private boolean musicBoolean = true;
     private boolean isNightMode = false;
 
