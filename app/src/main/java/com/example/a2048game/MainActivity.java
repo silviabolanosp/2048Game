@@ -268,12 +268,10 @@ public class MainActivity extends AppCompatActivity {
     protected void changeColor2 () {
         if (isNightMode) {
             layout.setBackgroundColor(Color.parseColor("#424242"));
-            nameGame.setTextColor(Color.parseColor("#FBFEF9"));
             menu.setTextColor(Color.parseColor("#FBFEF9"));
             darkMode = true;
         } else {
             layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
-            nameGame.setTextColor(Color.parseColor("#5603AD"));
             menu.setTextColor(Color.parseColor("#35B4F9"));
             darkMode = false;
         }
@@ -282,15 +280,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     protected void changeColorSecond () {
-        Log.i("PASA", darkMode + " ");
         if (darkMode == true){
             layout.setBackgroundColor(Color.parseColor("#424242"));
-            nameGame.setTextColor(Color.parseColor("#FBFEF9"));
             menu.setTextColor(Color.parseColor("#FBFEF9"));
             darkMode = true;
         } else {
             layout.setBackgroundColor(Color.parseColor("#F7F7EA"));
-            nameGame.setTextColor(Color.parseColor("#5603AD"));
             menu.setTextColor(Color.parseColor("#35B4F9"));
             darkMode = false;
         }
