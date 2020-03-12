@@ -111,27 +111,24 @@
             android:textAlignment="center"
             android:textColor="#000"
             android:textSize="25dp"
-            android:textStyle="bold"
             tools:layout_conversion_absoluteHeight="0dp"
             tools:layout_conversion_absoluteWidth="0dp" />
     </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="152dp"
-        android:layout_height="113dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="107dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:scaleType="fitXY"
         android:scaleX="1.0"
         android:scaleY="1.0"
-        android:src="@drawable/oie_transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/icon2048"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.a2048game.GameView6x6
     android:id="@+id/gameView6x6"
@@ -246,15 +243,14 @@
         android:id="@+id/cardBlock"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="66dp"
-        android:layout_marginTop="28dp"
-        app:cardBackgroundColor="#CACFD2"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoImageView" >
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView">
 
         <TextView
             android:id="@+id/highestBlock"
-            android:layout_width="41dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/baloo_thambi"
             android:text="0"
