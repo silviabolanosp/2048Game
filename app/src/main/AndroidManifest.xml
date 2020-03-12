@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustResize"
         android:configChanges="screenSize|orientation">
-        <activity android:name=".GameActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".GameActivity" android:parentActivityName=".MainActivity" />
         <activity android:name=".ResultPage"/>
         <activity android:name=".Tutorial"/>
         <activity android:name=".MainActivity"/>
