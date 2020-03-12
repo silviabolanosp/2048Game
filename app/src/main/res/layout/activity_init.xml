@@ -13,10 +13,9 @@
         android:layout_width="135dp"
         android:layout_height="0dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="100dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.561"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon2048" />
@@ -26,7 +25,7 @@
         android:layout_width="303dp"
         android:layout_height="88dp"
         android:layout_marginStart="54dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="54dp"
         android:ems="10"
         android:fontFamily="@font/baloo_thambi"
@@ -36,7 +35,7 @@
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:text="   Nombre de usuario" />
@@ -59,7 +58,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtUser" />
+        app:layout_constraintTop_toBottomOf="@+id/txtUser"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btnNew"
@@ -85,12 +85,10 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginBottom="39dp"
         android:fontFamily="@font/baloo_thambi"
         android:text=""
         android:textColor="#F44336"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btn_sign"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtUser" />

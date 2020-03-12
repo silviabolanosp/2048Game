@@ -14,7 +14,7 @@
         <activity android:name=".GameActivity" android:parentActivityName=".MainActivity" />
         <activity android:name=".ResultPage"/>
         <activity android:name=".Tutorial"/>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".InitActivity" android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
